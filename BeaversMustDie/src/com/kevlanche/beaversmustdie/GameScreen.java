@@ -39,6 +39,10 @@ public class GameScreen extends InputAdapter implements Screen{
 	
 	private float waterRaiseBuffer;
 	
+	private float totalTime;
+	private int waterSources;
+	private LBL waterSourceLbl;
+	
 	public GameScreen() {
 		
 		Gdx.gl.glEnable(GL20.GL_BLEND);
@@ -78,7 +82,7 @@ public class GameScreen extends InputAdapter implements Screen{
 		}
 		
 
-		final LBL sharkTimeLbl = new LBL("Score:1337", 2.0f);
+		final LBL sharkTimeLbl = new LBL("No jump yet!", 2.0f);
 		sharkTimeLbl.position(Mane.WIDTH*0.05f, Mane.HEIGHT - Mane.WIDTH*0.05f, 0.0f, 1.0f);
 		
 		guiStage.addActor(sharkTimeLbl);
@@ -99,8 +103,8 @@ public class GameScreen extends InputAdapter implements Screen{
 				sharkTimeLbl.setText( format +"!");
 			}
 		});
-		
-		for (int i=0; i<20; ++i) {
+
+		for (int i=0; i<10; ++i) {
 			boolean notDone = true;
 			int angle;
 			float size= MathUtils.random(2.5f, 5.0f);
@@ -130,12 +134,16 @@ public class GameScreen extends InputAdapter implements Screen{
 			} while (notDone);
 
 
-			Island island = addIsland((float)angle, size, 1.0f + i/10.0f, MathUtils.random(1, 5),MathUtils.random(1, 2));
+			Island island = addIsland((float)angle, size, 1.0f + i/10.0f, MathUtils.random(1, 2),MathUtils.random(1, 2));
 
 			
 			gameStage.addActor(new Beaver(physicsWorld, island));
 
 		}
+		
+		waterSourceLbl = new LBL(waterSources+" water sources remaining", 2.0f);
+		waterSourceLbl.position(Mane.WIDTH*0.95f, Mane.HEIGHT - Mane.WIDTH*0.05f, 1.0f, 1.0f);
+		guiStage.addActor(waterSourceLbl);
 		
 		gameStage.addActor(new EarthCore(physicsWorld));
 		
@@ -158,6 +166,9 @@ public class GameScreen extends InputAdapter implements Screen{
 		for (int i=0; i<numPools; ++i) {
 			gameStage.addActor(new Pool(physicsWorld, island, MathUtils.random()));
 		}
+		waterSources += numSilos;
+		waterSources += numPools;
+		
 		return island;
 
 	}
@@ -196,12 +207,23 @@ public class GameScreen extends InputAdapter implements Screen{
 		s.addAction(Actions.sequence( Actions.fadeOut(0.25f),
 										Actions.removeActor() ));
 		waterRaiseBuffer += waterAmount;
+		
+		--waterSources;
+		if (waterSources == 0) {
+			String format = Float.toString(totalTime);
+			if (format.length() > 5) format = format.substring(0, 4);
+			waterSourceLbl.setText( "Finished in "+format+" seconds!" );
+		} else {
+			waterSourceLbl.setText(waterSources+" water sources remaining");
+		}
+		
 	}
 	@Override
 	public void render(float delta) {
 		Gdx.gl.glClearColor(0.2f, 0.2f, 0.2f, 1);
 		Gdx.gl.glClear(GL10.GL_COLOR_BUFFER_BIT);
 		
+		totalTime += delta;
 		physicsTimeBuffer += delta;
 		
 		while (physicsTimeBuffer >= TIME_STEP ) {

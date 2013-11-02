@@ -10,8 +10,12 @@ import com.badlogic.gdx.physics.box2d.World;
 
 public class Upgrade extends PhysicsActor {
 
-	public Upgrade(World world, Vector2 position) {
+	private int type;
+
+
+	public Upgrade(World world, Vector2 position, int type) {
 		
+		this.type = type; 
 		float scale = 1.0f;
 		float radius = 1f;
 		BodyDef bd = new BodyDef();
@@ -45,7 +49,10 @@ public class Upgrade extends PhysicsActor {
 		setSize(scale*Mane.PTM_RATIO, scale*Mane.PTM_RATIO);
 		setOrigin(0.0f, 0.0f);
 	}
-	
+	public int getType(){
+		return type;
+		 
+	 }
 	
 	@Override
 	public void draw(SpriteBatch batch, float parentAlpha) {

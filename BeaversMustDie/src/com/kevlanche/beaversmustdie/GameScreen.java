@@ -10,9 +10,9 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.World;
-import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Disposable;
 import com.kevlanche.beaversmustdie.Shark.SharkSweetAirJumpTimeReportReceiver;
@@ -38,6 +38,8 @@ public class GameScreen extends InputAdapter implements Screen{
 	private Array<Integer> islandAngles;
 	
 	private float waterRaiseBuffer;
+	
+	private LBL fpsLabel;
 	
 	public GameScreen() {
 		
@@ -79,10 +81,17 @@ public class GameScreen extends InputAdapter implements Screen{
 		
 
 		final LBL sharkTimeLbl = new LBL("Score:1337", 2.0f);
+		
 		sharkTimeLbl.position(Mane.WIDTH*0.05f, Mane.HEIGHT - Mane.WIDTH*0.05f, 0.0f, 1.0f);
 		
 		guiStage.addActor(sharkTimeLbl);
 		
+		fpsLabel = new LBL("1338 FPS", 2.0f);
+		
+		fpsLabel.position(Mane.WIDTH * 0.05f, Mane.HEIGHT - Mane.WIDTH*0.1f, 0.0f, 1.0f);
+		
+		guiStage.addActor(fpsLabel);
+
 		shark = new Shark(physicsWorld, new SharkSweetAirJumpTimeReportReceiver() {
 			
 			@Override
@@ -205,6 +214,9 @@ public class GameScreen extends InputAdapter implements Screen{
 	}
 	@Override
 	public void render(float delta) {
+		
+		fpsLabel.setText(1 / delta + "");
+		
 		Gdx.gl.glClearColor(0.2f, 0.2f, 0.2f, 1);
 		Gdx.gl.glClear(GL10.GL_COLOR_BUFFER_BIT);
 		

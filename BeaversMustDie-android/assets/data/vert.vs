@@ -24,7 +24,7 @@ void main()
 	} else { //else, move around, color cyan
 		float ang = atan(a_position.y, a_position.x) + PI;
 		
-		float mv = -0.2 + cos(25.0*ang+time)*0.0025;
+		float mv = -0.2 + cos(25.0*ang+time)*0.0015 + sin(33.0 * ang + time)*0.002 + sin(50.0 * ang + time) * 0.0005;
 		mv *= size;
 		realPos.x += cos(ang-PI)*mv;
 		realPos.y += sin(ang-PI)*mv;

@@ -95,7 +95,7 @@ public class GameScreen extends InputAdapter implements Screen{
 			}
 		});
 		
-		for (int i=0; i<10; ++i) {
+		for (int i=0; i<20; ++i) {
 			boolean notDone = true;
 			int angle;
 			float size= MathUtils.random(2.5f, 5.0f);
@@ -107,8 +107,8 @@ public class GameScreen extends InputAdapter implements Screen{
 				}
 				for (int t = 0; t <= islandAngles.size; ++t) {
 
-					if (((islandAngles.get(t) - angle) > -size/0.2f
-							&& (islandAngles.get(t) - angle) < size/0.2f) && (Math.abs(t-i)<size) ) //|| (((islandAngles.get(t) - angle) > -3
+					if (((islandAngles.get(t) - angle) > -size/0.1f
+							&& (islandAngles.get(t) - angle) < size/0.1f) && (Math.abs(t-i)<size/1.1f) ) //|| (((islandAngles.get(t) - angle) > -3
 							//&& (islandAngles.get(t) - angle) < 3) && size<3 )) { //&& (Math.abs(t-i)>10) insert later to accept small angle when big height diff.
 					{
 						break;
@@ -124,7 +124,7 @@ public class GameScreen extends InputAdapter implements Screen{
 
 			} while (notDone);
 
-			Island island = addIsland((float)angle, size, 1.0f + i/15.0f, MathUtils.random(1, 5));
+			Island island = addIsland((float)angle, size, 1.0f + i/10.0f, MathUtils.random(1, 5));
 			
 			gameStage.addActor(new Beaver(physicsWorld, island));
 		

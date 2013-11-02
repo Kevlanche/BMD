@@ -8,6 +8,7 @@ public class Collision {
 								SILO = 1 << 4,
 								UPGRADE = 1 << 5,
 								BEAVER = 1 << 6,
-								POOL = 1 <<7;
+								POOL = 1 <<7,
+								WATERTOWER = 1 << 8;
 
 }

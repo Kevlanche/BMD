@@ -35,6 +35,7 @@ public class GameScreen extends InputAdapter implements Screen{
 	private Array<Beaver> beaversToRemove;
 	private Array<Silo> silosToBoom;
 	private Array<Pool> poolsToBoom;
+	private Array<WaterTower> towerToBoom;
 	private Array<Upgrade> upgradesToRemove;
 	private Array<Integer> islandAngles;
 	
@@ -55,6 +56,7 @@ public class GameScreen extends InputAdapter implements Screen{
 		disposables = new Array<Disposable>();
 		silosToBoom = new Array<Silo>();
 		poolsToBoom = new Array<Pool>();
+		towerToBoom = new Array<WaterTower>();
 		upgradesToRemove = new Array<Upgrade>();
 		beaversToRemove = new Array<Beaver>();
 		islandAngles = new Array<Integer>();
@@ -147,7 +149,7 @@ public class GameScreen extends InputAdapter implements Screen{
 			} while (notDone);
 
 
-			Island island = addIsland((float)angle, size, 1.0f + i/10.0f, MathUtils.random(1, 2),MathUtils.random(1, 2));
+			Island island = addIsland((float)angle, size, 1.0f + i/10.0f, MathUtils.random(1, 2),MathUtils.random(1, 2), MathUtils.random(0, 1));
 
 			
 			gameStage.addActor(new Beaver(physicsWorld, island));
@@ -172,7 +174,7 @@ public class GameScreen extends InputAdapter implements Screen{
 		zoom = 1.0f;
 	}
 
-	private Island addIsland(float ang, float size, float len, int numSilos,int numPools) {
+	private Island addIsland(float ang, float size, float len, int numSilos,int numPools,int numTowers) {
 		Island island = new Island(physicsWorld, ang, size, len * Water.WATER_RADIUS);
 		gameStage.addActor(island);
 		for (int i=0; i<numSilos; ++i) {
@@ -181,8 +183,12 @@ public class GameScreen extends InputAdapter implements Screen{
 		for (int i=0; i<numPools; ++i) {
 			gameStage.addActor(new Pool(physicsWorld, island, MathUtils.random()));
 		}
+		for (int i=0; i<numTowers; ++i) {
+			gameStage.addActor(new WaterTower(physicsWorld, island, MathUtils.random()));
+		}
 		waterSources += numSilos;
 		waterSources += numPools;
+		waterSources += numTowers;
 		
 		return island;
 
@@ -194,6 +200,10 @@ public class GameScreen extends InputAdapter implements Screen{
 	
 	public void onPoolBoom(Pool p){
 		if(!poolsToBoom.contains(p, true)) poolsToBoom.add(p);
+	}
+	
+	public void onTowerBoom(WaterTower t){
+		if(!towerToBoom.contains(t, true)) towerToBoom.add(t);
 	}
 	
 	public void upgrade(Upgrade u) {
@@ -301,6 +311,14 @@ public class GameScreen extends InputAdapter implements Screen{
 		}
 		
 		poolsToBoom.clear();
+		
+		
+		for (WaterTower t : towerToBoom) {
+			rmPool(t, 1.15f);
+		}
+		
+		towerToBoom.clear();
+		
 		
 		if (waterRaiseBuffer > 0.0f) {
 			float amntRise = Math.min(waterRaiseBuffer, 2*delta);

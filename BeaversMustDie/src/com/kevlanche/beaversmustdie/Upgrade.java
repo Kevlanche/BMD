@@ -56,7 +56,14 @@ public class Upgrade extends PhysicsActor {
 	
 	@Override
 	public void draw(SpriteBatch batch, float parentAlpha) {
-		super.draw(batch, parentAlpha, Assets.silo);
+		switch(type){
+		case 1:
+			super.draw(batch, parentAlpha, Assets.silo);
+			break;
+		case 2:
+			super.draw(batch, parentAlpha, Assets.cloud);
+			break;
+		}
 	}
 	
 }

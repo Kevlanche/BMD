@@ -17,6 +17,7 @@ public class EarthCore extends PhysicsActor {
 		bd.type = BodyType.StaticBody;
 		bd.position.set(-Water.EARTH_RADIUS, -Water.EARTH_RADIUS);
 		
+		
 		Body body = world.createBody(bd);
 		
 		FixtureDef fd = new FixtureDef();

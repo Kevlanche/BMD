@@ -5,8 +5,12 @@ import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 public class Assets {
+	
 	public static TextureAtlas atlas;
+	
 	public static TextureRegion alphabet, smiley, earthCore, island, pole, silo;
+	
+	public static TextureRegion shark;
 
 	public static void load() {
 		atlas = new TextureAtlas(Gdx.files.internal("data/pack.atlas"));
@@ -16,6 +20,7 @@ public class Assets {
 		island = find("island");
 		pole = find("pole");
 		silo = find("silo");
+		shark = find("shark");
 	}
 	private static TextureRegion find(String name) {
 		return atlas.findRegion(name);

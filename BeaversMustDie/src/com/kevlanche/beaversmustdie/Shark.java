@@ -47,7 +47,7 @@ public class Shark extends PhysicsActor {
 		FixtureDef fd = new FixtureDef();
 		fd.density = 0.0f;
 		fd.filter.categoryBits = Collision.SHARK;
-		fd.filter.maskBits = Collision.ISLAND | Collision.EARTH_CORE | Collision.SILO | Collision.UPGRADE;
+		fd.filter.maskBits = Collision.ISLAND | Collision.EARTH_CORE | Collision.SILO |Collision.POOL | Collision.UPGRADE;
 		
 		fd.restitution = 0.0f;
 		fd.friction = 0.0f;

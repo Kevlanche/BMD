@@ -1,0 +1,122 @@
+package com.kevlanche.beaversmustdie;
+
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.InputAdapter;
+import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.graphics.GL10;
+import com.badlogic.gdx.math.MathUtils;
+import com.badlogic.gdx.scenes.scene2d.Group;
+import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.utils.Array;
+import com.badlogic.gdx.utils.Disposable;
+import com.kevlanche.beaversmustdie.Shark.SharkSweetAirJumpTimeReportReceiver;
+
+public class GameScreen extends InputAdapter implements Screen{
+
+	private Stage gameStage;
+	private Shark shark;
+	
+	private Array<Disposable> disposables;
+	
+	private float zoom;
+	
+	private Stage gui;
+	
+	public GameScreen() {
+	
+		gameStage = new Stage();
+		
+		disposables = new Array<Disposable>();
+		
+		Water water = new Water();
+		disposables.add(water);
+		gameStage.addActor(water);
+		
+		gui = new Stage();
+
+		final LBL sharkTimeLbl = new LBL("No jump yet!", 2.0f);
+		sharkTimeLbl.position(Mane.WIDTH*0.05f, Mane.HEIGHT - Mane.WIDTH*0.05f, 0.0f, 1.0f);
+		
+		gui.addActor(sharkTimeLbl);
+		
+		shark = new Shark(new SharkSweetAirJumpTimeReportReceiver() {
+			
+			@Override
+			public void onSharkIsDoingSweetJumpFor(float duration) {
+				sharkTimeLbl.setText( ""+duration );
+			}
+			
+			@Override
+			public void onSharkDidSweetJumpFor(float duration) {
+				sharkTimeLbl.setText( ""+duration +"!!");	
+			}
+		});
+		gameStage.addActor(shark);
+		
+		zoom = 1.0f;
+	}
+	
+	@Override
+	public void render(float delta) {
+		Gdx.gl.glClearColor(0, 0, 0, 1);
+		Gdx.gl.glClear(GL10.GL_COLOR_BUFFER_BIT);
+		gameStage.act(delta);
+		gameStage.setViewport(Mane.WIDTH/zoom, Mane.HEIGHT/zoom, true);
+		gameStage.getCamera().translate(-Mane.WIDTH/(2*zoom) + shark.getX() + shark.getWidth()/2, 
+									-Mane.HEIGHT/(2*zoom) + shark.getY() + shark.getHeight()/2, 0.0f);
+		
+		float sharkAng = shark.getRotation() + 90.0f;
+		gameStage.getCamera().up.set( MathUtils.cosDeg(sharkAng), MathUtils.sinDeg(sharkAng), 0.0f);
+		gameStage.draw();
+		
+		gui.draw();
+	}
+
+	@Override
+	public void resize(int width, int height) {
+		gameStage.setViewport(Mane.WIDTH, Mane.HEIGHT, true);
+		gui.setViewport(Mane.WIDTH, Mane.HEIGHT, true);
+//		stage.getCamera().translate(-stage.getGutterWidth(),
+//		    -stage.getGutterHeight(), 0);
+	}
+
+	@Override
+	public void show() {
+		Gdx.input.setInputProcessor(this);
+	}
+
+	@Override
+	public void hide() {
+		if (Gdx.input.getInputProcessor() == this)
+			Gdx.input.setInputProcessor(null);
+	}
+
+	@Override
+	public void pause() {
+		
+	}
+
+	@Override
+	public void resume() {
+		
+	}
+
+	@Override
+	public void dispose() {
+		gameStage.dispose();
+		for (Disposable d : disposables) {
+			d.dispose();
+		}
+		disposables.clear();
+		
+	}
+
+	@Override
+	public boolean scrolled(int amount) {
+		
+		zoom = MathUtils.clamp(zoom - amount*0.1f, 0.25f, 2.5f);
+		return true;
+	}
+	
+
+}

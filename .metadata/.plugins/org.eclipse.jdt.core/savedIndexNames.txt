@@ -1,0 +1,19 @@
+INDEX VERSION 1.126+/Users/anton/Dropbox/libgdx/workspace/BMD/.metadata/.plugins/org.eclipse.jdt.core
+3830159059.index
+3656629864.index
+215608076.index
+2923988729.index
+1300632038.index
+2625883189.index
+3218369112.index
+2058520807.index
+898970992.index
+4121012013.index
+2203883729.index
+2888321967.index
+1850325234.index
+605250146.index
+2399042292.index
+1039410002.index
+283705747.index
+741167578.index

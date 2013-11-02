@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<qualifiedTypeNameHistroy>
+<fullyQualifiedTypeName name="com.badlogic.gdx.Input.Keys"/>
+<fullyQualifiedTypeName name="com.badlogic.gdx.utils.Array"/>
+<fullyQualifiedTypeName name="com.kevlanche.beaversmustdie.Mane"/>
+<fullyQualifiedTypeName name="com.kevlanche.beaversmustdie.Water"/>
+<fullyQualifiedTypeName name="com.badlogic.gdx.graphics.Color"/>
+<fullyQualifiedTypeName name="com.kevlanche.beaversmustdie.Shark.SharkSweetAirJumpTimeReportReceiver"/>
+<fullyQualifiedTypeName name="com.kevlanche.beaversmustdie.LBL"/>
+<fullyQualifiedTypeName name="com.badlogic.gdx.scenes.scene2d.Group"/>
+<fullyQualifiedTypeName name="com.badlogic.gdx.math.Vector2"/>
+<fullyQualifiedTypeName name="com.badlogic.gdx.physics.box2d.BodyDef.BodyType"/>
+<fullyQualifiedTypeName name="com.badlogic.gdx.physics.box2d.Body"/>
+<fullyQualifiedTypeName name="com.kevlanche.beaversmustdie.PhysicsActor"/>
+<fullyQualifiedTypeName name="com.badlogic.gdx.physics.box2d.PolygonShape"/>
+<fullyQualifiedTypeName name="com.kevlanche.beaversmustdie.Island"/>
+<fullyQualifiedTypeName name="com.kevlanche.beaversmustdie.Box2dDebug"/>
+<fullyQualifiedTypeName name="com.kevlanche.beaversmustdie.EarthCore"/>
+<fullyQualifiedTypeName name="com.kevlanche.beaversmustdie.Silo"/>
+<fullyQualifiedTypeName name="com.badlogic.gdx.math.MathUtils"/>
+<fullyQualifiedTypeName name="com.kevlanche.beaversmustdie.Collision"/>
+<fullyQualifiedTypeName name="com.badlogic.gdx.physics.box2d.World"/>
+<fullyQualifiedTypeName name="com.badlogic.gdx.physics.box2d.Fixture"/>
+<fullyQualifiedTypeName name="com.kevlanche.beaversmustdie.CollisionManager"/>
+<fullyQualifiedTypeName name="java.lang.Math"/>
+</qualifiedTypeNameHistroy>

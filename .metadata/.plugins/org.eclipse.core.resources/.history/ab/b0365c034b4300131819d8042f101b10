@@ -1,0 +1,21 @@
+package com.kevlanche.beaversmustdie;
+
+import com.badlogic.gdx.physics.box2d.Body;
+
+public class PhysicsActor {
+
+	protected Body physicsBody;
+	
+	protected PhysicsActor() {
+		
+	}
+	
+	protected void setPhysicsBody(Body b) {
+		this.physicsBody = b;
+	}
+	
+	public void act(float delta) {
+		super.act(delta);
+		
+	}
+}

@@ -1,0 +1,47 @@
+
+pack.png
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+alphabet
+  rotate: false
+  xy: 2, 166
+  size: 128, 64
+  orig: 128, 64
+  offset: 0, 0
+  index: -1
+earthcore
+  rotate: false
+  xy: 36, 98
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+island
+  rotate: false
+  xy: 2, 132
+  size: 128, 32
+  orig: 128, 32
+  offset: 0, 0
+  index: -1
+pole
+  rotate: false
+  xy: 2, 2
+  size: 32, 128
+  orig: 32, 128
+  offset: 0, 0
+  index: -1
+silo
+  rotate: false
+  xy: 132, 166
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: -1
+smiley
+  rotate: false
+  xy: 132, 132
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1

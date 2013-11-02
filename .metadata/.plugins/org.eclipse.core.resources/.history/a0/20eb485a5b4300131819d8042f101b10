@@ -1,0 +1,62 @@
+package com.kevlanche.beaversmustdie;
+
+import com.badlogic.gdx.math.MathUtils;
+import com.badlogic.gdx.physics.box2d.Body;
+import com.badlogic.gdx.physics.box2d.BodyDef;
+import com.badlogic.gdx.physics.box2d.FixtureDef;
+import com.badlogic.gdx.physics.box2d.PolygonShape;
+import com.badlogic.gdx.physics.box2d.World;
+import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
+
+public class Silo extends PhysicsActor {
+
+	public Silo(World world, Island placeOn, float placementX) {
+		
+		BodyDef bd = new BodyDef();
+		bd.type = BodyType.StaticBody;
+		bd.position.set(placeOn.physicsBody.getPosition());
+		bd.angle = placeOn.physicsBody.getAngle();
+		
+		Body body = world.createBody(bd);
+		
+		FixtureDef fd = new FixtureDef();
+		fd.density = 0.0f;
+		fd.filter.categoryBits = Collision.SILO;
+		fd.filter.maskBits = Collision.SHARK;
+		fd.isSensor = true;
+		
+		fd.restitution = 0.0f;
+		fd.friction = 0.0f;
+		
+
+		float islandW = placeOn.getPhysicsWidth();
+		float islandH = placeOn.getPhysicsHeight();
+		
+		float ox = islandW * (0.2f + placementX * 0.6f);
+		
+		float[] vertices = new float[]{
+				0.0f, 0.0f,
+				1.0f, 0.0f,
+				1.0f, 1.0f,
+				0.0f, 1.0f
+		};
+		for (int i=0; i<vertices.length; i += 2) {
+			vertices[2*i] += ox;
+			vertices[2*i + 1] += islandH;
+		}
+		
+		PolygonShape ps = new PolygonShape();
+		ps.set(vertices);
+		fd.shape = ps;
+		
+		body.createFixture(fd);
+		
+		ps.dispose();
+		
+		super.initPhysicsBody(body);
+		
+		setSize(4*scale*Mane.PTM_RATIO, scale*Mane.PTM_RATIO);
+		setOrigin(0.0f, 0.0f);
+		
+	}
+}

@@ -1,0 +1,9 @@
+package com.kevlanche.beaversmustdie;
+
+public class EarthCore extends PhysicsActor {
+
+	public EarthCore(World world) {
+		
+	}
+	
+}

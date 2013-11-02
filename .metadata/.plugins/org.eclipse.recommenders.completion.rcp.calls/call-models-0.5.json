@@ -1,0 +1,17 @@
+{
+  "C:\\Program Files\\Java\\jre7\\lib\\rt.jar": {
+    "coordinate": "jre:jre:zip:call:1.0.0",
+    "location": "C:\\Program Files\\Java\\jre7\\lib\\rt.jar",
+    "status": "RESOLVED"
+  },
+  "C:\\Users\\Anton\\Dropbox\\libgdx\\workspace\\BeaversMustDie\\BeaversMustDie\\src": {
+    "location": "C:\\Users\\Anton\\Dropbox\\libgdx\\workspace\\BeaversMustDie\\BeaversMustDie\\src",
+    "status": "UNRESOLVED",
+    "error": "No class path info available for \u0027C:\\Users\\Anton\\Dropbox\\libgdx\\workspace\\BeaversMustDie\\BeaversMustDie\\src\u0027. Skipped."
+  },
+  "C:\\Users\\Anton\\Dropbox\\libgdx\\workspace\\BeaversMustDie\\BeaversMustDie\\libs\\gdx.jar": {
+    "location": "C:\\Users\\Anton\\Dropbox\\libgdx\\workspace\\BeaversMustDie\\BeaversMustDie\\libs\\gdx.jar",
+    "status": "UNRESOLVED",
+    "error": "No call model found for \u0027C:\\Users\\Anton\\Dropbox\\libgdx\\workspace\\BeaversMustDie\\BeaversMustDie\\libs\\gdx.jar\u0027. Neither fingerprint \u0027f3787b2250d3992af04b0873494a505e417fdc6d\u0027 nor symbolic name \u0027gdx\u0027 are known."
+  }
+}

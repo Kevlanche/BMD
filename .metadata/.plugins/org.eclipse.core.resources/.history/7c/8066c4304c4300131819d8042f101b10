@@ -1,0 +1,6 @@
+package com.kevlanche.beaversmustdie;
+
+public class Collision {
+	public static final short 	SHARK = 0,
+								ISLAND = 1 << 1;
+}

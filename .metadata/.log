@@ -1,0 +1,209 @@
+!SESSION 2013-11-01 21:55:29.473 -----------------------------------------------
+eclipse.buildId=M20130204-1200
+java.version=1.7.0_25
+java.vendor=Oracle Corporation
+BootLoader constants: OS=win32, ARCH=x86_64, WS=win32, NL=en_US
+Framework arguments:  -product org.eclipse.epp.package.java.product
+Command-line arguments:  -data C:\Users\Anton\Dropbox\libgdx\workspace\BeaversMustDie -os win32 -ws win32 -arch x86_64 -product org.eclipse.epp.package.java.product
+
+!ENTRY com.google.gdt.eclipse.core 4 0 2013-11-01 21:56:23.159
+!MESSAGE Error while tracking project-level changes from a change in R/
+!STACK 1
+Java Model Exception: Java Model Status [Unbound classpath container: 'GWT SDK [missing]' in project 'BeaversMustDie-html']
+	at org.eclipse.jdt.internal.core.JavaProject.getResolvedClasspath(JavaProject.java:2007)
+	at com.google.gdt.eclipse.core.projects.ProjectChangeTimestampTracker.isResourceInAnOutputPath(ProjectChangeTimestampTracker.java:121)
+	at com.google.gdt.eclipse.core.projects.ProjectChangeTimestampTracker.visitDelta(ProjectChangeTimestampTracker.java:162)
+	at com.google.gdt.eclipse.core.projects.ProjectChangeTimestampTracker.visitDelta(ProjectChangeTimestampTracker.java:169)
+	at com.google.gdt.eclipse.core.projects.ProjectChangeTimestampTracker.resourceChanged(ProjectChangeTimestampTracker.java:181)
+	at org.eclipse.core.internal.events.NotificationManager$1.run(NotificationManager.java:291)
+	at org.eclipse.core.runtime.SafeRunner.run(SafeRunner.java:42)
+	at org.eclipse.core.internal.events.NotificationManager.notify(NotificationManager.java:285)
+	at org.eclipse.core.internal.events.NotificationManager.broadcastChanges(NotificationManager.java:149)
+	at org.eclipse.core.internal.resources.Workspace.broadcastPostChange(Workspace.java:395)
+	at org.eclipse.core.internal.resources.Workspace.endOperation(Workspace.java:1530)
+	at org.eclipse.core.internal.resources.Workspace.run(Workspace.java:2353)
+	at org.eclipse.ui.actions.WorkspaceModifyOperation.run(WorkspaceModifyOperation.java:118)
+	at org.eclipse.jface.operation.ModalContext$ModalContextThread.run(ModalContext.java:121)
+!SUBENTRY 1 org.eclipse.jdt.core 4 963 2013-11-01 21:56:23.160
+!MESSAGE Unbound classpath container: 'GWT SDK [missing]' in project 'BeaversMustDie-html'
+
+!ENTRY com.android.ide.eclipse.adt 4 0 2013-11-01 21:56:23.724
+!MESSAGE 
+!STACK 1
+org.eclipse.core.internal.resources.ResourceException: Resource '/BeaversMustDie-android/res' does not exist.
+	at org.eclipse.core.internal.resources.Resource.checkExists(Resource.java:341)
+	at org.eclipse.core.internal.resources.Resource.checkAccessible(Resource.java:215)
+	at org.eclipse.core.internal.resources.Container.members(Container.java:266)
+	at org.eclipse.core.internal.resources.Container.members(Container.java:249)
+	at com.android.ide.eclipse.adt.internal.sdk.Sdk$7.run(Sdk.java:1453)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:53)
+!SUBENTRY 1 org.eclipse.core.resources 4 368 2013-11-01 21:56:23.725
+!MESSAGE Resource '/BeaversMustDie-android/res' does not exist.
+
+!ENTRY org.eclipse.egit.ui 2 0 2013-11-01 21:56:25.206
+!MESSAGE Warning: EGit couldn't detect the installation path "gitPrefix" of native Git. Hence EGit can't respect system level
+Git settings which might be configured in ${gitPrefix}/etc/gitconfig under the native Git installation directory.
+The most important of these settings is core.autocrlf. Git for Windows by default sets this parameter to true in
+this system level configuration. The Git installation location can be configured on the
+Team > Git > Configuration preference page's 'System Settings' tab.
+This warning can be switched off on the Team > Git > Confirmations and Warnings preference page.
+
+!ENTRY org.eclipse.egit.ui 2 0 2013-11-01 21:56:25.207
+!MESSAGE Warning: The environment variable HOME is not set. The following directory will be used to store the Git
+user global configuration and to define the default location to store repositories: 'C:\Users\Anton'. If this is
+not correct please set the HOME environment variable and restart Eclipse. Otherwise Git for Windows and
+EGit might behave differently since they see different configuration options.
+This warning can be switched off on the Team > Git > Confirmations and Warnings preference page.
+
+!ENTRY org.eclipse.core.resources 4 4 2013-11-01 21:56:30.499
+!MESSAGE Exception occurred while saving project preferences: /BeaversMustDie-android/.settings/org.eclipse.jdt.core.prefs.
+!STACK 1
+org.eclipse.core.internal.resources.ResourceException: A resource already exists on disk 'C:\Users\Anton\Dropbox\libgdx\workspace\BeaversMustDie\BeaversMustDie-android\.settings'.
+	at org.eclipse.core.internal.resources.Folder.assertCreateRequirements(Folder.java:47)
+	at org.eclipse.core.internal.resources.Folder.create(Folder.java:95)
+	at org.eclipse.core.internal.resources.ProjectPreferences$1.run(ProjectPreferences.java:566)
+	at org.eclipse.core.internal.resources.Workspace.run(Workspace.java:2344)
+	at org.eclipse.core.internal.resources.ProjectPreferences.save(ProjectPreferences.java:590)
+	at org.eclipse.core.internal.preferences.EclipsePreferences.internalFlush(EclipsePreferences.java:465)
+	at org.eclipse.core.internal.resources.ProjectPreferences.flush(ProjectPreferences.java:350)
+	at org.eclipse.jdt.internal.core.JavaProject.setOption(JavaProject.java:2953)
+	at com.android.ide.eclipse.adt.internal.project.ProjectHelper.checkAndFixCompilerCompliance(ProjectHelper.java:511)
+	at com.android.ide.eclipse.adt.internal.project.ProjectHelper.fixProjectClasspathEntries(ProjectHelper.java:420)
+	at com.android.ide.eclipse.adt.internal.sdk.Sdk$1$1.run(Sdk.java:1137)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:53)
+!SUBENTRY 1 org.eclipse.core.resources 4 272 2013-11-01 21:56:30.499
+!MESSAGE A resource already exists on disk 'C:\Users\Anton\Dropbox\libgdx\workspace\BeaversMustDie\BeaversMustDie-android\.settings'.
+
+!ENTRY org.eclipse.core.resources 4 4 2013-11-01 21:56:30.501
+!MESSAGE Exception occurred while saving project preferences: /BeaversMustDie-android/.settings/org.eclipse.jdt.core.prefs.
+!STACK 1
+org.eclipse.core.internal.resources.ResourceException: A resource already exists on disk 'C:\Users\Anton\Dropbox\libgdx\workspace\BeaversMustDie\BeaversMustDie-android\.settings'.
+	at org.eclipse.core.internal.resources.Folder.assertCreateRequirements(Folder.java:47)
+	at org.eclipse.core.internal.resources.Folder.create(Folder.java:95)
+	at org.eclipse.core.internal.resources.ProjectPreferences$1.run(ProjectPreferences.java:566)
+	at org.eclipse.core.internal.resources.Workspace.run(Workspace.java:2344)
+	at org.eclipse.core.internal.resources.ProjectPreferences.save(ProjectPreferences.java:590)
+	at org.eclipse.core.internal.preferences.EclipsePreferences.internalFlush(EclipsePreferences.java:465)
+	at org.eclipse.core.internal.resources.ProjectPreferences.flush(ProjectPreferences.java:350)
+	at org.eclipse.jdt.internal.core.JavaProject.setOption(JavaProject.java:2953)
+	at com.android.ide.eclipse.adt.internal.project.ProjectHelper.checkAndFixCompilerCompliance(ProjectHelper.java:513)
+	at com.android.ide.eclipse.adt.internal.project.ProjectHelper.fixProjectClasspathEntries(ProjectHelper.java:420)
+	at com.android.ide.eclipse.adt.internal.sdk.Sdk$1$1.run(Sdk.java:1137)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:53)
+!SUBENTRY 1 org.eclipse.core.resources 4 272 2013-11-01 21:56:30.501
+!MESSAGE A resource already exists on disk 'C:\Users\Anton\Dropbox\libgdx\workspace\BeaversMustDie\BeaversMustDie-android\.settings'.
+
+!ENTRY org.eclipse.core.resources 4 4 2013-11-01 21:56:30.503
+!MESSAGE Exception occurred while saving project preferences: /BeaversMustDie-android/.settings/org.eclipse.jdt.core.prefs.
+!STACK 1
+org.eclipse.core.internal.resources.ResourceException: A resource already exists on disk 'C:\Users\Anton\Dropbox\libgdx\workspace\BeaversMustDie\BeaversMustDie-android\.settings'.
+	at org.eclipse.core.internal.resources.Folder.assertCreateRequirements(Folder.java:47)
+	at org.eclipse.core.internal.resources.Folder.create(Folder.java:95)
+	at org.eclipse.core.internal.resources.ProjectPreferences$1.run(ProjectPreferences.java:566)
+	at org.eclipse.core.internal.resources.Workspace.run(Workspace.java:2344)
+	at org.eclipse.core.internal.resources.ProjectPreferences.save(ProjectPreferences.java:590)
+	at org.eclipse.core.internal.preferences.EclipsePreferences.internalFlush(EclipsePreferences.java:465)
+	at org.eclipse.core.internal.resources.ProjectPreferences.flush(ProjectPreferences.java:350)
+	at org.eclipse.jdt.internal.core.JavaProject.setOption(JavaProject.java:2953)
+	at com.android.ide.eclipse.adt.internal.project.ProjectHelper.checkAndFixCompilerCompliance(ProjectHelper.java:515)
+	at com.android.ide.eclipse.adt.internal.project.ProjectHelper.fixProjectClasspathEntries(ProjectHelper.java:420)
+	at com.android.ide.eclipse.adt.internal.sdk.Sdk$1$1.run(Sdk.java:1137)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:53)
+!SUBENTRY 1 org.eclipse.core.resources 4 272 2013-11-01 21:56:30.503
+!MESSAGE A resource already exists on disk 'C:\Users\Anton\Dropbox\libgdx\workspace\BeaversMustDie\BeaversMustDie-android\.settings'.
+
+!ENTRY com.google.gdt.eclipse.core 4 0 2013-11-01 21:56:30.509
+!MESSAGE Error while tracking project-level changes from a change in R/
+!STACK 1
+Java Model Exception: Java Model Status [Unbound classpath container: 'GWT SDK [missing]' in project 'BeaversMustDie-html']
+	at org.eclipse.jdt.internal.core.JavaProject.getResolvedClasspath(JavaProject.java:2007)
+	at com.google.gdt.eclipse.core.projects.ProjectChangeTimestampTracker.isResourceInAnOutputPath(ProjectChangeTimestampTracker.java:121)
+	at com.google.gdt.eclipse.core.projects.ProjectChangeTimestampTracker.visitDelta(ProjectChangeTimestampTracker.java:162)
+	at com.google.gdt.eclipse.core.projects.ProjectChangeTimestampTracker.visitDelta(ProjectChangeTimestampTracker.java:169)
+	at com.google.gdt.eclipse.core.projects.ProjectChangeTimestampTracker.visitDelta(ProjectChangeTimestampTracker.java:169)
+	at com.google.gdt.eclipse.core.projects.ProjectChangeTimestampTracker.resourceChanged(ProjectChangeTimestampTracker.java:181)
+	at org.eclipse.core.internal.events.NotificationManager$1.run(NotificationManager.java:291)
+	at org.eclipse.core.runtime.SafeRunner.run(SafeRunner.java:42)
+	at org.eclipse.core.internal.events.NotificationManager.notify(NotificationManager.java:285)
+	at org.eclipse.core.internal.events.NotificationManager.broadcastChanges(NotificationManager.java:149)
+	at org.eclipse.core.internal.resources.Workspace.broadcastPostChange(Workspace.java:395)
+	at org.eclipse.core.internal.resources.Workspace.aboutToBuild(Workspace.java:318)
+	at org.eclipse.core.internal.resources.Project$1.run(Project.java:608)
+	at org.eclipse.core.internal.resources.Workspace.run(Workspace.java:2344)
+	at org.eclipse.core.internal.resources.Project.internalBuild(Project.java:597)
+	at org.eclipse.core.internal.resources.Project.build(Project.java:114)
+	at com.android.ide.eclipse.adt.internal.project.ProjectHelper.checkAndFixCompilerCompliance(ProjectHelper.java:520)
+	at com.android.ide.eclipse.adt.internal.project.ProjectHelper.fixProjectClasspathEntries(ProjectHelper.java:420)
+	at com.android.ide.eclipse.adt.internal.sdk.Sdk$1$1.run(Sdk.java:1137)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:53)
+!SUBENTRY 1 org.eclipse.jdt.core 4 963 2013-11-01 21:56:30.509
+!MESSAGE Unbound classpath container: 'GWT SDK [missing]' in project 'BeaversMustDie-html'
+
+!ENTRY com.google.gdt.eclipse.core 4 0 2013-11-01 21:56:31.451
+!MESSAGE Error while tracking project-level changes from a change in R/
+!STACK 1
+Java Model Exception: Java Model Status [Unbound classpath container: 'GWT SDK [missing]' in project 'BeaversMustDie-html']
+	at org.eclipse.jdt.internal.core.JavaProject.getResolvedClasspath(JavaProject.java:2007)
+	at com.google.gdt.eclipse.core.projects.ProjectChangeTimestampTracker.isResourceInAnOutputPath(ProjectChangeTimestampTracker.java:121)
+	at com.google.gdt.eclipse.core.projects.ProjectChangeTimestampTracker.visitDelta(ProjectChangeTimestampTracker.java:162)
+	at com.google.gdt.eclipse.core.projects.ProjectChangeTimestampTracker.visitDelta(ProjectChangeTimestampTracker.java:169)
+	at com.google.gdt.eclipse.core.projects.ProjectChangeTimestampTracker.resourceChanged(ProjectChangeTimestampTracker.java:181)
+	at org.eclipse.core.internal.events.NotificationManager$1.run(NotificationManager.java:291)
+	at org.eclipse.core.runtime.SafeRunner.run(SafeRunner.java:42)
+	at org.eclipse.core.internal.events.NotificationManager.notify(NotificationManager.java:285)
+	at org.eclipse.core.internal.events.NotificationManager.broadcastChanges(NotificationManager.java:149)
+	at org.eclipse.core.internal.resources.Workspace.broadcastPostChange(Workspace.java:395)
+	at org.eclipse.core.internal.resources.Workspace.endOperation(Workspace.java:1530)
+	at org.eclipse.core.internal.resources.InternalWorkspaceJob.run(InternalWorkspaceJob.java:45)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:53)
+!SUBENTRY 1 org.eclipse.jdt.core 4 963 2013-11-01 21:56:31.451
+!MESSAGE Unbound classpath container: 'GWT SDK [missing]' in project 'BeaversMustDie-html'
+
+!ENTRY com.google.gdt.eclipse.suite 1 0 2013-11-01 21:56:33.431
+!MESSAGE Registering: com.google.gwt.eclipse.sdkbundle_2.5.1
+
+!ENTRY com.google.gdt.eclipse.core 1 0 2013-11-01 21:56:33.556
+!MESSAGE Scheduled rebuild of project BeaversMustDie-html because of plugin update (current version: 3.2.2.v201303261859-rel-r42)
+
+!ENTRY org.eclipse.m2e.logback.appender 4 0 2013-11-01 22:09:43.505
+!MESSAGE Failed to open search index.
+
+!ENTRY com.google.gdt.eclipse.core 4 0 2013-11-02 00:07:55.545
+!MESSAGE Could not parse the XML file C:\Users\Anton\AppData\Local\Temp\site6873768010704522890xml
+!STACK 0
+org.xml.sax.SAXParseException; lineNumber: 1; columnNumber: 122; Content is not allowed in trailing section.
+	at com.sun.org.apache.xerces.internal.util.ErrorHandlerWrapper.createSAXParseException(Unknown Source)
+	at com.sun.org.apache.xerces.internal.util.ErrorHandlerWrapper.fatalError(Unknown Source)
+	at com.sun.org.apache.xerces.internal.impl.XMLErrorReporter.reportError(Unknown Source)
+	at com.sun.org.apache.xerces.internal.impl.XMLErrorReporter.reportError(Unknown Source)
+	at com.sun.org.apache.xerces.internal.impl.XMLScanner.reportFatalError(Unknown Source)
+	at com.sun.org.apache.xerces.internal.impl.XMLDocumentScannerImpl$TrailingMiscDriver.next(Unknown Source)
+	at com.sun.org.apache.xerces.internal.impl.XMLDocumentScannerImpl.next(Unknown Source)
+	at com.sun.org.apache.xerces.internal.impl.XMLDocumentFragmentScannerImpl.scanDocument(Unknown Source)
+	at com.sun.org.apache.xerces.internal.parsers.XML11Configuration.parse(Unknown Source)
+	at com.sun.org.apache.xerces.internal.parsers.XML11Configuration.parse(Unknown Source)
+	at com.sun.org.apache.xerces.internal.parsers.XMLParser.parse(Unknown Source)
+	at com.sun.org.apache.xerces.internal.parsers.DOMParser.parse(Unknown Source)
+	at com.sun.org.apache.xerces.internal.jaxp.DocumentBuilderImpl.parse(Unknown Source)
+	at com.google.gdt.eclipse.suite.ext.update.CompositeArtifactsDowloadJobChangeListener.getRootElement(CompositeArtifactsDowloadJobChangeListener.java:218)
+	at com.google.gdt.eclipse.suite.ext.update.CompositeArtifactsDowloadJobChangeListener.access$3(CompositeArtifactsDowloadJobChangeListener.java:212)
+	at com.google.gdt.eclipse.suite.ext.update.CompositeArtifactsDowloadJobChangeListener$2.done(CompositeArtifactsDowloadJobChangeListener.java:248)
+	at org.eclipse.core.internal.jobs.JobListeners$3.notify(JobListeners.java:39)
+	at org.eclipse.core.internal.jobs.JobListeners.doNotify(JobListeners.java:112)
+	at org.eclipse.core.internal.jobs.JobListeners.done(JobListeners.java:152)
+	at org.eclipse.core.internal.jobs.JobManager.endJob(JobManager.java:647)
+	at org.eclipse.core.internal.jobs.WorkerPool.endJob(WorkerPool.java:105)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:70)
+!SESSION 2013-11-02 10:29:37.027 -----------------------------------------------
+eclipse.buildId=M20120208-0800
+java.version=1.6.0_51
+java.vendor=Apple Inc.
+BootLoader constants: OS=macosx, ARCH=x86_64, WS=cocoa, NL=sv_SE
+Framework arguments:  -product org.eclipse.epp.package.java.product -keyring /Users/anton/.eclipse_keyring -showlocation
+Command-line arguments:  -os macosx -ws cocoa -arch x86_64 -product org.eclipse.epp.package.java.product -keyring /Users/anton/.eclipse_keyring -showlocation
+
+!ENTRY org.eclipse.core.net 1 0 2013-11-02 10:29:46.424
+!MESSAGE System property http.nonProxyHosts has been set to local|*.local|169.254/16|*.169.254/16 by an external source. This value will be overwritten using the values from the preferences
+
+!ENTRY com.android.ide.eclipse.adt 4 0 2013-11-02 10:29:55.028
+!MESSAGE projectOpenedWithWorkspace: failed to find manifest package for project BeaversMustDie-android

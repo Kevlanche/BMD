@@ -1,0 +1,39 @@
+package com.kevlanche.beaversmustdie;
+
+import com.badlogic.gdx.physics.box2d.Body;
+import com.badlogic.gdx.physics.box2d.BodyDef;
+import com.badlogic.gdx.physics.box2d.CircleShape;
+import com.badlogic.gdx.physics.box2d.FixtureDef;
+import com.badlogic.gdx.physics.box2d.World;
+import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
+
+public class Island extends PhysicsActor {
+
+	public Island(World world, float angle) {
+
+		BodyDef bd = new BodyDef();
+		bd.type = BodyType.StaticBody;
+		bd.position.set(0.0f, 10.0f);
+		
+		Body body = world.createBody(bd);
+		
+		FixtureDef fd = new FixtureDef();
+		fd.density = 0.0f;
+		fd.filter.categoryBits = Collision.SHARK;
+		fd.filter.maskBits = Collision.ISLAND | Collision.ISLAND;
+		
+		fd.restitution = 0.0f;
+		fd.friction = 0.0f;
+		
+		CircleShape ps = new CircleShape();
+		ps.setRadius(0.5f);
+		fd.shape = ps;
+		
+		body.createFixture(fd);
+		
+		ps.dispose();
+		
+		super.initPhysicsBody(body);
+		
+	}
+}

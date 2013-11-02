@@ -26,6 +26,7 @@ public class Shark extends PhysicsActor {
 	float airTime;
 	
 	boolean jumpUpgrade = false;
+	boolean glideUpgrade = false;
 	
 	SharkSweetAirJumpTimeReportReceiver listener;
 	
@@ -145,13 +146,18 @@ public class Shark extends PhysicsActor {
 		}
 		
 		
-				trans.scl(20.0f * delta);
+		trans.scl(20.0f * delta);
 		
 		trans.rotate(getRotation());
 		
 		
 		Vector2 vel = physicsBody.getLinearVelocity();
 		vel.add(trans);
+		if (glideUpgrade && Gdx.input.isKeyPressed(Keys.SPACE) && !inWater) {
+			vel.rotate(-getRotation());
+			vel.y = MathUtils.clamp(vel.y, -0.5f, 0.0f);
+			vel.rotate(getRotation());
+		}
 		if (vel.len() > 40.0f)
 			vel.nor().scl(40.0f);
 		
@@ -190,7 +196,7 @@ public class Shark extends PhysicsActor {
 		Vector2 off = new Vector2(getWidth()*0.5f - getWidth()/8, -getHeight()/8);
 		off.rotate(ang);
 		
-		TextureRegion bFin = jumpUpgrade ? Assets.bottom_fin_wing : Assets.bottom_fin_default;
+		TextureRegion bFin = glideUpgrade ? Assets.bottom_fin_wing : Assets.bottom_fin_default;
 		if (shark.isFlipX() != bFin.isFlipX())
 			bFin.flip(true, false);
 		batch.draw(bFin, getX()+off.x, getY() + off.y, 0.0f, 0.0f, getWidth()/4, getHeight()/3, 1.0f, 1.0f, ang);
@@ -209,8 +215,12 @@ public class Shark extends PhysicsActor {
 	}
 	
 	public void addJumpUpgrade() {
-		
+		glideUpgrade = false;
 		jumpUpgrade = true;
+	}
+	public void addGlideUpgrade() {
+		glideUpgrade = true;
+		jumpUpgrade = false;
 	}
 	
 }

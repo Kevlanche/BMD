@@ -313,6 +313,10 @@ public class GameScreen extends InputAdapter implements Screen{
 			switch(u.getType()){
 				case 1:
 					guiStage.addActor(constructUpgradeLabel("Wing fins unlocked"));
+					shark.addGlideUpgrade();
+					break;
+				case 2:
+					guiStage.addActor(constructUpgradeLabel("Dynamite fins unlocked"));
 					shark.addJumpUpgrade();
 					break;
 			}

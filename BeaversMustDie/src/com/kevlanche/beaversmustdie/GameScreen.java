@@ -26,12 +26,14 @@ public class GameScreen extends InputAdapter implements Screen{
 	
 	private Array<Silo> silosToBoom;
 	private Array<Upgrade> upgradesToRemove;
+	private Array<Integer> islandAngles;
 	
 	public GameScreen() {
 	
 		disposables = new Array<Disposable>();
 		silosToBoom = new Array<Silo>();
 		upgradesToRemove = new Array<Upgrade>();
+		islandAngles = new Array<Integer>();
 		
 		gameStage = new Stage();
 		guiStage = new Stage();
@@ -73,7 +75,33 @@ public class GameScreen extends InputAdapter implements Screen{
 		});
 		
 		for (int i=0; i<10; ++i) {
-			addIsland(MathUtils.random(0.0f, 360.0f), MathUtils.random(2.5f, 5.0f), 1.0f + i/15.0f, MathUtils.random(1, 5));
+			boolean notDone = true;
+			int angle;
+			do {
+
+				angle = MathUtils.random(0, 360);
+				if (islandAngles.size == 0) {
+					islandAngles.add(MathUtils.random(0, 360));
+				}
+				for (int t = 0; t <= islandAngles.size; ++t) {
+
+					if ((islandAngles.get(t) - angle) > -15
+							&& (islandAngles.get(t) - angle) < 15) {
+
+						break;
+					}
+					if ((t + 1) == islandAngles.size) {
+
+						notDone = false;
+						islandAngles.add(angle);
+
+					}
+
+				}
+
+			} while (notDone);
+
+			addIsland((float)angle, MathUtils.random(2.5f, 5.0f), 1.0f + i/15.0f, MathUtils.random(1, 5));
 		}
 		
 		gameStage.addActor(new EarthCore(physicsWorld));

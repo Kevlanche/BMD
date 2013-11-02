@@ -19,7 +19,7 @@ void main()
 	
 	if (l < 1.1) { //mid point -> dark blue
 	
-		col = vec4(0.0, 0.0, 1.0, 1.0);
+		col = COLOR_INNER; // vec4(0.0, 0.0, 1.0, 1.0);
 		
 	} else { //else, move around, color cyan
 		float ang = atan(a_position.y, a_position.x) + PI;
@@ -28,7 +28,7 @@ void main()
 		mv *= size;
 		realPos.x += cos(ang-PI)*mv;
 		realPos.y += sin(ang-PI)*mv;
-		col = vec4(0.0, 1.0, 1.0, 1.0);
+		col = COLOR_OUTER; // vec4(0.0, 1.0, 1.0, 1.0);
 	}
 	
 	

@@ -153,6 +153,8 @@ public class GameScreen extends InputAdapter implements Screen{
 		
 		gameStage.addActor(new Upgrade(physicsWorld, new Vector2(5.0f, 5.0f),1));
 		
+		gameStage.addActor(new Upgrade(physicsWorld, new Vector2(9.0f, 9.0f),2));
+		
 		if (Mane.PHYSICS_DEBUG)
 			gameStage.addActor(new Box2dDebug(physicsWorld));
 		

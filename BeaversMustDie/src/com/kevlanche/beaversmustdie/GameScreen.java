@@ -10,6 +10,7 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.World;
+import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.utils.Array;
@@ -177,6 +178,25 @@ public class GameScreen extends InputAdapter implements Screen{
 	
 	private static final float TIME_STEP = 1.0f / 60.0f;
 	
+	private void rmPool(PhysicsActor s, float waterAmount) {
+		ParticleEffect pe = ParticlePool.get();
+		pe.setColor(Color.BLUE);
+		float ang = s.getRotation();
+		Vector2 sides = new Vector2( s.getWidth(), s.getHeight());
+		sides.rotate(ang);
+		Vector2 mid = new Vector2(	s.getX() + sides.x/2,
+									s.getY() + sides.y/2
+									);
+		pe.setPosition(mid.x - s.getWidth()/2, mid.y - s.getHeight()/2);
+		pe.setSize(s.getWidth(), s.getHeight());
+		pe.init(Assets.smiley, 50.0f, 10);
+		gameStage.addActor(pe);
+		
+		s.physicsBody.setActive(false);
+		s.addAction(Actions.sequence( Actions.fadeOut(0.25f),
+										Actions.removeActor() ));
+		waterRaiseBuffer += waterAmount;
+	}
 	@Override
 	public void render(float delta) {
 		Gdx.gl.glClearColor(0.2f, 0.2f, 0.2f, 1);
@@ -190,39 +210,22 @@ public class GameScreen extends InputAdapter implements Screen{
 		}
 		
 		for (Silo s : silosToBoom) {
-			ParticleEffect pe = ParticlePool.get();
-			pe.setColor(Color.BLUE);
-			float ang = s.getRotation();
-			Vector2 sides = new Vector2( s.getWidth(), s.getHeight());
-			sides.rotate(ang);
-			Vector2 mid = new Vector2(	s.getX() + sides.x/2,
-										s.getY() + sides.y/2
-										);
-			pe.setPosition(mid.x - s.getWidth()/2, mid.y - s.getHeight()/2);
-			pe.setSize(s.getWidth(), s.getHeight());
-			pe.init(Assets.smiley, 50.0f, 10);
-			gameStage.addActor(pe);
-			
-			s.physicsBody.setActive(false);
-			s.addAction(Actions.sequence( Actions.fadeOut(0.25f),
-											Actions.removeActor() ));
-			waterRaiseBuffer += 0.75f;
+			rmPool(s, 0.75f);
 		}
+
+		silosToBoom.clear();
+		
+		for (Pool p : poolsToBoom) {
+			rmPool(p, 0.95f);
+		}
+		
+		poolsToBoom.clear();
 		
 		if (waterRaiseBuffer > 0.0f) {
 			float amntRise = Math.min(waterRaiseBuffer, 2*delta);
 			waterRaiseBuffer -= amntRise;
 			Water.WATER_RADIUS += amntRise;
 		}
-				
-		silosToBoom.clear();
-		
-		for (Pool p : poolsToBoom) {
-			p.remove();
-			Water.WATER_RADIUS += 0.95f;
-		}
-				
-		poolsToBoom.clear();
 		
 		for (Upgrade u : upgradesToRemove) {
 			u.remove();

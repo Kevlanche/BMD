@@ -41,6 +41,10 @@ public class GameScreen extends InputAdapter implements Screen{
 		physicsWorld = new World(Vector2.Zero, false);
 		new CollisionManager(physicsWorld, this);
 		
+		Sky sky = new Sky();
+		gameStage.addActor(sky);
+		disposables.add(sky);
+		
 		Water water = new Water();
 		gameStage.addActor(water);
 		disposables.add(water);

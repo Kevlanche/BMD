@@ -17,7 +17,7 @@ import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.utils.Disposable;
 
-public class Water extends Actor implements Disposable {
+public class Sky extends Actor implements Disposable {
 	
 	public static float WATER_RADIUS = 25.0f;
 	public static final float EARTH_RADIUS = 5.0f;
@@ -27,9 +27,9 @@ public class Water extends Actor implements Disposable {
 	ShaderProgram shader;
 	Mesh mesh;
 	
-	public Water() {
+	public Sky() {
 		
-		shader = new ShaderProgram("#define COLOR_INNER vec4(0.0, 0.0, 1.0, 1.0)\n#define COLOR_OUTER vec4(0.0,1.0,1.0,1.0)\n" +getFile("vert.vs"), getFile("frag.fs"));
+		shader = new ShaderProgram("#define COLOR_INNER vec4(0.0, 1.0, 1.0, 1.0)\n#define COLOR_OUTER vec4(0.0,0.0,1.0,1.0)\n" + getFile("vert.vs"), getFile("frag.fs"));
 		
 		if (!shader.isCompiled()) {
 			System.err.println("SHADER NOT COMPILED");
@@ -76,7 +76,7 @@ public class Water extends Actor implements Disposable {
 		
 		shader.setUniformMatrix("u_worldView", batch.getProjectionMatrix());
 		shader.setUniformf("time", time);
-		shader.setUniformf("size", 166.0f*WATER_RADIUS);
+		shader.setUniformf("size", 900.0f*WATER_RADIUS);
 		
 		mesh.render(shader, GL20.GL_TRIANGLE_FAN);
 		
@@ -92,4 +92,3 @@ public class Water extends Actor implements Disposable {
 		shader.dispose();
 	}
 }
-

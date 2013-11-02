@@ -8,7 +8,6 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
-import com.badlogic.gdx.physics.box2d.CircleShape;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
@@ -19,6 +18,7 @@ public class Shark extends PhysicsActor {
 //	float frictionTimer;
 	
 	boolean inWater;
+	boolean movingClockwise;
 	float jumpCooldown;
 	
 	boolean canJump;
@@ -101,6 +101,7 @@ public class Shark extends PhysicsActor {
 		jumpCooldown -= delta;
 		
 		Vector2 trans = new Vector2(mvx, 0.0f);
+
 		
 		if (distFromCenter < Water.WATER_RADIUS) { //only y-axis control in water
 			
@@ -138,27 +139,39 @@ public class Shark extends PhysicsActor {
 		}
 		
 		
-		
-		trans.scl(20.0f * delta);
+				trans.scl(20.0f * delta);
 		
 		trans.rotate(getRotation());
+		
 		
 		Vector2 vel = physicsBody.getLinearVelocity();
 		vel.add(trans);
 		if (vel.len() > 40.0f)
 			vel.nor().scl(40.0f);
+		
 		physicsBody.setLinearVelocity(vel);
 		
 		Vector2 pos = physicsBody.getPosition();
 		float ang = MathUtils.atan2(pos.y, pos.x) + MathUtils.PI; // MathUtils.atan2(getY()+getHeight()/2, getX()+getWidth()/2)+ MathUtils.PI;
 		setRotation(MathUtils.radiansToDegrees * ang + 90.0f);
-	
 		
+		
+		if(ang != 0) {
+			movingClockwise = vel.x * MathUtils.sin(ang) < 0;
+		}
+		
+			System.out.println("Angle is: " + ang);
+			System.out.println("The expression is: " + vel.x * MathUtils.sin(ang));
 	}
 
 	@Override
 	public void draw(SpriteBatch batch, float parentAlpha) {
-		super.draw(batch, parentAlpha, Assets.smiley);
+		if(movingClockwise) {
+			
+			super.draw(batch, parentAlpha, Assets.shark);
+		} else {
+			super.draw(batch, parentAlpha, Assets.smiley);
+		}
 	}
 	
 	public void addUpgrade() {

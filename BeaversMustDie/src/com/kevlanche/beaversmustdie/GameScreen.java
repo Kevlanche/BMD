@@ -25,7 +25,7 @@ public class GameScreen extends InputAdapter implements Screen{
 	private float zoom;
 	private Stage gameStage, guiStage;
 
-	private Shark shark;
+	public Shark shark;
 	
 	private World physicsWorld;
 	float physicsTimeBuffer;
@@ -34,6 +34,8 @@ public class GameScreen extends InputAdapter implements Screen{
 	private Array<Silo> silosToBoom;
 	private Array<Upgrade> upgradesToRemove;
 	private Array<Integer> islandAngles;
+	
+	private float waterRaiseBuffer;
 	
 	public GameScreen() {
 		
@@ -192,7 +194,13 @@ public class GameScreen extends InputAdapter implements Screen{
 			s.physicsBody.setActive(false);
 			s.addAction(Actions.sequence( Actions.fadeOut(0.25f),
 											Actions.removeActor() ));
-			Water.WATER_RADIUS += 0.75f;
+			waterRaiseBuffer += 0.75f;
+		}
+		
+		if (waterRaiseBuffer > 0.0f) {
+			float amntRise = Math.min(waterRaiseBuffer, 2*delta);
+			waterRaiseBuffer -= amntRise;
+			Water.WATER_RADIUS += amntRise;
 		}
 		
 		silosToBoom.clear();

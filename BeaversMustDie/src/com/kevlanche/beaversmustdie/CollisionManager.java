@@ -20,6 +20,7 @@ public class CollisionManager implements ContactListener  {
 		short ca = contact.getFixtureA().getFilterData().categoryBits;
 		short cb = contact.getFixtureB().getFilterData().categoryBits;
 		
+		
 		if ( (ca == Collision.SHARK && cb == Collision.SILO) ||
 			 (cb == Collision.SHARK && ca == Collision.SILO) ) {
 			
@@ -30,6 +31,10 @@ public class CollisionManager implements ContactListener  {
 		else if( (ca == Collision.SHARK && cb == Collision.UPGRADE) ||
 				 (cb == Collision.SHARK && ca == Collision.UPGRADE)) {
 			gs.upgrade((Upgrade) (ca == Collision.UPGRADE ? contact.getFixtureA().getUserData() : contact.getFixtureB().getUserData()) );
+		} else if ( (ca == Collision.SHARK && cb == Collision.ISLAND) ||
+					(cb == Collision.SHARK && ca == Collision.ISLAND)) {
+			
+			gs.shark.canJump = true;
 		}
 	}
 

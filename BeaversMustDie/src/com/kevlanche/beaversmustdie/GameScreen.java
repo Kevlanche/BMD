@@ -25,6 +25,7 @@ public class GameScreen extends InputAdapter implements Screen{
 	private World physicsWorld;
 	float physicsTimeBuffer;
 	
+	private Array<Beaver> beaversToRemove;
 	private Array<Silo> silosToBoom;
 	private Array<Upgrade> upgradesToRemove;
 	private Array<Integer> islandAngles;
@@ -34,6 +35,7 @@ public class GameScreen extends InputAdapter implements Screen{
 		disposables = new Array<Disposable>();
 		silosToBoom = new Array<Silo>();
 		upgradesToRemove = new Array<Upgrade>();
+		beaversToRemove = new Array<Beaver>();
 		islandAngles = new Array<Integer>();
 		
 		gameStage = new Stage();
@@ -109,7 +111,10 @@ public class GameScreen extends InputAdapter implements Screen{
 
 			} while (notDone);
 
-			addIsland((float)angle, size, 1.0f + i/15.0f, MathUtils.random(1, 5));
+			Island island = addIsland((float)angle, size, 1.0f + i/15.0f, MathUtils.random(1, 5));
+			
+			gameStage.addActor(new Beaver(physicsWorld, island));
+		
 		}
 		
 		gameStage.addActor(new EarthCore(physicsWorld));
@@ -123,12 +128,14 @@ public class GameScreen extends InputAdapter implements Screen{
 		
 		zoom = 1.0f;
 	}
-	private void addIsland(float ang, float size, float len, int numSilos) {
+	
+	private Island addIsland(float ang, float size, float len, int numSilos) {
 		Island island = new Island(physicsWorld, ang, size, len * Water.WATER_RADIUS);
 		gameStage.addActor(island);
 		for (int i=0; i<numSilos; ++i) {
 			gameStage.addActor(new Silo(physicsWorld, island, MathUtils.random()));
 		}
+		return island;
 	}
 	
 	public void onSiloBoom(Silo s) {

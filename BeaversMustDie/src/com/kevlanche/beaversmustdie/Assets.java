@@ -9,7 +9,7 @@ public class Assets {
 	
 	public static TextureAtlas atlas;
 	
-	public static TextureRegion alphabet, smiley, earthCore, island, pole, silo;
+	public static TextureRegion alphabet, smiley, earthCore, island, pole, silo, cloud;
 	
 	public static TextureRegion shark;
 	
@@ -23,6 +23,7 @@ public class Assets {
 		island = find("island");
 		pole = find("pole");
 		silo = find("silo");
+		cloud = find("cloud");
 		shark = find("shark");
 		bg_music = Gdx.audio.newMusic(Gdx.files.internal("data/shark_concept.wav"));
 	}
@@ -32,5 +33,6 @@ public class Assets {
 
 	public static void dispose() {
 		atlas.dispose();
+		bg_music.dispose();
 	}
 }

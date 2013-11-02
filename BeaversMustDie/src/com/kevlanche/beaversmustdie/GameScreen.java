@@ -68,7 +68,7 @@ public class GameScreen extends InputAdapter implements Screen{
 		disposables.add(water);
 		
 		for(int i =0; i<20; i++){
-			Cloud cloud = new Cloud(MathUtils.random(0.0f, 360.0f) ,MathUtils.random(1500.0f, 2000.0f));
+			Cloud cloud = new Cloud(MathUtils.random(0.0f, 360.0f) , Mane.PTM_RATIO * MathUtils.random(Water.WATER_RADIUS * 0.25f, Water.WATER_RADIUS * 1.5f));
 			gameStage.addActor(cloud);
 		}
 		
@@ -217,7 +217,7 @@ public class GameScreen extends InputAdapter implements Screen{
 										-Mane.HEIGHT/(2*zoom) + shark.getY() + shark.getHeight()/2, 0.0f);
 		
 		if (!Mane.PHYSICS_DEBUG) {
-			float sharkAng = shark.getRotation() + 90.0f; //TODO rŠkna vinkel pŒ sharks position
+			float sharkAng = MathUtils.radiansToDegrees * MathUtils.atan2(shark.getY()+shark.getHeight()/2, shark.getX()+shark.getWidth()/2);// shark.getRotation() + 90.0f; //TODO rŠkna vinkel pŒ sharks position
 			gameStage.getCamera().up.set( MathUtils.cosDeg(sharkAng), MathUtils.sinDeg(sharkAng), 0.0f);
 		}
 		gameStage.draw();

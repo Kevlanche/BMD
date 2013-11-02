@@ -26,7 +26,11 @@ public class CollisionManager implements ContactListener  {
 			
 			gs.onSiloBoom( (Silo) (ca == Collision.SILO ? contact.getFixtureA().getUserData() : contact.getFixtureB().getUserData()) );
 		}
-		
+		else if ( (ca == Collision.SHARK && cb == Collision.POOL) ||
+				 (cb == Collision.SHARK && ca == Collision.POOL) ) {
+			
+				gs.onPoolBoom( (Pool) (ca == Collision.POOL ? contact.getFixtureA().getUserData() : contact.getFixtureB().getUserData()) );
+		}
 		
 		else if( (ca == Collision.SHARK && cb == Collision.UPGRADE) ||
 				 (cb == Collision.SHARK && ca == Collision.UPGRADE)) {

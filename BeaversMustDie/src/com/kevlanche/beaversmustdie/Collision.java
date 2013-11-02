@@ -7,5 +7,7 @@ public class Collision {
 								ISLAND = 1 << 3,
 								SILO = 1 << 4,
 								UPGRADE = 1 << 5,
-								BEAVER = 1 << 6;
+								BEAVER = 1 << 6,
+								POOL = 1 <<7;
+
 }

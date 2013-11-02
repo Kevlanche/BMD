@@ -32,6 +32,7 @@ public class GameScreen extends InputAdapter implements Screen{
 	
 	private Array<Beaver> beaversToRemove;
 	private Array<Silo> silosToBoom;
+	private Array<Pool> poolsToBoom;
 	private Array<Upgrade> upgradesToRemove;
 	private Array<Integer> islandAngles;
 	
@@ -44,6 +45,7 @@ public class GameScreen extends InputAdapter implements Screen{
 	
 		disposables = new Array<Disposable>();
 		silosToBoom = new Array<Silo>();
+		poolsToBoom = new Array<Pool>();
 		upgradesToRemove = new Array<Upgrade>();
 		beaversToRemove = new Array<Beaver>();
 		islandAngles = new Array<Integer>();
@@ -126,10 +128,12 @@ public class GameScreen extends InputAdapter implements Screen{
 
 			} while (notDone);
 
-			Island island = addIsland((float)angle, size, 1.0f + i/10.0f, MathUtils.random(1, 5));
+
+			Island island = addIsland((float)angle, size, 1.0f + i/10.0f, MathUtils.random(1, 5),MathUtils.random(1, 2));
+
 			
 			gameStage.addActor(new Beaver(physicsWorld, island));
-		
+
 		}
 		
 		gameStage.addActor(new EarthCore(physicsWorld));
@@ -143,18 +147,26 @@ public class GameScreen extends InputAdapter implements Screen{
 		
 		zoom = 1.0f;
 	}
-	
-	private Island addIsland(float ang, float size, float len, int numSilos) {
+
+	private Island addIsland(float ang, float size, float len, int numSilos,int numPools) {
 		Island island = new Island(physicsWorld, ang, size, len * Water.WATER_RADIUS);
 		gameStage.addActor(island);
 		for (int i=0; i<numSilos; ++i) {
 			gameStage.addActor(new Silo(physicsWorld, island, MathUtils.random()));
 		}
+		for (int i=0; i<numPools; ++i) {
+			gameStage.addActor(new Pool(physicsWorld, island, MathUtils.random()));
+		}
 		return island;
+
 	}
 	
 	public void onSiloBoom(Silo s) {
 		if (!silosToBoom.contains(s, true)) silosToBoom.add(s);
+	}
+	
+	public void onPoolBoom(Pool p){
+		if(!poolsToBoom.contains(p, true)) poolsToBoom.add(p);
 	}
 	
 	public void upgrade(Upgrade u) {
@@ -202,8 +214,15 @@ public class GameScreen extends InputAdapter implements Screen{
 			waterRaiseBuffer -= amntRise;
 			Water.WATER_RADIUS += amntRise;
 		}
-		
+				
 		silosToBoom.clear();
+		
+		for (Pool p : poolsToBoom) {
+			p.remove();
+			Water.WATER_RADIUS += 0.95f;
+		}
+				
+		poolsToBoom.clear();
 		
 		for (Upgrade u : upgradesToRemove) {
 			u.remove();

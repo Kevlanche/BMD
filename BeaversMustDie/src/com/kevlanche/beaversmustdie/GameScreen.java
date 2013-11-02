@@ -126,7 +126,7 @@ public class GameScreen extends InputAdapter implements Screen{
 		
 		gameStage.addActor(shark);
 		
-		gameStage.addActor(new Upgrade(physicsWorld, new Vector2(5.0f, 5.0f)));
+		gameStage.addActor(new Upgrade(physicsWorld, new Vector2(5.0f, 5.0f),1));
 		
 		if (Mane.PHYSICS_DEBUG)
 			gameStage.addActor(new Box2dDebug(physicsWorld));
@@ -176,7 +176,11 @@ public class GameScreen extends InputAdapter implements Screen{
 		
 		for (Upgrade u : upgradesToRemove) {
 			u.remove();
-			shark.addUpgrade();
+			switch(u.getType()){
+			case 1:
+				shark.addJumpUpgrade();
+				break;
+			}
 		}
 		
 		upgradesToRemove.clear();

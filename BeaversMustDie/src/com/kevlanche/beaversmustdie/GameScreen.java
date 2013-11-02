@@ -114,7 +114,7 @@ public class GameScreen extends InputAdapter implements Screen{
 			}
 		});
 
-		MathUtils.random.setSeed(22);
+		MathUtils.random.setSeed(333);
 		
 		for (int i=0; i<10; ++i) {
 			boolean notDone = true;
@@ -238,6 +238,27 @@ public class GameScreen extends InputAdapter implements Screen{
 		}
 		
 	}
+	
+	private void rmBeaver(PhysicsActor s) {
+		ParticleEffect pe = ParticlePool.get();
+		pe.setColor(Color.RED);
+		float ang = s.getRotation();
+		Vector2 sides = new Vector2( s.getWidth(), s.getHeight());
+		sides.rotate(ang);
+		Vector2 mid = new Vector2(	s.getX() + sides.x/2,
+									s.getY() + sides.y/2
+									);
+		pe.setPosition(mid.x - s.getWidth()/2, mid.y - s.getHeight()/2);
+		pe.setSize(s.getWidth(), s.getHeight());
+		pe.init(Assets.shark, 50.0f, 10);
+		gameStage.addActor(pe);
+		
+		s.physicsBody.setActive(false);
+		s.addAction(Actions.sequence( Actions.fadeOut(0.25f),
+										Actions.removeActor() ));		
+		
+	}
+	
 	@Override
 	public void render(float delta) {
 		
@@ -284,7 +305,7 @@ public class GameScreen extends InputAdapter implements Screen{
 		upgradesToRemove.clear();
 		
 		for(Beaver b : beaversToRemove) {
-			b.remove();
+			rmBeaver(b);
 			//TODO SPLASH BLOOD EFFECT
 		}
 		

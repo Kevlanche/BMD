@@ -1,6 +1,7 @@
 package com.kevlanche.beaversmustdie;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
@@ -11,6 +12,8 @@ public class Assets {
 	public static TextureRegion alphabet, smiley, earthCore, island, pole, silo;
 	
 	public static TextureRegion shark;
+	
+	public static Music bg_music;
 
 	public static void load() {
 		atlas = new TextureAtlas(Gdx.files.internal("data/pack.atlas"));
@@ -21,6 +24,7 @@ public class Assets {
 		pole = find("pole");
 		silo = find("silo");
 		shark = find("shark");
+		bg_music = Gdx.audio.newMusic(Gdx.files.internal("data/shark_concept.wav"));
 	}
 	private static TextureRegion find(String name) {
 		return atlas.findRegion(name);

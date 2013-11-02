@@ -3,6 +3,7 @@ package com.kevlanche.beaversmustdie;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputAdapter;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.GL10;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
@@ -42,6 +43,11 @@ public class GameScreen extends InputAdapter implements Screen{
 		
 		physicsWorld = new World(Vector2.Zero, false);
 		new CollisionManager(physicsWorld, this);
+		
+		Music music = Assets.bg_music;
+		music.setLooping(true);
+		music.play();
+		disposables.add(music);
 		
 		Sky sky = new Sky();
 		gameStage.addActor(sky);

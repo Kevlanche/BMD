@@ -25,7 +25,7 @@ public class ParticleEffect extends Group implements Poolable {
 	
 	@Override
 	public void reset() {
-		remove();
+		clearActions();
 		setColor(Color.WHITE);
 		init(Assets.smiley, 0.001f, 100);
 	}

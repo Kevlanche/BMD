@@ -182,6 +182,30 @@ public class Shark extends PhysicsActor {
 				shark.flip(true, false);
 		}
 		super.draw(batch, parentAlpha, Assets.shark);
+		
+		float ang = getRotation();
+		
+		// BOTTOM FIN 
+		
+		Vector2 off = new Vector2(getWidth()*0.5f - getWidth()/8, -getHeight()/8);
+		off.rotate(ang);
+		
+		TextureRegion bFin = jumpUpgrade ? Assets.bottom_fin_wing : Assets.bottom_fin_default;
+		if (shark.isFlipX() != bFin.isFlipX())
+			bFin.flip(true, false);
+		batch.draw(bFin, getX()+off.x, getY() + off.y, 0.0f, 0.0f, getWidth()/4, getHeight()/3, 1.0f, 1.0f, ang);
+		
+		
+		// TOP FIN
+		
+		off.set(getWidth()*0.5f - getWidth()/8, getHeight()*0.85f);
+		off.rotate(ang);
+		
+		TextureRegion tFin = Assets.top_fin_default;
+		if (shark.isFlipX() != tFin.isFlipX())
+			tFin.flip(true, false);
+		batch.draw(tFin, getX()+off.x, getY() + off.y, 0.0f, 0.0f, getWidth()/4, getHeight()/3, 1.0f, 1.0f, ang);
+		
 	}
 	
 	public void addJumpUpgrade() {

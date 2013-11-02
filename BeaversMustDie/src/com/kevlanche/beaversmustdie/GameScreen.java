@@ -7,6 +7,7 @@ import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL10;
 import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.math.Interpolation;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.World;
@@ -49,8 +50,8 @@ public class GameScreen extends InputAdapter implements Screen{
 	
 	public GameScreen() {
 		
-		Gdx.gl.glEnable(GL20.GL_BLEND);
-		Gdx.gl.glBlendFunc(GL20.GL_SRC_COLOR, GL20.GL_DST_ALPHA);
+//		Gdx.gl.glEnable(GL20.GL_BLEND);
+//		Gdx.gl.glBlendFunc(GL20.GL_SRC_COLOR, GL20.GL_DST_ALPHA);
 	
 		disposables = new Array<Disposable>();
 		silosToBoom = new Array<Silo>();
@@ -116,9 +117,8 @@ public class GameScreen extends InputAdapter implements Screen{
 			}
 		});
 
-
-		MathUtils.random.setSeed(117);
-
+		MathUtils.random.setSeed(333);
+		
 		for (int i=0; i<10; ++i) {
 			boolean notDone = true;
 			int angle;
@@ -231,7 +231,7 @@ public class GameScreen extends InputAdapter implements Screen{
 									);
 		pe.setPosition(mid.x - s.getWidth()/2, mid.y - s.getHeight()/2);
 		pe.setSize(s.getWidth(), s.getHeight());
-		pe.init(Assets.smiley, 50.0f, 10);
+		pe.init(Assets.shark, 50.0f, 10);
 		gameStage.addActor(pe);
 		
 		s.physicsBody.setActive(false);
@@ -261,13 +261,27 @@ public class GameScreen extends InputAdapter implements Screen{
 									);
 		pe.setPosition(mid.x - s.getWidth()/2, mid.y - s.getHeight()/2);
 		pe.setSize(s.getWidth(), s.getHeight());
-		pe.init(Assets.shark, 50.0f, 10);
+		pe.init(Assets.smiley, 50.0f, 10);
 		gameStage.addActor(pe);
 		
 		s.physicsBody.setActive(false);
 		s.addAction(Actions.sequence( Actions.fadeOut(0.25f),
+										Actions.removeActor() ));
+		s.physicsBody.setActive(false);
+		s.addAction(Actions.sequence( Actions.fadeOut(0.25f),
 										Actions.removeActor() ));		
 		
+	}
+	
+	private LBL constructUpgradeLabel(String msg) {
+		LBL ret = new LBL(msg, 2.5f);
+		ret.setColor(Color.GREEN);
+		ret.position(Mane.WIDTH/2, Mane.HEIGHT/2, 0.5f, 0.5f);
+		ret.addAction(Actions.sequence(
+										Actions.parallel( 	Actions.moveBy(0.0f, Mane.HEIGHT/4, 2.0f, Interpolation.exp5Out),
+															Actions.fadeOut(2.0f) ),
+										Actions.removeActor()));
+		return ret;
 	}
 	
 	@Override
@@ -313,20 +327,22 @@ public class GameScreen extends InputAdapter implements Screen{
 		}
 		
 		for (Upgrade u : upgradesToRemove) {
-			u.remove();
+			
 			switch(u.getType()){
-			case 1:
-				shark.addJumpUpgrade();
-				break;
+				case 1:
+					guiStage.addActor(constructUpgradeLabel("Wing fins unlocked"));
+					shark.addJumpUpgrade();
+					break;
 			}
+			u.remove();
 		}
-		
 		upgradesToRemove.clear();
 		
 		for(Beaver b : beaversToRemove) {
 			rmBeaver(b);
 			//TODO SPLASH BLOOD EFFECT
 		}
+		beaversToRemove.clear();
 		
 		gameStage.act(delta);
 		

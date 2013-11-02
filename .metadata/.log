@@ -27,3 +27,6 @@ org.eclipse.core.internal.resources.ResourceException: Resource '/BeaversMustDie
 
 !ENTRY com.android.ide.eclipse.adt 1 0 2013-11-02 20:30:12.631
 !MESSAGE com.android.ide.eclipse.adt
+
+!ENTRY org.eclipse.ui 4 4 2013-11-03 00:04:52.133
+!MESSAGE Referenced part does not exist yet: org.eclipse.ui.views.ProblemView.

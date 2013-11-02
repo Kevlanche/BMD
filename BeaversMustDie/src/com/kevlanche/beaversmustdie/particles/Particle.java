@@ -37,7 +37,7 @@ public class Particle extends Actor implements Poolable {
 	public void draw(SpriteBatch batch, float parentAlpha) {
 		Color c = batch.getColor();
 		batch.setColor(getColor());
-		batch.draw(Assets.shark, getX(), getY(), getOriginX(), getOriginY(), getWidth(), getHeight(), getScaleX(), getScaleY(), getRotation());
+		batch.draw(sprite, getX(), getY(), getOriginX(), getOriginY(), getWidth(), getHeight(), getScaleX(), getScaleY(), getRotation());
 		batch.setColor(c);
 	}
 
@@ -45,6 +45,7 @@ public class Particle extends Actor implements Poolable {
 	public void reset() {
 		clearActions();
 		setColor(Color.WHITE);
+		sprite = Assets.smiley;
 	}
 	
 }

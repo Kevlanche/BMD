@@ -18,9 +18,9 @@
 <fullyQualifiedTypeName name="com.kevlanche.beaversmustdie.EarthCore"/>
 <fullyQualifiedTypeName name="com.kevlanche.beaversmustdie.Silo"/>
 <fullyQualifiedTypeName name="com.badlogic.gdx.math.MathUtils"/>
-<fullyQualifiedTypeName name="com.kevlanche.beaversmustdie.Collision"/>
 <fullyQualifiedTypeName name="com.badlogic.gdx.physics.box2d.World"/>
 <fullyQualifiedTypeName name="com.badlogic.gdx.physics.box2d.Fixture"/>
 <fullyQualifiedTypeName name="com.kevlanche.beaversmustdie.CollisionManager"/>
 <fullyQualifiedTypeName name="java.lang.Math"/>
+<fullyQualifiedTypeName name="com.kevlanche.beaversmustdie.Collision"/>
 </qualifiedTypeNameHistroy>

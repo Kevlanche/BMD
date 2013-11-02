@@ -10,6 +10,7 @@ import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
 import com.badlogic.gdx.physics.box2d.CircleShape;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
+import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
 
 public class Shark extends PhysicsActor {
@@ -50,9 +51,11 @@ public class Shark extends PhysicsActor {
 		fd.restitution = 0.0f;
 		fd.friction = 0.0f;
 		
-		CircleShape ps = new CircleShape();
-		ps.setPosition(new Vector2(0.5f, 0.5f));
-		ps.setRadius(0.5f);
+		PolygonShape ps = new PolygonShape();
+//		ps.setPosition(new Vector2(1.0f, 0.5f));
+//		ps.setRadius(0.5f);
+		ps.setAsBox(1.0f, 0.5f, new Vector2(1.0f, 0.5f), 0.0f);
+		
 		fd.shape = ps;
 		
 		body.createFixture(fd);
@@ -61,7 +64,7 @@ public class Shark extends PhysicsActor {
 		
 		super.initPhysicsBody(body);
 		
-		setSize(Mane.PTM_RATIO, Mane.PTM_RATIO);
+		setSize(2*Mane.PTM_RATIO, Mane.PTM_RATIO);
 //		setOrigin(getWidth()/2, getHeight()/2);
 		inWater = true;
 		canJump = true;
@@ -155,7 +158,7 @@ public class Shark extends PhysicsActor {
 
 	@Override
 	public void draw(SpriteBatch batch, float parentAlpha) {
-		super.draw(batch, parentAlpha, Assets.smiley);
+		super.draw(batch, parentAlpha, Assets.shark);
 	}
 	
 	public void addUpgrade() {

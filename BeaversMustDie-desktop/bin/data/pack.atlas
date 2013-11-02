@@ -5,42 +5,77 @@ filter: Nearest,Nearest
 repeat: none
 alphabet
   rotate: false
-  xy: 2, 166
+  xy: 2, 168
   size: 128, 64
   orig: 128, 64
   offset: 0, 0
   index: -1
+bottom_fin_default
+  rotate: false
+  xy: 132, 70
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+bottom_fin_wing
+  rotate: false
+  xy: 166, 200
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
 earthcore
   rotate: false
-  xy: 36, 98
+  xy: 68, 34
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 island
   rotate: false
-  xy: 2, 132
+  xy: 2, 68
   size: 128, 32
   orig: 128, 32
   offset: 0, 0
   index: -1
 pole
   rotate: false
-  xy: 2, 2
+  xy: 132, 104
   size: 32, 128
   orig: 32, 128
   offset: 0, 0
   index: -1
+shark
+  rotate: false
+  xy: 2, 102
+  size: 128, 64
+  orig: 128, 64
+  offset: 0, 0
+  index: -1
 silo
   rotate: false
-  xy: 132, 166
+  xy: 2, 2
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
   index: -1
+silo
+  rotate: false
+  xy: 2, 2
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: 2
 smiley
   rotate: false
-  xy: 132, 132
+  xy: 166, 166
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+top_fin_default
+  rotate: false
+  xy: 200, 200
   size: 32, 32
   orig: 32, 32
   offset: 0, 0

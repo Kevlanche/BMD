@@ -48,6 +48,11 @@ public class CollisionManager implements ContactListener  {
 			
 			gs.shark.canJump = true;
 
+		}else if ( (ca == Collision.SHARK && cb == Collision.WATERTOWER) ||
+				 (cb == Collision.SHARK && ca == Collision.WATERTOWER) ) {
+			
+				gs.onTowerBoom( (WaterTower) (ca == Collision.WATERTOWER ? contact.getFixtureA().getUserData() : contact.getFixtureB().getUserData()) );
+		
 		}
 			
 	

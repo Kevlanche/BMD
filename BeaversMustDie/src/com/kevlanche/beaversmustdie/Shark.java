@@ -178,7 +178,7 @@ public class Shark extends PhysicsActor {
 		super.draw(batch, parentAlpha, Assets.shark);
 	}
 	
-	public void addUpgrade() {
+	public void addJumpUpgrade() {
 		
 		jumpUpgrade = true;
 	}

@@ -25,6 +25,7 @@ public class GameScreen extends InputAdapter implements Screen{
 	private World physicsWorld;
 	float physicsTimeBuffer;
 	
+	private Array<Beaver> beaversToRemove;
 	private Array<Silo> silosToBoom;
 	private Array<Pool> poolsToBoom;
 	private Array<Upgrade> upgradesToRemove;
@@ -36,6 +37,7 @@ public class GameScreen extends InputAdapter implements Screen{
 		silosToBoom = new Array<Silo>();
 		poolsToBoom = new Array<Pool>();
 		upgradesToRemove = new Array<Upgrade>();
+		beaversToRemove = new Array<Beaver>();
 		islandAngles = new Array<Integer>();
 		
 		gameStage = new Stage();
@@ -116,29 +118,36 @@ public class GameScreen extends InputAdapter implements Screen{
 
 			} while (notDone);
 
-			addIsland((float)angle, size, 1.0f + i/15.0f, MathUtils.random(1, 5),MathUtils.random(1, 2));
+
+			Island island = addIsland((float)angle, size, 1.0f + i/15.0f, MathUtils.random(1, 5),MathUtils.random(1, 2));
+			
+			gameStage.addActor(new Beaver(physicsWorld, island));
+
 		}
 		
 		gameStage.addActor(new EarthCore(physicsWorld));
 		
 		gameStage.addActor(shark);
 		
-		gameStage.addActor(new Upgrade(physicsWorld, new Vector2(5.0f, 5.0f)));
+		gameStage.addActor(new Upgrade(physicsWorld, new Vector2(5.0f, 5.0f),1));
 		
 		if (Mane.PHYSICS_DEBUG)
 			gameStage.addActor(new Box2dDebug(physicsWorld));
 		
 		zoom = 1.0f;
 	}
-	private void addIsland(float ang, float size, float len, int numSilos, int numPools) {
+
+	private Island addIsland(float ang, float size, float len, int numSilos,int numPools) {
 		Island island = new Island(physicsWorld, ang, size, len * Water.WATER_RADIUS);
 		gameStage.addActor(island);
 		for (int i=0; i<numSilos; ++i) {
 			gameStage.addActor(new Silo(physicsWorld, island, MathUtils.random()));
 		}
-		for (int i=0; i<numSilos; ++i) {
+		for (int i=0; i<numPools; ++i) {
 			gameStage.addActor(new Pool(physicsWorld, island, MathUtils.random()));
 		}
+		return island;
+
 	}
 	
 	public void onSiloBoom(Silo s) {
@@ -185,7 +194,11 @@ public class GameScreen extends InputAdapter implements Screen{
 		
 		for (Upgrade u : upgradesToRemove) {
 			u.remove();
-			shark.addUpgrade();
+			switch(u.getType()){
+			case 1:
+				shark.addJumpUpgrade();
+				break;
+			}
 		}
 		
 		upgradesToRemove.clear();

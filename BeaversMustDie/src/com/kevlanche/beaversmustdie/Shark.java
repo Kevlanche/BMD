@@ -22,6 +22,9 @@ public class Shark extends PhysicsActor {
 	
 	boolean canJump;
 	float airTime;
+	
+	boolean jumpUpgrade = false;
+	
 	SharkSweetAirJumpTimeReportReceiver listener;
 	
 	public interface SharkSweetAirJumpTimeReportReceiver {
@@ -42,7 +45,7 @@ public class Shark extends PhysicsActor {
 		FixtureDef fd = new FixtureDef();
 		fd.density = 0.0f;
 		fd.filter.categoryBits = Collision.SHARK;
-		fd.filter.maskBits = Collision.ISLAND | Collision.EARTH_CORE | Collision.SILO;
+		fd.filter.maskBits = Collision.ISLAND | Collision.EARTH_CORE | Collision.SILO | Collision.UPGRADE;
 		
 		fd.restitution = 0.0f;
 		fd.friction = 0.0f;
@@ -82,7 +85,7 @@ public class Shark extends PhysicsActor {
 		if (Gdx.input.isKeyPressed(Keys.D))
 			mvx++;
 		
-		if (canJump && Gdx.input.isKeyPressed(Keys.SPACE) && !inWater) {
+		if (jumpUpgrade && canJump && Gdx.input.isKeyPressed(Keys.SPACE) && !inWater) {
 			Vector2 speed = physicsBody.getLinearVelocity();
 			Vector2 jumpAdd = new Vector2(0.0f, 20.0f);
 			jumpAdd.rotate(getRotation());
@@ -153,6 +156,11 @@ public class Shark extends PhysicsActor {
 	@Override
 	public void draw(SpriteBatch batch, float parentAlpha) {
 		super.draw(batch, parentAlpha, Assets.smiley);
+	}
+	
+	public void addUpgrade() {
+		
+		jumpUpgrade = true;
 	}
 	
 }

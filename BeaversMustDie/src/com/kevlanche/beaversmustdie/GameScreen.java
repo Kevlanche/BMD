@@ -25,11 +25,13 @@ public class GameScreen extends InputAdapter implements Screen{
 	float physicsTimeBuffer;
 	
 	private Array<Silo> silosToBoom;
+	private Array<Upgrade> upgradesToRemove;
 	
 	public GameScreen() {
 	
 		disposables = new Array<Disposable>();
 		silosToBoom = new Array<Silo>();
+		upgradesToRemove = new Array<Upgrade>();
 		
 		gameStage = new Stage();
 		guiStage = new Stage();
@@ -74,7 +76,7 @@ public class GameScreen extends InputAdapter implements Screen{
 		
 		gameStage.addActor(shark);
 		
-		gameStage.addActor(new Upgrade(physicsWorld));
+		gameStage.addActor(new Upgrade(physicsWorld, new Vector2(5.0f, 5.0f)));
 		
 		if (Mane.PHYSICS_DEBUG)
 			gameStage.addActor(new Box2dDebug(physicsWorld));
@@ -91,6 +93,12 @@ public class GameScreen extends InputAdapter implements Screen{
 	
 	public void onSiloBoom(Silo s) {
 		if (!silosToBoom.contains(s, true)) silosToBoom.add(s);
+	}
+	
+	public void upgrade(Upgrade u) {
+	
+		if(!upgradesToRemove.contains(u, true)) upgradesToRemove.add(u);
+		
 	}
 	
 	private static final float TIME_STEP = 1.0f / 60.0f;
@@ -113,6 +121,13 @@ public class GameScreen extends InputAdapter implements Screen{
 		}
 		
 		silosToBoom.clear();
+		
+		for (Upgrade u : upgradesToRemove) {
+			u.remove();
+			shark.addUpgrade();
+		}
+		
+		upgradesToRemove.clear();
 		
 		gameStage.act(delta);
 		
@@ -176,6 +191,7 @@ public class GameScreen extends InputAdapter implements Screen{
 		zoom = MathUtils.clamp(zoom - amount*0.1f, 0.25f, 2.5f);
 		return true;
 	}
+
 	
 
 }

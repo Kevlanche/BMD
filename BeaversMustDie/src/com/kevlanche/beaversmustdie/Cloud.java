@@ -8,6 +8,7 @@ import com.badlogic.gdx.scenes.scene2d.Actor;
 public class Cloud extends Actor{
 	float posX;
 	float posY;
+	float scale;
 	
 	float angle;
 	float length;
@@ -15,18 +16,14 @@ public class Cloud extends Actor{
 	float rotSpeed;
 	float time;
 	
-	public Cloud(float angle, float length){
-		//posY = 1500+200*randY;
-		//posX = 10000*randX;
+	public Cloud(float angle, float length, float scale){
+		
 		this.angle = angle;
 		this.length = length;
+		this.scale = scale;
 		
 		this.rotSpeed = MathUtils.random(1.5f, 2.5f) * MathUtils.random(0, 1) > 0 ? 1 : -1;
 		this.time = 0.0f;
-//		posX = MathUtils.cosDeg(angle)*length;
-//		posY = MathUtils.sinDeg(angle)*length;
-//		float ang = MathUtils.atan2(posY, posX) + MathUtils.PI;
-//		setRotation(MathUtils.radiansToDegrees * ang + 90.0f);
 	}
 	
 	
@@ -49,7 +46,7 @@ public class Cloud extends Actor{
 		float ang = MathUtils.atan2(posY, posX) + MathUtils.PI;
 		setRotation(MathUtils.radiansToDegrees * ang + 90.0f);
 		
-		batch.draw(Assets.cloud, posX, posY, 0.0f, 0.0f, 200, 100, 1.0f, 1.0f, getRotation());
+		batch.draw(Assets.cloud, posX, posY, 0.0f, 0.0f, 200, 100, 1.0f*scale, 1.0f*scale, getRotation());
 		//batch.draw(Assets.smiley, posX, posY, getOriginX(), getOriginY(), getWidth(), getHeight(), 1, 1, getRotation());		
 	}
 

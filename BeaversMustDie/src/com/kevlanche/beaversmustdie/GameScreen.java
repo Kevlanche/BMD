@@ -73,7 +73,7 @@ public class GameScreen extends InputAdapter implements Screen{
 		disposables.add(water);
 		
 		for(int i =0; i<20; i++){
-			Cloud cloud = new Cloud(MathUtils.random(0.0f, 360.0f) , Mane.PTM_RATIO * MathUtils.random(Water.WATER_RADIUS * 0.25f, Water.WATER_RADIUS * 1.5f));
+			Cloud cloud = new Cloud(MathUtils.random(0.0f, 360.0f) , Mane.PTM_RATIO * MathUtils.random(Water.WATER_RADIUS * 0.25f, Water.WATER_RADIUS * 1.5f),MathUtils.random(1.0f,4.0f));
 			gameStage.addActor(cloud);
 		}
 		

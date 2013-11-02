@@ -37,7 +37,7 @@ public class Water extends Actor implements Disposable {
 		}
 		
 		int i;
-		final int triangles = 50;
+		final int triangles = 500;
 	 
 
 		

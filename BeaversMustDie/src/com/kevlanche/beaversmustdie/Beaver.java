@@ -18,6 +18,7 @@ public class Beaver extends PhysicsActor {
 	public Beaver(World world, Island island) {
 		this.island = island;
 		float scale = 1.0f;
+		float radius = 1.0f;
 		BodyDef bd = new BodyDef();
 		bd.type = BodyDef.BodyType.DynamicBody;
 
@@ -53,7 +54,8 @@ public class Beaver extends PhysicsActor {
 		fd.isSensor = true;
 
 		CircleShape cs = new CircleShape();
-		cs.setRadius(1.0f);
+		cs.setRadius(radius);
+		cs.setPosition(new Vector2(radius/2, radius/2));
 
 
 		fd.shape = cs;

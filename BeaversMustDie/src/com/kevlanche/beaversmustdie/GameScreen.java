@@ -153,6 +153,12 @@ public class GameScreen extends InputAdapter implements Screen{
 		
 	}
 	
+	public void killBeaver(Beaver beaver) {
+		
+		if(!beaversToRemove.contains(beaver, true)) beaversToRemove.add(beaver);
+		
+	}
+	
 	private static final float TIME_STEP = 1.0f / 60.0f;
 	
 	@Override
@@ -180,6 +186,11 @@ public class GameScreen extends InputAdapter implements Screen{
 		}
 		
 		upgradesToRemove.clear();
+		
+		for(Beaver b : beaversToRemove) {
+			b.remove();
+			//TODO SPLASH BLOOD EFFECT
+		}
 		
 		gameStage.act(delta);
 		
@@ -243,6 +254,8 @@ public class GameScreen extends InputAdapter implements Screen{
 		zoom = MathUtils.clamp(zoom - amount*0.1f, 0.25f, 2.5f);
 		return true;
 	}
+
+
 
 	
 

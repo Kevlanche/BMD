@@ -104,6 +104,8 @@ public class GameScreen extends InputAdapter implements Screen{
 			}
 		});
 
+		MathUtils.random.setSeed(22);
+		
 		for (int i=0; i<10; ++i) {
 			boolean notDone = true;
 			int angle;

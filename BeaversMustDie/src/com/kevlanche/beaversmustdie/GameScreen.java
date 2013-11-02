@@ -4,14 +4,19 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputAdapter;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.audio.Music;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL10;
+import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Disposable;
 import com.kevlanche.beaversmustdie.Shark.SharkSweetAirJumpTimeReportReceiver;
+import com.kevlanche.beaversmustdie.particles.ParticleEffect;
+import com.kevlanche.beaversmustdie.particles.ParticlePool;
 
 public class GameScreen extends InputAdapter implements Screen{
 
@@ -30,6 +35,9 @@ public class GameScreen extends InputAdapter implements Screen{
 	private Array<Integer> islandAngles;
 	
 	public GameScreen() {
+		
+		Gdx.gl.glEnable(GL20.GL_BLEND);
+		Gdx.gl.glBlendFunc(GL20.GL_SRC_COLOR, GL20.GL_DST_ALPHA);
 	
 		disposables = new Array<Disposable>();
 		silosToBoom = new Array<Silo>();
@@ -156,7 +164,22 @@ public class GameScreen extends InputAdapter implements Screen{
 		}
 		
 		for (Silo s : silosToBoom) {
-			s.remove();
+			ParticleEffect pe = ParticlePool.get();
+			pe.setColor(Color.BLUE);
+			float ang = s.getRotation();
+			Vector2 sides = new Vector2( s.getWidth(), s.getHeight());
+			sides.rotate(ang);
+			Vector2 mid = new Vector2(	s.getX() + sides.x/2,
+										s.getY() + sides.y/2
+										);
+			pe.setPosition(mid.x - s.getWidth()/2, mid.y - s.getHeight()/2);
+			pe.setSize(s.getWidth(), s.getHeight());
+			pe.init(Assets.smiley, 50.0f, 10);
+			gameStage.addActor(pe);
+			
+			s.physicsBody.setActive(false);
+			s.addAction(Actions.sequence( Actions.fadeOut(0.25f),
+											Actions.removeActor() ));
 			Water.WATER_RADIUS += 0.75f;
 		}
 		

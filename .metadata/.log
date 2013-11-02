@@ -24,3 +24,6 @@ org.eclipse.core.internal.resources.ResourceException: Resource '/BeaversMustDie
 	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:54)
 !SUBENTRY 1 org.eclipse.core.resources 4 368 2013-11-02 19:59:30.008
 !MESSAGE Resource '/BeaversMustDie-android/res' does not exist.
+
+!ENTRY com.android.ide.eclipse.adt 1 0 2013-11-02 20:30:12.631
+!MESSAGE com.android.ide.eclipse.adt

@@ -4,14 +4,19 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputAdapter;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.audio.Music;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL10;
+import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Disposable;
 import com.kevlanche.beaversmustdie.Shark.SharkSweetAirJumpTimeReportReceiver;
+import com.kevlanche.beaversmustdie.particles.ParticleEffect;
+import com.kevlanche.beaversmustdie.particles.ParticlePool;
 
 public class GameScreen extends InputAdapter implements Screen{
 
@@ -32,6 +37,9 @@ public class GameScreen extends InputAdapter implements Screen{
 	private Array<Integer> islandAngles;
 	
 	public GameScreen() {
+		
+		Gdx.gl.glEnable(GL20.GL_BLEND);
+		Gdx.gl.glBlendFunc(GL20.GL_SRC_COLOR, GL20.GL_DST_ALPHA);
 	
 		disposables = new Array<Disposable>();
 		silosToBoom = new Array<Silo>();
@@ -62,7 +70,7 @@ public class GameScreen extends InputAdapter implements Screen{
 		disposables.add(water);
 		
 		for(int i =0; i<20; i++){
-			Cloud cloud = new Cloud(MathUtils.random(0.0f, 360.0f) ,MathUtils.random(1500.0f, 2000.0f));
+			Cloud cloud = new Cloud(MathUtils.random(0.0f, 360.0f) , Mane.PTM_RATIO * MathUtils.random(Water.WATER_RADIUS * 0.25f, Water.WATER_RADIUS * 1.5f));
 			gameStage.addActor(cloud);
 		}
 		
@@ -89,7 +97,7 @@ public class GameScreen extends InputAdapter implements Screen{
 			}
 		});
 		
-		for (int i=0; i<10; ++i) {
+		for (int i=0; i<20; ++i) {
 			boolean notDone = true;
 			int angle;
 			float size= MathUtils.random(2.5f, 5.0f);
@@ -101,8 +109,8 @@ public class GameScreen extends InputAdapter implements Screen{
 				}
 				for (int t = 0; t <= islandAngles.size; ++t) {
 
-					if (((islandAngles.get(t) - angle) > -size/0.2f
-							&& (islandAngles.get(t) - angle) < size/0.2f) && (Math.abs(t-i)<size) ) //|| (((islandAngles.get(t) - angle) > -3
+					if (((islandAngles.get(t) - angle) > -size/0.1f
+							&& (islandAngles.get(t) - angle) < size/0.1f) && (Math.abs(t-i)<size/1.1f) ) //|| (((islandAngles.get(t) - angle) > -3
 							//&& (islandAngles.get(t) - angle) < 3) && size<3 )) { //&& (Math.abs(t-i)>10) insert later to accept small angle when big height diff.
 					{
 						break;
@@ -119,7 +127,8 @@ public class GameScreen extends InputAdapter implements Screen{
 			} while (notDone);
 
 
-			Island island = addIsland((float)angle, size, 1.0f + i/15.0f, MathUtils.random(1, 5),MathUtils.random(1, 2));
+			Island island = addIsland((float)angle, size, 1.0f + i/10.0f, MathUtils.random(1, 5),MathUtils.random(1, 2));
+
 			
 			gameStage.addActor(new Beaver(physicsWorld, island));
 
@@ -179,7 +188,22 @@ public class GameScreen extends InputAdapter implements Screen{
 		}
 		
 		for (Silo s : silosToBoom) {
-			s.remove();
+			ParticleEffect pe = ParticlePool.get();
+			pe.setColor(Color.BLUE);
+			float ang = s.getRotation();
+			Vector2 sides = new Vector2( s.getWidth(), s.getHeight());
+			sides.rotate(ang);
+			Vector2 mid = new Vector2(	s.getX() + sides.x/2,
+										s.getY() + sides.y/2
+										);
+			pe.setPosition(mid.x - s.getWidth()/2, mid.y - s.getHeight()/2);
+			pe.setSize(s.getWidth(), s.getHeight());
+			pe.init(Assets.smiley, 50.0f, 10);
+			gameStage.addActor(pe);
+			
+			s.physicsBody.setActive(false);
+			s.addAction(Actions.sequence( Actions.fadeOut(0.25f),
+											Actions.removeActor() ));
 			Water.WATER_RADIUS += 0.75f;
 		}
 				
@@ -212,7 +236,7 @@ public class GameScreen extends InputAdapter implements Screen{
 										-Mane.HEIGHT/(2*zoom) + shark.getY() + shark.getHeight()/2, 0.0f);
 		
 		if (!Mane.PHYSICS_DEBUG) {
-			float sharkAng = shark.getRotation() + 90.0f; //TODO räkna vinkel på sharks position
+			float sharkAng = MathUtils.radiansToDegrees * MathUtils.atan2(shark.getY()+shark.getHeight()/2, shark.getX()+shark.getWidth()/2);// shark.getRotation() + 90.0f; //TODO räkna vinkel på sharks position
 			gameStage.getCamera().up.set( MathUtils.cosDeg(sharkAng), MathUtils.sinDeg(sharkAng), 0.0f);
 		}
 		gameStage.draw();

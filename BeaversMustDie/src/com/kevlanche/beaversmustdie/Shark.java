@@ -82,7 +82,7 @@ public class Shark extends PhysicsActor {
 		if (Gdx.input.isKeyPressed(Keys.D))
 			mvx++;
 		
-		if (canJump && Gdx.input.isKeyPressed(Keys.SPACE)) {
+		if (canJump && Gdx.input.isKeyPressed(Keys.SPACE) && !inWater) {
 			Vector2 speed = physicsBody.getLinearVelocity();
 			Vector2 jumpAdd = new Vector2(0.0f, 20.0f);
 			jumpAdd.rotate(getRotation());
@@ -135,38 +135,13 @@ public class Shark extends PhysicsActor {
 		
 		trans.scl(20.0f * delta);
 		
-//		frictionTimer += delta;
-//		if (frictionTimer > 0.05f) {
-//			
-//			speed.scl( (float)Math.pow(0.99f, (int)(frictionTimer/0.05f)) );
-//			frictionTimer %= 0.05f;
-//		}
-//		
-//		speed.x += trans.x;
-//		speed.y += trans.y;
-//		
-//		if (speed.len() > 10.0f)
-//			speed.nor().scl(10.0f);
-//		
-//		trans.set(speed);
-		
 		trans.rotate(getRotation());
 		
-//		translate(trans.x, trans.y);
 		Vector2 vel = physicsBody.getLinearVelocity();
 		vel.add(trans);
-		if (vel.len() > 20.0f)
-			vel.nor().scl(20.0f);
+		if (vel.len() > 40.0f)
+			vel.nor().scl(40.0f);
 		physicsBody.setLinearVelocity(vel);
-		
-//		distFromCenter = (float)Math.hypot(getX()+getWidth()/2, getY()+getHeight()/2) / Mane.PTM_RATIO;
-//		
-//		if (distFromCenter < Water.EARTH_RADIUS) { //move out of the earth's core, dummy!
-//			trans.set(0.0f, Mane.PTM_RATIO * (Water.EARTH_RADIUS-distFromCenter));
-//			trans.rotate(getRotation());
-//			translate(trans.x, trans.y);
-//			speed.y = Math.max(0.0f, speed.y);
-//		}
 		
 		Vector2 pos = physicsBody.getPosition();
 		float ang = MathUtils.atan2(pos.y, pos.x) + MathUtils.PI; // MathUtils.atan2(getY()+getHeight()/2, getX()+getWidth()/2)+ MathUtils.PI;

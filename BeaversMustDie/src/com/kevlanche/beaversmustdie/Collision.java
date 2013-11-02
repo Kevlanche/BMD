@@ -5,5 +5,5 @@ public class Collision {
 								SHARK = 1 << 1,
 								EARTH_CORE = 1 << 2,
 								ISLAND = 1 << 3,
-								SILO = 1 << 4; //TODO
+								SILO = 1 << 4;
 }

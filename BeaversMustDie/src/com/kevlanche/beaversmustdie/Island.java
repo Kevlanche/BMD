@@ -46,8 +46,6 @@ public class Island extends PhysicsActor {
 		for (int i=0; i<vertices.length; i+=2) {
 			vertices[i] *= scale;
 			vertices[i+1] *= scale;
-			
-//			vertices[i] -= scale/2;
 		}
 		
 		PolygonShape ps = new PolygonShape();

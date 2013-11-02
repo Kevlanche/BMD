@@ -17,7 +17,7 @@ public class GameScreen extends InputAdapter implements Screen{
 	private Array<Disposable> disposables;
 
 	private float zoom;
-	private Stage gameStage, gui;
+	private Stage gameStage, guiStage;
 
 	private Shark shark;
 	
@@ -32,9 +32,9 @@ public class GameScreen extends InputAdapter implements Screen{
 		silosToBoom = new Array<Silo>();
 		
 		gameStage = new Stage();
-		gui = new Stage();
+		guiStage = new Stage();
 		disposables.add(gameStage);
-		disposables.add(gui);
+		disposables.add(guiStage);
 		
 		physicsWorld = new World(Vector2.Zero, false);
 		new CollisionManager(physicsWorld, this);
@@ -47,22 +47,22 @@ public class GameScreen extends InputAdapter implements Screen{
 		final LBL sharkTimeLbl = new LBL("Score:1337", 2.0f);
 		sharkTimeLbl.position(Mane.WIDTH*0.05f, Mane.HEIGHT - Mane.WIDTH*0.05f, 0.0f, 1.0f);
 		
-		gui.addActor(sharkTimeLbl);
+		guiStage.addActor(sharkTimeLbl);
 		
 		shark = new Shark(physicsWorld, new SharkSweetAirJumpTimeReportReceiver() {
 			
 			@Override
 			public void onSharkIsDoingSweetJumpFor(float duration) {
-//				String format = Float.toString(duration);
-//				if (format.length() > 5) format = format.substring(0, 4);
-//				sharkTimeLbl.setText( ""+format );
+				String format = Float.toString(duration);
+				if (format.length() > 5) format = format.substring(0, 4);
+				sharkTimeLbl.setText( ""+format );
 			}
 			
 			@Override
 			public void onSharkDidSweetJumpFor(float duration) {
-//				String format = Float.toString(duration);
-//				if (format.length() > 5) format = format.substring(0, 4);
-//				sharkTimeLbl.setText( format +"!");
+				String format = Float.toString(duration);
+				if (format.length() > 5) format = format.substring(0, 4);
+				sharkTimeLbl.setText( format +"!");
 			}
 		});
 		
@@ -109,30 +109,33 @@ public class GameScreen extends InputAdapter implements Screen{
 			s.remove();
 			Water.WATER_RADIUS += 0.75f;
 		}
+		
 		silosToBoom.clear();
 		
 		gameStage.act(delta);
+		
 		gameStage.setViewport(Mane.WIDTH/zoom, Mane.HEIGHT/zoom, true);
 		gameStage.getCamera().translate(-gameStage.getGutterWidth(),
-			    -gameStage.getGutterHeight(), 0);
+			    						-gameStage.getGutterHeight(), 0);
 		gameStage.getCamera().translate(-Mane.WIDTH/(2*zoom) + shark.getX() + shark.getWidth()/2, 
-									-Mane.HEIGHT/(2*zoom) + shark.getY() + shark.getHeight()/2, 0.0f);
+										-Mane.HEIGHT/(2*zoom) + shark.getY() + shark.getHeight()/2, 0.0f);
 		
 		if (!Mane.PHYSICS_DEBUG) {
-			float sharkAng = shark.getRotation() + 90.0f;
+			float sharkAng = shark.getRotation() + 90.0f; //TODO räkna vinkel på sharks position
 			gameStage.getCamera().up.set( MathUtils.cosDeg(sharkAng), MathUtils.sinDeg(sharkAng), 0.0f);
 		}
 		gameStage.draw();
 		
-		gui.draw();
+		guiStage.act(delta);
+		guiStage.draw();
 	}
 
 	@Override
 	public void resize(int width, int height) {
 		gameStage.setViewport(Mane.WIDTH, Mane.HEIGHT, true);
-		gui.setViewport(Mane.WIDTH, Mane.HEIGHT, true);
-		gui.getCamera().translate(	-gui.getGutterWidth(),
-			    					-gui.getGutterHeight(), 0);
+		guiStage.setViewport(Mane.WIDTH, Mane.HEIGHT, true);
+		guiStage.getCamera().translate(	-guiStage.getGutterWidth(),
+			    					-guiStage.getGutterHeight(), 0);
 	}
 
 	@Override

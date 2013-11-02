@@ -28,7 +28,3 @@ public class Cloud extends Actor{
 	}
 
 }
-
-
-
-

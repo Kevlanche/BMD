@@ -182,6 +182,11 @@ public class Shark extends PhysicsActor {
 				shark.flip(true, false);
 		}
 		super.draw(batch, parentAlpha, Assets.shark);
+		
+		float ang = getRotation();
+		Vector2 off = new Vector2(getWidth()*0.5f - getWidth()/8, -getHeight()/8);
+		off.rotate(ang);
+		batch.draw(Assets.bottom_fin_default, getX()+off.x, getY() + off.y, 0.0f, 0.0f, getWidth()/4, getHeight()/2, 1.0f, 1.0f, ang);
 	}
 	
 	public void addJumpUpgrade() {

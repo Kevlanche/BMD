@@ -25,21 +25,32 @@ public class CollisionManager implements ContactListener  {
 			 (cb == Collision.SHARK && ca == Collision.SILO) ) {
 			
 			gs.onSiloBoom( (Silo) (ca == Collision.SILO ? contact.getFixtureA().getUserData() : contact.getFixtureB().getUserData()) );
+
 		}
 		else if ( (ca == Collision.SHARK && cb == Collision.POOL) ||
 				 (cb == Collision.SHARK && ca == Collision.POOL) ) {
 			
 				gs.onPoolBoom( (Pool) (ca == Collision.POOL ? contact.getFixtureA().getUserData() : contact.getFixtureB().getUserData()) );
-		}
 		
-		else if( (ca == Collision.SHARK && cb == Collision.UPGRADE) ||
+		} else if( (ca == Collision.SHARK && cb == Collision.UPGRADE) ||
 				 (cb == Collision.SHARK && ca == Collision.UPGRADE)) {
+		
 			gs.upgrade((Upgrade) (ca == Collision.UPGRADE ? contact.getFixtureA().getUserData() : contact.getFixtureB().getUserData()) );
+
+		
+		} else if( (ca == Collision.SHARK && cb == Collision.BEAVER) ||
+				 (cb == Collision.SHARK && ca == Collision.BEAVER)) {
+			
+			gs.killBeaver((Beaver) (ca == Collision.BEAVER ? contact.getFixtureA().getUserData() : contact.getFixtureB().getUserData()) ); 
+
 		} else if ( (ca == Collision.SHARK && cb == Collision.ISLAND) ||
 					(cb == Collision.SHARK && ca == Collision.ISLAND)) {
 			
 			gs.shark.canJump = true;
+
 		}
+			
+	
 	}
 
 	@Override

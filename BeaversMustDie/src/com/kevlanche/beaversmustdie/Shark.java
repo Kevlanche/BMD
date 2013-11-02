@@ -47,7 +47,10 @@ public class Shark extends PhysicsActor {
 		FixtureDef fd = new FixtureDef();
 		fd.density = 0.0f;
 		fd.filter.categoryBits = Collision.SHARK;
-		fd.filter.maskBits = Collision.ISLAND | Collision.EARTH_CORE | Collision.SILO |Collision.POOL | Collision.UPGRADE;
+
+		fd.filter.maskBits = Collision.ISLAND | Collision.EARTH_CORE | Collision.SILO | Collision.UPGRADE | Collision.BEAVER | Collision.POOL;
+
+
 		
 		fd.restitution = 0.0f;
 		fd.friction = 0.0f;
@@ -88,6 +91,8 @@ public class Shark extends PhysicsActor {
 			mvx--;
 		if (Gdx.input.isKeyPressed(Keys.D))
 			mvx++;
+		
+		
 		
 		if (jumpUpgrade && canJump && Gdx.input.isKeyPressed(Keys.SPACE) && !inWater) {
 			Vector2 speed = physicsBody.getLinearVelocity();
@@ -156,11 +161,12 @@ public class Shark extends PhysicsActor {
 		float ang = MathUtils.atan2(pos.y, pos.x) + MathUtils.PI; // MathUtils.atan2(getY()+getHeight()/2, getX()+getWidth()/2)+ MathUtils.PI;
 		setRotation(MathUtils.radiansToDegrees * ang + 90.0f);
 		
-		
-		if(ang != 0) {
-			//movingClockwise = vel.x * MathUtils.sin(ang) < 0;
+		if(ang != 0 && mvx != 0) {
+			movingClockwise = trans.rotate(-getRotation()).x > 0;
+		} else if(ang != 0) {
 			movingClockwise = vel.rotate(-getRotation()).x > 0;
 		}
+		
 		
 	}
 

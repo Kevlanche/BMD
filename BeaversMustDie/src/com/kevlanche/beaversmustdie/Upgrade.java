@@ -17,6 +17,7 @@ public class Upgrade extends PhysicsActor {
 		
 		this.type = type; 
 		float scale = 1.0f;
+		float radius = 1f;
 		BodyDef bd = new BodyDef();
 		bd.type = BodyDef.BodyType.StaticBody;
 		
@@ -35,7 +36,8 @@ public class Upgrade extends PhysicsActor {
 		fd.isSensor = true;
 		
 		CircleShape cs = new CircleShape();
-		cs.setRadius(1.0f);
+		cs.setPosition(new Vector2(radius/2, radius/2));
+		cs.setRadius(radius);
 		
 		
 		fd.shape = cs;

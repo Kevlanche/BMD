@@ -59,6 +59,11 @@ public class GameScreen extends InputAdapter implements Screen{
 		gameStage.addActor(water);
 		disposables.add(water);
 		
+		for(int i =0; i<20; i++){
+			Cloud cloud = new Cloud(MathUtils.random(0.0f, 360.0f) ,MathUtils.random(1500.0f, 2000.0f));
+			gameStage.addActor(cloud);
+		}
+		
 
 		final LBL sharkTimeLbl = new LBL("Score:1337", 2.0f);
 		sharkTimeLbl.position(Mane.WIDTH*0.05f, Mane.HEIGHT - Mane.WIDTH*0.05f, 0.0f, 1.0f);

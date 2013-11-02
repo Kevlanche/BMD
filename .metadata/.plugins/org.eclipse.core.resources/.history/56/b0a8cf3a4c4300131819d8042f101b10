@@ -1,7 +1,0 @@
-package com.kevlanche.beaversmustdie;
-
-public class Collision {
-	public static final short 	SHARK = 0,
-								EARTH_CORE = 1 << 1,
-								ISLAND = 1 << 2;
-}

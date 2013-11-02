@@ -3,6 +3,7 @@ package com.kevlanche.beaversmustdie;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
@@ -157,21 +158,24 @@ public class Shark extends PhysicsActor {
 		
 		
 		if(ang != 0) {
-			movingClockwise = vel.x * MathUtils.sin(ang) < 0;
+			//movingClockwise = vel.x * MathUtils.sin(ang) < 0;
+			movingClockwise = vel.rotate(-getRotation()).x > 0;
 		}
 		
-			System.out.println("Angle is: " + ang);
-			System.out.println("The expression is: " + vel.x * MathUtils.sin(ang));
 	}
 
 	@Override
 	public void draw(SpriteBatch batch, float parentAlpha) {
+		
+		TextureRegion shark = Assets.shark;
 		if(movingClockwise) {
-			
-			super.draw(batch, parentAlpha, Assets.shark);
+			if (shark.isFlipX())
+				shark.flip(true, false);			
 		} else {
-			super.draw(batch, parentAlpha, Assets.smiley);
+			if (!shark.isFlipX())
+				shark.flip(true, false);
 		}
+		super.draw(batch, parentAlpha, Assets.shark);
 	}
 	
 	public void addUpgrade() {

@@ -74,6 +74,8 @@ public class GameScreen extends InputAdapter implements Screen{
 		
 		gameStage.addActor(shark);
 		
+		gameStage.addActor(new Upgrade(physicsWorld));
+		
 		if (Mane.PHYSICS_DEBUG)
 			gameStage.addActor(new Box2dDebug(physicsWorld));
 		

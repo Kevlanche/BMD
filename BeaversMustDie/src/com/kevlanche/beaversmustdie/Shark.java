@@ -158,7 +158,7 @@ public class Shark extends PhysicsActor {
 
 	@Override
 	public void draw(SpriteBatch batch, float parentAlpha) {
-		super.draw(batch, parentAlpha, Assets.shark);
+		super.draw(batch, parentAlpha, Assets.smiley);
 	}
 	
 	public void addUpgrade() {

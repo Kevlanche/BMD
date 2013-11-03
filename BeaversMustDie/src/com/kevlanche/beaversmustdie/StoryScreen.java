@@ -105,7 +105,7 @@ public class StoryScreen extends InputAdapter implements Screen {
 		
 		if (kc == Keys.ENTER) {
 			
-				Mane.startTitleScreen();
+				Mane.startGame(555, true);
 			
 			
 		} return true;

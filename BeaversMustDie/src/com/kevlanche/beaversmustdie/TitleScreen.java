@@ -24,6 +24,8 @@ public class TitleScreen extends InputAdapter implements Screen {
 	PostProcessor postProcessor;
 	RippleEffect ripple;
 	
+	boolean disposed = false;
+	
 	public TitleScreen() {
 		stage = new Stage();
 		
@@ -94,6 +96,8 @@ public class TitleScreen extends InputAdapter implements Screen {
 
 		stage.act(delta);
 		
+		if (disposed) return;
+		
 		postProcessor.capture();
 		  Gdx.gl.glClearColor(0, 1.0f, 1.0f, 1);
 		  Gdx.gl.glClear(GL10.GL_COLOR_BUFFER_BIT);
@@ -163,6 +167,7 @@ public class TitleScreen extends InputAdapter implements Screen {
 	@Override
 	public void dispose() {
 		postProcessor.dispose();
+		disposed = true;
 		
 	}
 	

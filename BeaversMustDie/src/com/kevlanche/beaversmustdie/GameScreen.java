@@ -1,5 +1,7 @@
 package com.kevlanche.beaversmustdie;
 
+import sun.font.CreatedFontTracker;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputAdapter;
 import com.badlogic.gdx.Screen;
@@ -93,12 +95,10 @@ public class GameScreen extends InputAdapter implements Screen{
 		}
 
 
-
-		final LBL sharkTimeLbl = new LBL("No jump yet!", 2.0f);
-
-		sharkTimeLbl.position(Mane.WIDTH*0.95f, Mane.HEIGHT - Mane.WIDTH*0.05f, 1.0f, 1.0f);
-
-		guiStage.addActor(sharkTimeLbl);
+//		final LBL sharkTimeLbl = new LBL("No jump yet!", 2.0f);
+//		sharkTimeLbl.position(Mane.WIDTH*0.95f, Mane.HEIGHT - Mane.WIDTH*0.05f, 1.0f, 1.0f);
+//		guiStage.addActor(sharkTimeLbl);
+		
 
 		fpsLabel = new LBL("1338 FPS", 2.0f);
 		fpsLabel.position(Mane.WIDTH * 0.05f, Mane.HEIGHT - Mane.WIDTH*0.1f, 0.0f, 1.0f);
@@ -109,16 +109,18 @@ public class GameScreen extends InputAdapter implements Screen{
 
 			@Override
 			public void onSharkIsDoingSweetJumpFor(float duration) {
-				String format = Float.toString(duration);
-				if (format.length() > 5) format = format.substring(0, 4);
-				sharkTimeLbl.setText( ""+format );
+//				String format = Float.toString(duration);
+//				if (format.length() > 5) format = format.substring(0, 4);
+//				sharkTimeLbl.setText( ""+format );
 			}
 
 			@Override
 			public void onSharkDidSweetJumpFor(float duration) {
-				String format = Float.toString(duration);
-				if (format.length() > 5) format = format.substring(0, 4);
-				sharkTimeLbl.setText( format +"!");
+//				String format = Float.toString(duration);
+//				if (format.length() > 5) format = format.substring(0, 4);
+//				sharkTimeLbl.setText( format +"!");
+				if (duration > 5) guiStage.addActor( constructUpgradeLabel(randomLowJumpMessage(), Color.YELLOW));
+				
 			}
 		});
 
@@ -210,6 +212,27 @@ public class GameScreen extends InputAdapter implements Screen{
 
 	}
 
+	private static String randomLowJumpMessage() {
+		
+		switch (MathUtils.random(0, 10)) {
+		case 0: return "weeee";
+		case 1: return "180 sharkspin";
+		case 2: return "flying shark? madness!";
+		case 3: return "sweet jump bro";
+		case 4: return "cool";
+		case 5: return "*-*";
+		case 6: return "A toaster would be proud of that jump";
+		case 7: return "it's raining sharks!";
+		case 8: return "beep boop";
+		case 9: return "no hands!";
+		case 10: return "nobody expects the spanish flying shark";
+		case 11: return "360 noshark";
+		
+		}
+		
+		return null;
+	}
+	
 	public void onSiloBoom(Silo s) {
 		if (!silosToBoom.contains(s, true)) silosToBoom.add(s);
 	}
@@ -264,7 +287,8 @@ public class GameScreen extends InputAdapter implements Screen{
 			waterSourceLbl.setText(waterSources+" water sources remaining");
 		}
 
-		Assets.boom.play();
+		
+		Assets.splash.play();
 	}
 
 	private void rmBeaver(PhysicsActor s) {
@@ -290,14 +314,9 @@ public class GameScreen extends InputAdapter implements Screen{
 
 	}
 
-	private LBL constructUpgradeLabel(String msg,int i) {
+	private LBL constructUpgradeLabel(String msg, Color c) {
 		LBL ret = new LBL(msg, 2.5f);
-		if(i==1){
-			ret.setColor(Color.GREEN);
-		}
-		else{
-			ret.setColor(Color.RED);
-		}
+		ret.setColor(c);
 		ret.position(Mane.WIDTH/2, Mane.HEIGHT/2, 0.5f, 0.5f);
 		ret.addAction(Actions.sequence(
 				Actions.parallel( 	Actions.moveBy(0.0f, Mane.HEIGHT/4, 2.0f, Interpolation.exp5Out),
@@ -350,20 +369,21 @@ public class GameScreen extends InputAdapter implements Screen{
 			Assets.powerup.play();
 
 			switch(u.getType()){
-			case 1:
-				guiStage.addActor(constructUpgradeLabel("Wing flipper unlocked", 1));
-				shark.addGlideUpgrade();
-				break;
-			case 2:
-				guiStage.addActor(constructUpgradeLabel("Dynamite flipper unlocked", 1));
-				shark.addJumpUpgrade();
-				break;
-			case 3:
-				guiStage.addActor(constructUpgradeLabel("Baloon fin unlocked", 1));
-				shark.addBalloonUpgrade();
-				break;
-			case 4:
-				shark.addSpeedUpgrade();
+
+				case 1:
+					guiStage.addActor(constructUpgradeLabel("Wing flipper unlocked", Color.GREEN));
+					shark.addGlideUpgrade();
+					break;
+				case 2:
+					guiStage.addActor(constructUpgradeLabel("Dynamite flipper unlocked", Color.GREEN));
+					shark.addJumpUpgrade();
+					break;
+				case 3:
+					guiStage.addActor(constructUpgradeLabel("Baloon fin unlocked", Color.GREEN));
+					shark.addBalloonUpgrade();
+					break;
+				case 4:
+					shark.addSpeedUpgrade();
 			}
 			u.remove();
 		}
@@ -375,26 +395,26 @@ public class GameScreen extends InputAdapter implements Screen{
 
 			switch(beaversKilled){
 			case 0:
-				guiStage.addActor(constructUpgradeLabel("MURDERER!!!!!",2));
+				guiStage.addActor(constructUpgradeLabel("MURDERER!!!!!", Color.RED));
 				break;
 
 			case 1:
-				guiStage.addActor(constructUpgradeLabel("BLOODY MESS!!!!!",2));
+				guiStage.addActor(constructUpgradeLabel("BLOODY MESS!!!!!", Color.RED));
 				break;
 
 			case 2:
-				guiStage.addActor(constructUpgradeLabel("MULTI KILL!!!!!",2));
+				guiStage.addActor(constructUpgradeLabel("MULTI KILL!!!!!", Color.RED));
 				break;
 
 			case 3:
-				guiStage.addActor(constructUpgradeLabel("GENOCIDE!!!!!",2));
+				guiStage.addActor(constructUpgradeLabel("GENOCIDE!!!!!", Color.RED));
 				break;
 
 			case 4:
-				guiStage.addActor(constructUpgradeLabel("YOU Are A MONSTER!!!!!",2));
+				guiStage.addActor(constructUpgradeLabel("YOU Are A MONSTER!!!!!", Color.RED));
 				break;
 			default:
-				guiStage.addActor(constructUpgradeLabel("WILL THIS EVER STOP??!!!!!",2));
+				guiStage.addActor(constructUpgradeLabel("WILL THIS EVER STOP??!!!!!", Color.RED));
 				break;
 
 			}

@@ -4,9 +4,11 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.InputAdapter;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL10;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.bitfire.postprocessing.PostProcessor;
 import com.bitfire.utils.ShaderLoader;
 
@@ -39,27 +41,29 @@ public class TitleScreen extends InputAdapter implements Screen {
 		stage.addActor(new BackgroundImage());
 
 		LBL title = new LBL("Beavers must die!", 3.0f);
-		title.position(Mane.WIDTH/2, Mane.HEIGHT*0.75f, 0.5f, 0.75f);
+		title.position(Mane.WIDTH*0.75f, Mane.HEIGHT*0.85f, 0.5f, 0.75f);
 		stage.addActor(title);
+		
+		title.addAction( Actions.forever( Actions.sequence( Actions.color(Color.RED, 1.0f), Actions.color(Color.BLUE, 1.0f), Actions.color(Color.MAGENTA, 1.0f))));
 
-		LBL seedMsg = new LBL("Enter a seed (or leave empty for random)", 2.0f);
-		seedMsg.position(Mane.WIDTH/2, Mane.HEIGHT*0.6f, 0.5f, 0.5f);
+		LBL seedMsg = new LBL("Enter a seed or leave empty for random", 2.0f);
+		seedMsg.position(Mane.WIDTH*0.4f, Mane.HEIGHT*0.45f, 0.5f, 0.5f);
 		stage.addActor(seedMsg);
 
 		seed = new LBL("**", 2.0f);
-		seed.position(Mane.WIDTH/2, Mane.HEIGHT*0.55f, 0.5f, 0.5f);
+		seed.position(Mane.WIDTH*0.4f, Mane.HEIGHT*0.4f, 0.5f, 0.5f);
 		stage.addActor(seed);
 
-		LBL mapSizeMsg = new LBL("Use arrow keys (left & right) to change map size", 2.0f);
-		mapSizeMsg.position(Mane.WIDTH/2, Mane.HEIGHT*0.4f, 0.5f, 0.5f);
+		LBL mapSizeMsg = new LBL("Use left and right arrow keys to change map size", 2.0f);
+		mapSizeMsg.position(Mane.WIDTH*0.4f, Mane.HEIGHT*0.3f, 0.5f, 0.5f);
 		stage.addActor(mapSizeMsg);
 
 		mapSize = new LBL("*"+ mapSizeMsg() +"*", 2.0f);
-		mapSize.position(Mane.WIDTH/2, Mane.HEIGHT*0.35f, 0.5f, 0.5f);
+		mapSize.position(Mane.WIDTH*0.4f, Mane.HEIGHT*0.25f, 0.5f, 0.5f);
 		stage.addActor(mapSize);
 
 		LBL startMsg = new LBL("Press enter to start!", 2.0f);
-		startMsg.position(Mane.WIDTH/2, Mane.HEIGHT*0.2f, 0.5f, 0.5f);
+		startMsg.position(Mane.WIDTH*0.4f, Mane.HEIGHT*0.125f, 0.5f, 0.5f);
 		stage.addActor(startMsg);
 
 		postProcessor.addEffect( ripple );

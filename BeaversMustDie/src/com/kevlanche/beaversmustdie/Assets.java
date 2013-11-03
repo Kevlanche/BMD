@@ -10,6 +10,8 @@ public class Assets {
 	
 	public static TextureAtlas atlas;
 	
+	public static TextureRegion background ;
+	
 	public static TextureRegion alphabet, smiley, earthCore, island, pole, silo, cloud, beaver, blood, pool, tower, top_fin_rocket;
 	
 	public static TextureRegion shark ;
@@ -21,6 +23,9 @@ public class Assets {
 	
 	public static void load() {
 		atlas = new TextureAtlas(Gdx.files.internal("data/pack.atlas"));
+		
+		background = find("background");
+		
 		alphabet = find("alphabet");
 		smiley = find("smiley");
 		earthCore = find("earthcore");

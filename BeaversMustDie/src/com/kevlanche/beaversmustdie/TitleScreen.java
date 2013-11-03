@@ -14,7 +14,8 @@ public class TitleScreen extends InputAdapter implements Screen {
 
 	private Stage stage;
 	private float totalTime = 0;
-	
+	private float[] mousePos;
+
 	LBL seed;
 	LBL mapSize;
 
@@ -25,41 +26,44 @@ public class TitleScreen extends InputAdapter implements Screen {
 	RippleEffect ripple;
 	
 	boolean disposed = false;
-	
+
 	public TitleScreen() {
 		stage = new Stage();
-		
+
+		mousePos = new float[]{0.0f, 0.0f};
+
 		ShaderLoader.BasePath = "data/shaders/";
 		postProcessor = new PostProcessor(false, false, true);
-		
+
 		ripple = new RippleEffect();
-		
+		stage.addActor(new BackgroundImage());
+
 		LBL title = new LBL("Beavers must die!", 3.0f);
 		title.position(Mane.WIDTH/2, Mane.HEIGHT*0.75f, 0.5f, 0.75f);
 		stage.addActor(title);
-		
+
 		LBL seedMsg = new LBL("Enter a seed (or leave empty for random)", 2.0f);
 		seedMsg.position(Mane.WIDTH/2, Mane.HEIGHT*0.6f, 0.5f, 0.5f);
 		stage.addActor(seedMsg);
-		
+
 		seed = new LBL("**", 2.0f);
 		seed.position(Mane.WIDTH/2, Mane.HEIGHT*0.55f, 0.5f, 0.5f);
 		stage.addActor(seed);
-		
+
 		LBL mapSizeMsg = new LBL("Use arrow keys (left & right) to change map size", 2.0f);
 		mapSizeMsg.position(Mane.WIDTH/2, Mane.HEIGHT*0.4f, 0.5f, 0.5f);
 		stage.addActor(mapSizeMsg);
-		
+
 		mapSize = new LBL("*"+ mapSizeMsg() +"*", 2.0f);
 		mapSize.position(Mane.WIDTH/2, Mane.HEIGHT*0.35f, 0.5f, 0.5f);
 		stage.addActor(mapSize);
-		
+
 		LBL startMsg = new LBL("Press enter to start!", 2.0f);
 		startMsg.position(Mane.WIDTH/2, Mane.HEIGHT*0.2f, 0.5f, 0.5f);
 		stage.addActor(startMsg);
-		
+
 		postProcessor.addEffect( ripple );
-		
+
 	}
 	private String mapSizeMsg() {
 		if (MAP_SIZE < 7) return "small--";
@@ -80,36 +84,39 @@ public class TitleScreen extends InputAdapter implements Screen {
 		case 18: return "large";
 		case 19: return "large+";
 		case 20: return "large++";
-		
-		
+
+
 		}
-		
+
 		return "medium";
 	}
-	
+
 	@Override
 	public void render(float delta) {
-		
+
 		totalTime += delta;
-		
+
 		ripple.setTime(totalTime);
 
+		mousePos[0] = Gdx.input.getX() / (float) Mane.WIDTH;
+		mousePos[1] = Gdx.input.getY() / (float) Mane.HEIGHT;
+
+		ripple.setMousePos(mousePos);
+
 		stage.act(delta);
-		
 		if (disposed) return;
-		
 		postProcessor.capture();
-		  Gdx.gl.glClearColor(0, 1.0f, 1.0f, 1);
-		  Gdx.gl.glClear(GL10.GL_COLOR_BUFFER_BIT);
-		  stage.draw();		
-		  postProcessor.render();
+		Gdx.gl.glClearColor(0, 1.0f, 1.0f, 1);
+		Gdx.gl.glClear(GL10.GL_COLOR_BUFFER_BIT);
+		stage.draw();		
+		postProcessor.render();
 	}
 
 	@Override
 	public void resize(int width, int height) {
-		  stage.setViewport(Mane.WIDTH, Mane.HEIGHT, true);
-		  stage.getCamera().translate(-stage.getGutterWidth(),
-		    -stage.getGutterHeight(), 0);		
+		stage.setViewport(Mane.WIDTH, Mane.HEIGHT, true);
+		stage.getCamera().translate(-stage.getGutterWidth(),
+				-stage.getGutterHeight(), 0);		
 	}
 
 	@Override
@@ -123,19 +130,19 @@ public class TitleScreen extends InputAdapter implements Screen {
 			Gdx.input.setInputProcessor(null);
 	}
 
-	
+
 
 	@Override
 	public boolean keyDown(int kc) {
-		
+
 		if (kc == Keys.ENTER) {
-			
+
 			if (seed.text.length() == 2) {
 				MathUtils.random.setSeed( System.currentTimeMillis() );
 				Mane.startGame(MathUtils.random.nextLong());
 			} else
 				Mane.startGame(seed.text.hashCode());
-			
+
 		} else if (kc == Keys.BACKSPACE && seed.text.length() > 2) {
 			String newText = seed.text.substring(0, seed.text.length()-2) +"*";
 			seed.setText(newText);
@@ -155,20 +162,19 @@ public class TitleScreen extends InputAdapter implements Screen {
 	@Override
 	public void pause() {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void resume() {
 		postProcessor.rebind();
-		
+
 	}
 
 	@Override
 	public void dispose() {
 		postProcessor.dispose();
 		disposed = true;
-		
 	}
-	
+
 }

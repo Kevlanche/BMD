@@ -5,18 +5,14 @@ import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
-import com.badlogic.gdx.physics.box2d.CircleShape;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
 
 public class Island extends PhysicsActor {
 
-	private float scale;
 	
 	public Island(World world, float angleDegrees, float scale, float length) {
-
-		this.scale = scale;
 		
 		BodyDef bd = new BodyDef();
 		bd.type = BodyType.StaticBody;
@@ -61,8 +57,6 @@ public class Island extends PhysicsActor {
 		setSize(4*scale*Mane.PTM_RATIO, scale*Mane.PTM_RATIO);
 		setOrigin(0.0f, 0.0f);
 		setScaleY(1.2f);
-//		setOrigin(getWidth()/2, getHeight()/2);
-//		super.drawingOffsetX = -Mane.PTM_RATIO * scale / 2;
 	}
 	
 	public float getPhysicsWidth() {
@@ -77,7 +71,7 @@ public class Island extends PhysicsActor {
 	@Override
 	public void draw(SpriteBatch batch, float parentAlpha) {
 		float side = Mane.PTM_RATIO/4;
-		batch.draw(Assets.pole, -side/2, 0.0f, side/2, 0.0f, side, physicsBody.getPosition().len()*Mane.PTM_RATIO, 1.0f, 1.0f, getRotation());
+		batch.draw(Assets.pole, -side/2, 0.0f, 0.0f, 0.0f, side, physicsBody.getPosition().len()*Mane.PTM_RATIO, 1.0f, 1.0f, getRotation());
 		
 		super.draw(batch, parentAlpha, Assets.island);
 	}

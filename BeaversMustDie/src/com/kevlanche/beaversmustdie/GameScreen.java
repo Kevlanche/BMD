@@ -1,7 +1,5 @@
 package com.kevlanche.beaversmustdie;
 
-import sun.security.util.Length;
-
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputAdapter;
 import com.badlogic.gdx.Screen;
@@ -177,18 +175,11 @@ public class GameScreen extends InputAdapter implements Screen{
 		
 		gameStage.addActor(shark);
 		
-		float ang = MathUtils.random(0.0f, 360.0f);
-		float len =  MathUtils.random(Water.WATER_RADIUS * 0.25f, Water.WATER_RADIUS * 1.0f);
-		gameStage.addActor(new Upgrade(physicsWorld, new Vector2(MathUtils.cosDeg( ang )*(len), MathUtils.sinDeg( ang )*(len)),1));
-		ang = MathUtils.random(0.0f, 360.0f);
-		len = MathUtils.random(Water.WATER_RADIUS * 0.25f, Water.WATER_RADIUS * 1.0f);
-		gameStage.addActor(new Upgrade(physicsWorld, new Vector2(MathUtils.cosDeg( ang )*(len), MathUtils.sinDeg( ang )*(len)),2));
-		ang = MathUtils.random(0.0f, 360.0f);
-		len = MathUtils.random(Water.WATER_RADIUS * 0.25f, Water.WATER_RADIUS * 1.0f);
-		gameStage.addActor(new Upgrade(physicsWorld, new Vector2(MathUtils.cosDeg( ang )*(len), MathUtils.sinDeg( ang )*(len)),3));		
-		ang = MathUtils.random(0.0f, 360.0f);
-		len = MathUtils.random(Water.WATER_RADIUS * 0.25f, Water.WATER_RADIUS * 1.0f);
-		gameStage.addActor(new Upgrade(physicsWorld, new Vector2(MathUtils.cosDeg( ang )*(len), MathUtils.sinDeg( ang )*(len)),4));
+		gameStage.addActor(new Upgrade(physicsWorld, new Vector2(5.0f, 5.0f),1));
+		gameStage.addActor(new Upgrade(physicsWorld, new Vector2(9.0f, 9.0f),2));
+		gameStage.addActor(new Upgrade(physicsWorld, new Vector2(7.0f, 3.0f),3));
+		
+		gameStage.addActor(new Upgrade(physicsWorld, new Vector2(15.0f, 15.0f),4));
 		
 		if (Mane.PHYSICS_DEBUG)
 			gameStage.addActor(new Box2dDebug(physicsWorld));

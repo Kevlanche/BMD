@@ -72,7 +72,7 @@ public class Assets {
 		}
 		
 		public void play() {
-			sound.play( sound == splash ? 1.0f : 0.5f);
+			sound.play(sound == splash ? 0.02f : 0.05f);
 		}
 		public void dispose() {
 			sound.dispose();

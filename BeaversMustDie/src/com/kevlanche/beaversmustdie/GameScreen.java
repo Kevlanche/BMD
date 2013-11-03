@@ -159,7 +159,8 @@ public class GameScreen extends InputAdapter implements Screen{
 			} while (notDone);
 
 
-			Island island = addIsland((float)angle, size, 1.0f + i/15.0f, MathUtils.random(2, 3));
+
+			Island island = addIsland((float)angle, size, 1.0f + i/10.0f, MathUtils.random(2, 3));
 
 			
 			gameStage.addActor(new Beaver(physicsWorld, island));

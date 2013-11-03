@@ -61,11 +61,13 @@ public class TitleScreen extends InputAdapter implements Screen {
 	public boolean keyDown(int kc) {
 		
 		if (kc == Keys.ENTER) {
+			
 			if (seed.text.length() == 2) {
 				MathUtils.random.setSeed( System.currentTimeMillis() );
 				Mane.startGame(MathUtils.random.nextLong());
 			} else
 				Mane.startGame(seed.text.hashCode());
+			
 		} else if (kc == Keys.BACKSPACE && seed.text.length() > 2) {
 			String newText = seed.text.substring(0, seed.text.length()-2) +"*";
 			seed.setText(newText);

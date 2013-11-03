@@ -10,6 +10,7 @@ import com.badlogic.gdx.math.Interpolation;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.World;
+import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.utils.Array;
@@ -52,6 +53,8 @@ public class GameScreen extends InputAdapter implements Screen{
 	long seed;
 
 
+	GameShaker shaker;
+	
 	private LBL TutLbl;
 
 	private boolean tut;
@@ -90,6 +93,9 @@ public class GameScreen extends InputAdapter implements Screen{
 		Water water = new Water();
 		gameStage.addActor(water);
 		disposables.add(water);
+		
+		shaker = new GameShaker();
+		gameStage.addActor(shaker);
 
 		for(int i =0; i<20; i++){
 			Cloud cloud = new Cloud(MathUtils.random(0.0f, 360.0f) , Mane.PTM_RATIO * MathUtils.random(Water.WATER_RADIUS * 0.25f, Water.WATER_RADIUS * 1.5f),MathUtils.random(1.0f,4.0f));
@@ -318,6 +324,7 @@ public class GameScreen extends InputAdapter implements Screen{
 		}
 
 
+		shaker.shake();
 		Assets.splash.play();
 	}
 
@@ -340,7 +347,7 @@ public class GameScreen extends InputAdapter implements Screen{
 				Actions.removeActor() ));
 		s.physicsBody.setActive(false);
 		s.addAction(Actions.sequence( Actions.fadeOut(0.25f),
-				Actions.removeActor() ));		
+				Actions.removeActor() ));
 
 	}
 
@@ -398,7 +405,7 @@ public class GameScreen extends InputAdapter implements Screen{
 
 
 
-			if(tut){
+			if(tut && waterSources > 0){
 				TutLbl.setText( "");
 			}
 
@@ -410,21 +417,21 @@ public class GameScreen extends InputAdapter implements Screen{
 			case 1:
 				guiStage.addActor(constructUpgradeLabel("Wing flipper unlocked", Color.GREEN));
 				shark.addGlideUpgrade();
-				if(tut){
+				if(tut && waterSources > 0){
 					TutLbl.setText("Wing flipper lets you glide across the world like a beautiful swan");
 				}
 				break;
 			case 2:
 				guiStage.addActor(constructUpgradeLabel("Dynamite flipper unlocked", Color.GREEN));
 				shark.addJumpUpgrade();
-				if(tut){
+				if(tut && waterSources > 0){
 					TutLbl.setText("Want to jump? Use the Dynamite flipper with SPACE to reach higher");
 				}
 				break;
 			case 3:
 				guiStage.addActor(constructUpgradeLabel("Baloon fin unlocked", Color.GREEN));
 				shark.addBalloonUpgrade();
-				if(tut){
+				if(tut && waterSources > 0){
 					TutLbl.setText("You can fight the gravity like never before with this umbrella fin");
 				}
 				break;
@@ -432,7 +439,7 @@ public class GameScreen extends InputAdapter implements Screen{
 
 				guiStage.addActor(constructUpgradeLabel("Rocket fin unlocked", Color.GREEN));
 				shark.addSpeedUpgrade();
-				if(tut){
+				if(tut && waterSources > 0){
 					TutLbl.setText("You can swim very fast with the rocket fin!");
 				}
 			}
@@ -491,8 +498,8 @@ public class GameScreen extends InputAdapter implements Screen{
 		gameStage.setViewport(Mane.WIDTH/zoom, Mane.HEIGHT/zoom, true);
 		gameStage.getCamera().translate(-gameStage.getGutterWidth(),
 				-gameStage.getGutterHeight(), 0);
-		gameStage.getCamera().translate(-Mane.WIDTH/(2*zoom) + shark.getX() + shark.getWidth()/2, 
-				-Mane.HEIGHT/(2*zoom) + shark.getY() + shark.getHeight()/2, 0.0f);
+		gameStage.getCamera().translate(	-Mane.WIDTH/(2*zoom) + shark.getX() + shark.getWidth()/2 + shaker.getX(), 
+											-Mane.HEIGHT/(2*zoom) + shark.getY() + shark.getHeight()/2 + shaker.getY(), 0.0f);
 
 		if (!Mane.PHYSICS_DEBUG) {
 			float sharkAng = MathUtils.radiansToDegrees * MathUtils.atan2(shark.getY()+shark.getHeight()/2, shark.getX()+shark.getWidth()/2);// shark.getRotation() + 90.0f; //TODO räkna vinkel på sharks position
@@ -554,4 +561,19 @@ public class GameScreen extends InputAdapter implements Screen{
 		return true;
 	}
 
+	private static class GameShaker extends Actor {
+		
+		public GameShaker() {
+			setVisible(false);
+		}
+		public void shake() {
+			float mvx = (MathUtils.randomBoolean() ? 1 : -1) *  MathUtils.random(0.5f, 1.25f) * Mane.PTM_RATIO;
+			float mvy = (MathUtils.randomBoolean() ? 1 : -1) *  MathUtils.random(0.5f, 1.25f) * Mane.PTM_RATIO;
+			addAction(Actions.sequence( 
+						Actions.moveBy(-mvx/2, mvy/2, 0.1f), 
+						Actions.moveBy(mvx, -mvy, 0.1f),
+						Actions.moveBy(-mvx/2, mvy/2, 0.1f)
+					));
+		}
+	}
 }

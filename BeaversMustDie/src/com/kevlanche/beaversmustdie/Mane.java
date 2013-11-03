@@ -23,7 +23,7 @@ public class Mane extends Game {
 		
 		Music music = Assets.bg_music;
 		music.setLooping(true);
-		music.play();
+//		music.play();
 	}
 
 	@Override

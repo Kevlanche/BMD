@@ -2,6 +2,7 @@ package com.kevlanche.beaversmustdie;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.MathUtils;
@@ -12,6 +13,8 @@ import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
+import com.kevlanche.beaversmustdie.particles.ParticleEffect;
+import com.kevlanche.beaversmustdie.particles.ParticlePool;
 
 public class Shark extends PhysicsActor {
 
@@ -103,6 +106,19 @@ public class Shark extends PhysicsActor {
 			physicsBody.setLinearVelocity(speed);
 			canJump = false;
 			jumpCooldown = 0.5f;
+			
+			ParticleEffect pe = ParticlePool.get();
+			pe.setColor(Color.RED);
+			float ang = getRotation();
+			Vector2 sides = new Vector2( getWidth(), getHeight());
+			sides.rotate(ang);
+			Vector2 mid = new Vector2(	getX() + sides.x/2,
+										getY() + sides.y/2
+										);
+			pe.setPosition(mid.x - getWidth()/2, mid.y - getHeight()/2);
+			pe.setSize(getWidth(), getHeight());
+			pe.init(Assets.bottom_fin_dynamite, 50.0f, 5);
+			getParent().addActor(pe);
 		}
 		
 		jumpCooldown -= delta;
@@ -196,7 +212,7 @@ public class Shark extends PhysicsActor {
 		Vector2 off = new Vector2(getWidth()*0.5f - getWidth()/8, -getHeight()/8);
 		off.rotate(ang);
 		
-		TextureRegion bFin = glideUpgrade ? Assets.bottom_fin_wing : Assets.bottom_fin_default;
+		TextureRegion bFin = glideUpgrade ? Assets.bottom_fin_wing : ( jumpUpgrade ? Assets.bottom_fin_dynamite : Assets.bottom_fin_default );
 		if (shark.isFlipX() != bFin.isFlipX())
 			bFin.flip(true, false);
 		batch.draw(bFin, getX()+off.x, getY() + off.y, 0.0f, 0.0f, getWidth()/4, getHeight()/3, 1.0f, 1.0f, ang);

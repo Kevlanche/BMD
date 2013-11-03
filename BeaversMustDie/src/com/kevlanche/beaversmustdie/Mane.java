@@ -12,18 +12,29 @@ public class Mane extends Game {
 	
 	public static final float PTM_RATIO = 32.0f;
 	
-	private Screen gameScreen;
+	
+	private static Mane instance; 
 
 	@Override
 	public void create() {
+		instance = this;
 		Assets.load();
-		gameScreen = new GameScreen();
-		setScreen(gameScreen);
+		setScreen(new TitleScreen());
 	}
 
 	@Override
 	public void dispose() {
 		Assets.dispose();
-		gameScreen.dispose();
+		getScreen().dispose();
+	}
+	
+	public static void startGame(long seed) {
+		instance.getScreen().dispose();
+		instance.setScreen(new GameScreen(seed));
+	}
+	
+	public static void startTitleScreen() {
+		instance.getScreen().dispose();
+		instance.setScreen(new TitleScreen());
 	}
 }

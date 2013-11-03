@@ -3,17 +3,16 @@ package com.kevlanche.beaversmustdie;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputAdapter;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL10;
-import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.math.Interpolation;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
-import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Disposable;
 import com.kevlanche.beaversmustdie.Shark.SharkSweetAirJumpTimeReportReceiver;
@@ -48,8 +47,15 @@ public class GameScreen extends InputAdapter implements Screen{
 	private int waterSources;
 	private LBL waterSourceLbl;
 	
-	public GameScreen() {
+	boolean isDisposed = false;
+	long seed;
+	
+	public GameScreen(long seed) {
 		
+		Water.WATER_RADIUS = 25.0f;
+
+	
+		this.seed = seed;
 //		Gdx.gl.glEnable(GL20.GL_BLEND);
 //		Gdx.gl.glBlendFunc(GL20.GL_SRC_COLOR, GL20.GL_DST_ALPHA);
 	
@@ -117,7 +123,7 @@ public class GameScreen extends InputAdapter implements Screen{
 			}
 		});
 
-		MathUtils.random.setSeed(333);
+		MathUtils.random.setSeed(seed);
 		
 		for (int i=0; i<10; ++i) {
 			boolean notDone = true;
@@ -243,7 +249,7 @@ public class GameScreen extends InputAdapter implements Screen{
 		if (waterSources == 0) {
 			String format = Float.toString(totalTime);
 			if (format.length() > 5) format = format.substring(0, 4);
-			waterSourceLbl.setText( "Finished in "+format+" seconds!" );
+			waterSourceLbl.setText( "Finished in "+format+" seconds!\nPress Q to return to title screen or R to go again" );
 		} else {
 			waterSourceLbl.setText(waterSources+" water sources remaining");
 		}
@@ -261,7 +267,7 @@ public class GameScreen extends InputAdapter implements Screen{
 									);
 		pe.setPosition(mid.x - s.getWidth()/2, mid.y - s.getHeight()/2);
 		pe.setSize(s.getWidth(), s.getHeight());
-		pe.init(Assets.smiley, 50.0f, 10);
+		pe.init(Assets.blood, 250.0f, 50, Mane.PTM_RATIO/4);
 		gameStage.addActor(pe);
 		
 		s.physicsBody.setActive(false);
@@ -350,6 +356,8 @@ public class GameScreen extends InputAdapter implements Screen{
 		
 		gameStage.act(delta);
 		
+		if (isDisposed) return;
+		
 //		zoom = MathUtils.clamp((float) (Water.WATER_RADIUS * Mane.PTM_RATIO - Math.sqrt(Math.pow(shark.getX(), 2) + Math.pow(shark.getY(),  2))), 0.25f, 2.5f);
 		
 //		zoom = 2.5f - MathUtils.clamp((float) Math.sqrt(Math.pow(shark.getX()/Mane.PTM_RATIO, 2) + Math.pow(shark.getY()/Mane.PTM_RATIO,  2) + 1.5) / Water.WATER_RADIUS *2, 1.5f, 2.0f);
@@ -411,7 +419,21 @@ public class GameScreen extends InputAdapter implements Screen{
 			d.dispose();
 		}
 		disposables.clear();
+		isDisposed = true;
 		
+	}
+	
+	
+
+	@Override
+	public boolean keyDown(int kc) {
+		
+		if (waterSources == 0) {
+			if (kc == Keys.Q) Mane.startTitleScreen();
+			else if (kc == Keys.R) Mane.startGame(seed);
+		}
+		
+		return true;
 	}
 
 	@Override

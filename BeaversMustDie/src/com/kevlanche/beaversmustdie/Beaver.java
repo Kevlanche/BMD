@@ -94,7 +94,7 @@ public class Beaver extends PhysicsActor {
 
 	@Override
 	public void draw(SpriteBatch batch, float parentAlpha) {
-		super.draw(batch, parentAlpha, Assets.smiley);
+		super.draw(batch, parentAlpha, Assets.beaver);
 	}
 
 

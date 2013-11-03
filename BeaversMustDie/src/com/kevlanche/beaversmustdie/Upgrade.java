@@ -61,7 +61,7 @@ public class Upgrade extends PhysicsActor {
 			super.draw(batch, parentAlpha, Assets.bottom_fin_wing);
 			break;
 		case 2:
-			super.draw(batch, parentAlpha, Assets.cloud);
+			super.draw(batch, parentAlpha, Assets.bottom_fin_dynamite);
 			break;
 		}
 	}

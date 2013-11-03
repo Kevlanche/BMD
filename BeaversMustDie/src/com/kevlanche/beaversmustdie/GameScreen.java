@@ -405,7 +405,7 @@ public class GameScreen extends InputAdapter implements Screen{
 
 
 
-			if(tut){
+			if(tut && waterSources > 0){
 				TutLbl.setText( "");
 			}
 
@@ -417,21 +417,21 @@ public class GameScreen extends InputAdapter implements Screen{
 			case 1:
 				guiStage.addActor(constructUpgradeLabel("Wing flipper unlocked", Color.GREEN));
 				shark.addGlideUpgrade();
-				if(tut){
+				if(tut && waterSources > 0){
 					TutLbl.setText("Wing flipper lets you glide across the world like a beautiful swan");
 				}
 				break;
 			case 2:
 				guiStage.addActor(constructUpgradeLabel("Dynamite flipper unlocked", Color.GREEN));
 				shark.addJumpUpgrade();
-				if(tut){
+				if(tut && waterSources > 0){
 					TutLbl.setText("Want to jump? Use the Dynamite flipper with SPACE to reach higher");
 				}
 				break;
 			case 3:
 				guiStage.addActor(constructUpgradeLabel("Baloon fin unlocked", Color.GREEN));
 				shark.addBalloonUpgrade();
-				if(tut){
+				if(tut && waterSources > 0){
 					TutLbl.setText("You can fight the gravity like never before with this umbrella fin");
 				}
 				break;
@@ -439,7 +439,7 @@ public class GameScreen extends InputAdapter implements Screen{
 
 				guiStage.addActor(constructUpgradeLabel("Rocket fin unlocked", Color.GREEN));
 				shark.addSpeedUpgrade();
-				if(tut){
+				if(tut && waterSources > 0){
 					TutLbl.setText("You can swim very fast with the rocket fin!");
 				}
 			}

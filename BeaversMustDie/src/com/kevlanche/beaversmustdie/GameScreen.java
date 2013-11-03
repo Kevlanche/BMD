@@ -433,7 +433,7 @@ public class GameScreen extends InputAdapter implements Screen{
 				guiStage.addActor(constructUpgradeLabel("Rocket fin unlocked", Color.GREEN));
 				shark.addSpeedUpgrade();
 				if(tut){
-					TutLbl.setText("You can swin very fast with the rocket fin");
+					TutLbl.setText("You can swim very fast with the rocket fin!");
 				}
 			}
 			u.remove();

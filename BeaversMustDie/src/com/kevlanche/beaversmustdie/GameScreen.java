@@ -350,10 +350,6 @@ public class GameScreen extends InputAdapter implements Screen{
 		
 		gameStage.act(delta);
 		
-//		zoom = MathUtils.clamp((float) (Water.WATER_RADIUS * Mane.PTM_RATIO - Math.sqrt(Math.pow(shark.getX(), 2) + Math.pow(shark.getY(),  2))), 0.25f, 2.5f);
-		
-//		zoom = 2.5f - MathUtils.clamp((float) Math.sqrt(Math.pow(shark.getX()/Mane.PTM_RATIO, 2) + Math.pow(shark.getY()/Mane.PTM_RATIO,  2) + 1.5) / Water.WATER_RADIUS *2, 1.5f, 2.0f);
-//		zoom = 1.0f;
 		
 		float r = (float) Math.sqrt(Math.pow(shark.getX()/Mane.PTM_RATIO, 2) + Math.pow(shark.getY()/Mane.PTM_RATIO, 2));
 		
@@ -413,16 +409,5 @@ public class GameScreen extends InputAdapter implements Screen{
 		disposables.clear();
 		
 	}
-
-	@Override
-	public boolean scrolled(int amount) {
-		
-		//zoom = MathUtils.clamp(zoom - amount*0.1f, 0.25f, 2.5f);
-		return false;
-	}
-
-
-
-	
 
 }

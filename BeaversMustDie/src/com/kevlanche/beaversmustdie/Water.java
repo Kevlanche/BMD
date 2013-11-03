@@ -27,9 +27,11 @@ public class Water extends Actor implements Disposable {
 	ShaderProgram shader;
 	Mesh mesh;
 	
-	public Water() {
+	public Water(boolean trans) {
 		
-		shader = new ShaderProgram("#define COLOR_INNER vec4(0.0, 0.0, 1.0, 1.0)\n#define COLOR_OUTER vec4(0.0,1.0,1.0,1.0)\n" +getFile("vert.vs"), getFile("frag.fs"));
+		String alpha = trans ? "0.2" : "1.0";
+		
+		shader = new ShaderProgram("#define COLOR_INNER vec4(0.0, 0.0, 1.0, "+alpha+")\n#define COLOR_OUTER vec4(0.0,1.0,1.0, "+alpha+")\n" +getFile("vert.vs"), getFile("frag.fs"));
 		
 		if (!shader.isCompiled()) {
 			System.err.println("SHADER NOT COMPILED");
@@ -71,7 +73,10 @@ public class Water extends Actor implements Disposable {
 	
 	@Override
 	public void draw(SpriteBatch batch, float parentAlpha) {
-
+//
+//		batch.end();
+//		batch.begin();
+		
 		shader.begin();
 		
 		shader.setUniformMatrix("u_worldView", batch.getProjectionMatrix());

@@ -42,8 +42,6 @@ public class GameScreen extends InputAdapter implements Screen{
 	private float waterRaiseBuffer;
 
 
-	private LBL fpsLabel;
-
 	private float totalTime;
 	private int waterSources;
 	private LBL waterSourceLbl;
@@ -90,7 +88,7 @@ public class GameScreen extends InputAdapter implements Screen{
 		gameStage.addActor(sky);
 		disposables.add(sky);
 
-		Water water = new Water();
+		Water water = new Water(false);
 		gameStage.addActor(water);
 		disposables.add(water);
 		
@@ -111,15 +109,10 @@ public class GameScreen extends InputAdapter implements Screen{
 		if(tut){
 			TutLbl = new LBL("Try to get all the water silos around the map.", 2.0f);
 
-			TutLbl.position(Mane.WIDTH*0.95f, Mane.HEIGHT - Mane.WIDTH*0.20f, 1.0f, 1.0f);
+			TutLbl.position(Mane.WIDTH*0.5f, Mane.HEIGHT*0.20f, 0.5f, 1.0f);
 
 			guiStage.addActor(TutLbl);
 		}
-
-		fpsLabel = new LBL("1338 FPS", 2.0f);
-		fpsLabel.position(Mane.WIDTH * 0.05f, Mane.HEIGHT - Mane.WIDTH*0.1f, 0.0f, 1.0f);
-
-		guiStage.addActor(fpsLabel);
 
 		shark = new Shark(physicsWorld, new SharkSweetAirJumpTimeReportReceiver() {
 
@@ -154,7 +147,9 @@ public class GameScreen extends InputAdapter implements Screen{
 					boolean angleOK = true;
 					for(int t = 0; t < islandAngles.size; t++) {
 						int a = islandAngles.get(t);
-						if(Math.abs(a - angle) < size/0.1f && Math.abs((a + 180)%360 - (angle + 180)%360) < size/0.1f && (Math.abs(t-i)<size/1.1f)) {
+						if( Math.abs(a - angle) < size/0.1f && 
+							Math.abs((a + 180)%360 - (angle + 180)%360) < size/0.1f && 
+							(Math.abs(t-i)<size/1.1f)) {
 							angleOK = false;
 							break;
 						}
@@ -169,7 +164,7 @@ public class GameScreen extends InputAdapter implements Screen{
 
 
 
-				Island island = addIsland((float)angle, size, 1.0f + i/10.0f, MathUtils.random(2, 3));
+				Island island = addIsland((float)angle, size, 1.0f + i/7.5f, MathUtils.random(2, 3));
 
 
 				gameStage.addActor(new Beaver(physicsWorld, island));
@@ -183,13 +178,13 @@ public class GameScreen extends InputAdapter implements Screen{
 
 
 		}
-
-		waterSourceLbl = new LBL(waterSources+" water sources remaining", 2.0f);
+		
+		waterSourceLbl = new LBL(waterSources+" water containers remaining", 2.0f);
 		waterSourceLbl.position(Mane.WIDTH*0.05f, Mane.HEIGHT - Mane.WIDTH*0.05f, 0.0f, 1.0f);
 		guiStage.addActor(waterSourceLbl);
 
+		
 		gameStage.addActor(new EarthCore(physicsWorld));
-
 		gameStage.addActor(shark);
 
 
@@ -218,6 +213,8 @@ public class GameScreen extends InputAdapter implements Screen{
 			gameStage.addActor(new Upgrade(physicsWorld, new Vector2(-7.0f, 32.0f),3));
 			gameStage.addActor(new Upgrade(physicsWorld, new Vector2(7.0f, 7.0f),4));
 		}
+
+		
 
 		if (Mane.PHYSICS_DEBUG)
 			gameStage.addActor(new Box2dDebug(physicsWorld));
@@ -317,10 +314,15 @@ public class GameScreen extends InputAdapter implements Screen{
 		if (waterSources == 0) {
 			String format = Float.toString(totalTime);
 			if (format.length() > 5) format = format.substring(0, 4);
-			waterSourceLbl.setText( "Finished in "+format+" seconds!\nPress Q to return to title screen or R to go again" );
-		if(tut){	TutLbl.setText("Congrats you beat the tutorial! time to play the real game!");}
+			
+			if (tut)
+				waterSourceLbl.setText( "Finished in "+format+" seconds!" );
+			else
+				waterSourceLbl.setText( "Finished in "+format+" seconds!\nPress Q to return to title screen or R to go again" );
+			
+		if(tut){	TutLbl.setText("Congrats you beat the tutorial! time to play the real game!\nPress Q to exit");}
 		} else {
-			waterSourceLbl.setText(waterSources+" water sources remaining");
+			waterSourceLbl.setText(waterSources+" water containers remaining");
 		}
 
 
@@ -364,8 +366,6 @@ public class GameScreen extends InputAdapter implements Screen{
 
 	@Override
 	public void render(float delta) {
-
-		fpsLabel.setText(1 / delta + "");
 
 		Gdx.gl.glClearColor(0.2f, 0.2f, 0.2f, 1);
 		Gdx.gl.glClear(GL10.GL_COLOR_BUFFER_BIT);
@@ -418,14 +418,14 @@ public class GameScreen extends InputAdapter implements Screen{
 				guiStage.addActor(constructUpgradeLabel("Wing flipper unlocked", Color.GREEN));
 				shark.addGlideUpgrade();
 				if(tut && waterSources > 0){
-					TutLbl.setText("Wing flipper lets you glide across the world like a beautiful swan");
+					TutLbl.setText("Wing flipper lets you glide across the world like a beautiful swan\nHold SPACE in the air to glide");
 				}
 				break;
 			case 2:
 				guiStage.addActor(constructUpgradeLabel("Dynamite flipper unlocked", Color.GREEN));
 				shark.addJumpUpgrade();
 				if(tut && waterSources > 0){
-					TutLbl.setText("Want to jump? Use the Dynamite flipper with SPACE to reach higher");
+					TutLbl.setText("Want to jump? Press space while above water\nto detonate the Dynamite flipper");
 				}
 				break;
 			case 3:

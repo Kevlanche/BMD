@@ -2,6 +2,7 @@ package com.kevlanche.beaversmustdie;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.MathUtils;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
@@ -71,7 +72,13 @@ public class Island extends PhysicsActor {
 	@Override
 	public void draw(SpriteBatch batch, float parentAlpha) {
 		float side = Mane.PTM_RATIO/4;
-		batch.draw(Assets.pole, -side/2, 0.0f, 0.0f, 0.0f, side, physicsBody.getPosition().len()*Mane.PTM_RATIO, 1.0f, 1.0f, getRotation());
+		
+		Vector2 sides = new Vector2(getWidth(), getHeight());
+		sides.rotate(getRotation());
+		Vector2 target = new Vector2(getX() + sides.x/2, getY() + sides.y/2);
+		float atan2 = MathUtils.radiansToDegrees * MathUtils.atan2(target.y, target.x) - 90.0f;
+		
+		batch.draw(Assets.pole, -side/2, 0.0f, 0.0f, 0.0f, side, target.len(), 1.0f, 1.0f, atan2);
 		
 		super.draw(batch, parentAlpha, Assets.island);
 	}

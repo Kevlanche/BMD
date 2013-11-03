@@ -30,6 +30,7 @@ public class Shark extends PhysicsActor {
 	
 	boolean jumpUpgrade = false;
 	boolean glideUpgrade = false;
+	boolean speedUpgrade = false;
 	
 	SharkSweetAirJumpTimeReportReceiver listener;
 	
@@ -233,10 +234,17 @@ public class Shark extends PhysicsActor {
 	public void addJumpUpgrade() {
 		glideUpgrade = false;
 		jumpUpgrade = true;
+		speedUpgrade = false;
 	}
 	public void addGlideUpgrade() {
 		glideUpgrade = true;
 		jumpUpgrade = false;
+		speedUpgrade = false;
+	}
+	public void addSpeedUpgrade(){
+		glideUpgrade = false;
+		jumpUpgrade = false;
+		speedUpgrade = true;
 	}
 	
 }

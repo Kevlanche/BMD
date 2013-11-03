@@ -174,6 +174,8 @@ public class GameScreen extends InputAdapter implements Screen{
 		
 		gameStage.addActor(new Upgrade(physicsWorld, new Vector2(9.0f, 9.0f),2));
 		
+		gameStage.addActor(new Upgrade(physicsWorld, new Vector2(15.0f, 15.0f),3));
+		
 		if (Mane.PHYSICS_DEBUG)
 			gameStage.addActor(new Box2dDebug(physicsWorld));
 		
@@ -343,6 +345,8 @@ public class GameScreen extends InputAdapter implements Screen{
 					guiStage.addActor(constructUpgradeLabel("Dynamite fins unlocked"));
 					shark.addJumpUpgrade();
 					break;
+				case 3:
+					shark.addSpeedUpgrade();
 			}
 			u.remove();
 		}

@@ -5,4 +5,6 @@
 	<inherits name='Mane' />
 	<entry-point class='com.kevlanche.beaversmustdie.client.GwtLauncher' />
 	<set-configuration-property name="gdx.assetpath" value="../BeaversMustDie-android/assets" />
+	<extend-configuration-property name="gdx.reflect.include" value="com.kevlanche.beaversmustdie.particles" />
+	
 </module>

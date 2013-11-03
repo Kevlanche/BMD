@@ -1,6 +1,7 @@
 package com.kevlanche.beaversmustdie;
 
 import com.badlogic.gdx.Game;
+import com.badlogic.gdx.audio.Music;
 
 public class Mane extends Game {
 
@@ -19,6 +20,10 @@ public class Mane extends Game {
 		instance = this;
 		Assets.load();
 		setScreen(new TitleScreen());
+		
+//		Music music = Assets.bg_music;
+//		music.setLooping(true);
+//		music.play();
 	}
 
 	@Override

@@ -77,11 +77,7 @@ public class GameScreen extends InputAdapter implements Screen{
 		
 		physicsWorld = new World(Vector2.Zero, false);
 		new CollisionManager(physicsWorld, this);
-		
-		Music music = Assets.bg_music;
-		music.setLooping(true);
-		music.play();
-		disposables.add(music);
+
 		
 		Sky sky = new Sky();
 		gameStage.addActor(sky);
@@ -100,12 +96,11 @@ public class GameScreen extends InputAdapter implements Screen{
 
 		final LBL sharkTimeLbl = new LBL("No jump yet!", 2.0f);
 
-		sharkTimeLbl.position(Mane.WIDTH*0.05f, Mane.HEIGHT - Mane.WIDTH*0.05f, 0.0f, 1.0f);
+		sharkTimeLbl.position(Mane.WIDTH*0.95f, Mane.HEIGHT - Mane.WIDTH*0.05f, 1.0f, 1.0f);
 		
 		guiStage.addActor(sharkTimeLbl);
 		
 		fpsLabel = new LBL("1338 FPS", 2.0f);
-		
 		fpsLabel.position(Mane.WIDTH * 0.05f, Mane.HEIGHT - Mane.WIDTH*0.1f, 0.0f, 1.0f);
 		
 		guiStage.addActor(fpsLabel);
@@ -129,7 +124,7 @@ public class GameScreen extends InputAdapter implements Screen{
 
 		MathUtils.random.setSeed(seed);
 		
-		for (int i=0; i<15; ++i) {
+		for (int i=0; i<TitleScreen.MAP_SIZE; ++i) {
 			boolean notDone = true;
 			int angle;
 			float size= MathUtils.random(2.5f, 5.0f);
@@ -168,18 +163,29 @@ public class GameScreen extends InputAdapter implements Screen{
 		}
 		
 		waterSourceLbl = new LBL(waterSources+" water sources remaining", 2.0f);
-		waterSourceLbl.position(Mane.WIDTH*0.95f, Mane.HEIGHT - Mane.WIDTH*0.05f, 1.0f, 1.0f);
+		waterSourceLbl.position(Mane.WIDTH*0.05f, Mane.HEIGHT - Mane.WIDTH*0.05f, 0.0f, 1.0f);
 		guiStage.addActor(waterSourceLbl);
 		
 		gameStage.addActor(new EarthCore(physicsWorld));
 		
 		gameStage.addActor(shark);
 		
-		gameStage.addActor(new Upgrade(physicsWorld, new Vector2(5.0f, 5.0f),1));
-		gameStage.addActor(new Upgrade(physicsWorld, new Vector2(9.0f, 9.0f),2));
-		gameStage.addActor(new Upgrade(physicsWorld, new Vector2(7.0f, 3.0f),3));
+		Array<Float> pos = new Array<Float>(8);
+		for(int r=0; r<8;++r){
+		while(true){
+		float p = MathUtils.random(-24.0f, 24.0f);
+		if(p<-4.5f||p>4.5f){
+			pos.add(p);
+			break;
+		}
+		}
 		
-		gameStage.addActor(new Upgrade(physicsWorld, new Vector2(15.0f, 15.0f),4));
+		}
+		gameStage.addActor(new Upgrade(physicsWorld, new Vector2(pos.get(0), pos.get(1)),1));
+		gameStage.addActor(new Upgrade(physicsWorld, new Vector2(pos.get(2), pos.get(3)),2));
+		gameStage.addActor(new Upgrade(physicsWorld, new Vector2(pos.get(4), pos.get(5)),3));
+		
+		gameStage.addActor(new Upgrade(physicsWorld, new Vector2(pos.get(6), pos.get(7)),4));
 		
 		if (Mane.PHYSICS_DEBUG)
 			gameStage.addActor(new Box2dDebug(physicsWorld));

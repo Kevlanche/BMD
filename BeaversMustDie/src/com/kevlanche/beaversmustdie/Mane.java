@@ -1,7 +1,6 @@
 package com.kevlanche.beaversmustdie;
 
 import com.badlogic.gdx.Game;
-import com.badlogic.gdx.Screen;
 
 public class Mane extends Game {
 

@@ -155,10 +155,11 @@ public class GameScreen extends InputAdapter implements Screen{
 			} while (notDone);
 
 
-			Island island = addIsland((float)angle, size, 1.0f + i/10.0f, MathUtils.random(1, 2),MathUtils.random(1, 2), MathUtils.random(0, 1));
+			Island island = addIsland((float)angle, size, 1.0f + i/10.0f, Math.max(1, MathUtils.random(1, 4)/2));
 
 			
-			gameStage.addActor(new Beaver(physicsWorld, island));
+			if (MathUtils.randomBoolean())
+				gameStage.addActor(new Beaver(physicsWorld, island));
 
 		}
 		
@@ -180,21 +181,23 @@ public class GameScreen extends InputAdapter implements Screen{
 		zoom = 1.0f;
 	}
 
-	private Island addIsland(float ang, float size, float len, int numSilos,int numPools,int numTowers) {
+	private Island addIsland(float ang, float size, float len, int numWaterSources) {
 		Island island = new Island(physicsWorld, ang, size, len * Water.WATER_RADIUS);
 		gameStage.addActor(island);
-		for (int i=0; i<numSilos; ++i) {
-			gameStage.addActor(new Silo(physicsWorld, island, MathUtils.random()));
+		for (int i=0; i<numWaterSources; ++i) {
+			switch (MathUtils.random(0, 2)) {
+				case 0:
+					gameStage.addActor(new Silo(physicsWorld, island, MathUtils.random()));
+					break;
+				case 1:
+					gameStage.addActor(new Pool(physicsWorld, island, MathUtils.random()));
+					break;
+				case 2:
+					gameStage.addActor(new WaterTower(physicsWorld, island, MathUtils.random()));
+					break;
+			}
 		}
-		for (int i=0; i<numPools; ++i) {
-			gameStage.addActor(new Pool(physicsWorld, island, MathUtils.random()));
-		}
-		for (int i=0; i<numTowers; ++i) {
-			gameStage.addActor(new WaterTower(physicsWorld, island, MathUtils.random()));
-		}
-		waterSources += numSilos;
-		waterSources += numPools;
-		waterSources += numTowers;
+		this.waterSources += numWaterSources;
 		
 		return island;
 
@@ -309,20 +312,17 @@ public class GameScreen extends InputAdapter implements Screen{
 		for (Silo s : silosToBoom) {
 			rmPool(s, 0.75f);
 		}
-
 		silosToBoom.clear();
 		
 		for (Pool p : poolsToBoom) {
 			rmPool(p, 0.95f);
 		}
-		
 		poolsToBoom.clear();
 		
 		
 		for (WaterTower t : towerToBoom) {
 			rmPool(t, 1.15f);
 		}
-		
 		towerToBoom.clear();
 		
 		

@@ -137,6 +137,20 @@ public class Shark extends PhysicsActor {
 				inWater = true;
 				jumpCooldown = Math.min(jumpCooldown, 0.25f);
 				listener.onSharkDidSweetJumpFor(airTime);
+				
+				ParticleEffect pe = ParticlePool.get();
+				pe.setColor(Color.CYAN);
+				float ang = getRotation();
+				Vector2 sides = new Vector2( getWidth(), getHeight());
+				sides.rotate(ang);
+				Vector2 mid = new Vector2(	getX() + sides.x/2,
+											getY() + sides.y/2
+											);
+				pe.setPosition(mid.x - getWidth()/2, mid.y - getHeight()/2);
+				pe.setSize(getWidth(), getHeight());
+				pe.init(Assets.bottom_fin_wing, 50.0f, 10, Mane.PTM_RATIO/3);
+				getParent().addActor(pe);
+				
 			} else {
 				if (jumpCooldown <= 0.0f) {
 					canJump = true;
@@ -156,6 +170,20 @@ public class Shark extends PhysicsActor {
 			if (inWater) {
 				inWater = false;
 				airTime = delta;
+				
+				ParticleEffect pe = ParticlePool.get();
+				pe.setColor(Color.CYAN);
+				float ang = getRotation();
+				Vector2 sides = new Vector2( getWidth(), getHeight());
+				sides.rotate(ang);
+				Vector2 mid = new Vector2(	getX() + sides.x/2,
+											getY() + sides.y/2
+											);
+				pe.setPosition(mid.x - getWidth()/2, mid.y - getHeight()/2);
+				pe.setSize(getWidth(), getHeight());
+				pe.init(Assets.bottom_fin_wing, 50.0f, 10, Mane.PTM_RATIO/3);
+				getParent().addActor(pe);
+				
 			} else {
 				airTime += delta;
 				listener.onSharkIsDoingSweetJumpFor(airTime);

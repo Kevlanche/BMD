@@ -9,7 +9,7 @@ public class Assets {
 	
 	public static TextureAtlas atlas;
 	
-	public static TextureRegion alphabet, smiley, earthCore, island, pole, silo, cloud, beaver, blood, pool;
+	public static TextureRegion alphabet, smiley, earthCore, island, pole, silo, cloud, beaver, blood, pool, tower;
 	
 	public static TextureRegion shark ;
 	public static TextureRegion bottom_fin_default, bottom_fin_wing, bottom_fin_dynamite;
@@ -30,6 +30,7 @@ public class Assets {
 		beaver = find("beaver");
 		blood = find("blood");
 		pool = find("pool");
+		tower = find("tower");
 		
 		top_fin_default = find("top_fin_default");
 		top_fin_baloon = find("top_fin_baloon");

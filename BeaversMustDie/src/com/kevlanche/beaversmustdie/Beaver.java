@@ -8,6 +8,7 @@ import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.CircleShape;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.World;
+import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 
 public class Beaver extends PhysicsActor {
 	
@@ -28,7 +29,7 @@ public class Beaver extends PhysicsActor {
 		float islandW = island.getPhysicsWidth();
 		float islandH = island.getPhysicsHeight();
 		
-		Vector2 off = new Vector2(islandW * 0.5f, islandH);
+		Vector2 off = new Vector2(islandW * MathUtils.random(0.3f, 0.6f), islandH);
 		off.rotate(MathUtils.radiansToDegrees * ang);
 		
 		bd.position.set(new Vector2(
@@ -36,7 +37,19 @@ public class Beaver extends PhysicsActor {
 									pos.y + off.y ));
 		bd.angle = ang;
 
+		off.set(islandW*0.075f, islandH);
+		off.rotate(MathUtils.radiansToDegrees * ang);
+		Vector2 rightEdge = new Vector2(pos.x + off.x, pos.y + off.y).scl(Mane.PTM_RATIO);
+		off.set(islandW*0.85f, islandH);
+		off.rotate(MathUtils.radiansToDegrees * ang);
+		Vector2 leftEdge = new Vector2(pos.x + off.x, pos.y + off.y).scl(Mane.PTM_RATIO);
 		
+		
+		float speed = MathUtils.random(1.0f, 3.0f);
+		addAction( Actions.delay(MathUtils.random(0.0f, 1.0f),
+									Actions.forever( Actions.sequence(
+											Actions.moveTo(rightEdge.x, rightEdge.y, speed), 
+											Actions.moveTo(leftEdge.x, leftEdge.y, speed) ) )));
 		
 		bd.linearDamping = 0.2f;
 

@@ -246,7 +246,7 @@ public class GameScreen extends InputAdapter implements Screen{
 
 	private static String randomLowJumpMessage() {
 
-		switch (MathUtils.random(0, 10)) {
+		switch (MathUtils.random(0, 13)) {
 		case 0: return "weeee";
 		case 1: return "180 sharkspin";
 		case 2: return "flying shark? madness!";
@@ -259,6 +259,8 @@ public class GameScreen extends InputAdapter implements Screen{
 		case 9: return "no hands!";
 		case 10: return "nobody expects the spanish flying shark";
 		case 11: return "360 noshark";
+		case 12: return "You gotta fight for your right\nto SHAAAAAAAAAAAARKYYYYY";
+		case 13: return "And they say white sharks can't jump";
 
 		}
 

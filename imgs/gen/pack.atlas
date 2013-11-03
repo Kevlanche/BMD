@@ -10,13 +10,6 @@ alphabet
   orig: 128, 64
   offset: 0, 0
   index: -1
-ballon
-  rotate: false
-  xy: 360, 166
-  size: 128, 128
-  orig: 128, 128
-  offset: 0, 0
-  index: -1
 beaver
   rotate: false
   xy: 2, 35
@@ -113,6 +106,13 @@ smiley
   xy: 790, 472
   size: 32, 32
   orig: 32, 32
+  offset: 0, 0
+  index: -1
+top_fin_baloon
+  rotate: false
+  xy: 360, 166
+  size: 128, 128
+  orig: 128, 128
   offset: 0, 0
   index: -1
 top_fin_default

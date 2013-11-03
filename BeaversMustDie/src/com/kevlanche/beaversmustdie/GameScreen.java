@@ -171,8 +171,8 @@ public class GameScreen extends InputAdapter implements Screen{
 		gameStage.addActor(shark);
 		
 		gameStage.addActor(new Upgrade(physicsWorld, new Vector2(5.0f, 5.0f),1));
-		
 		gameStage.addActor(new Upgrade(physicsWorld, new Vector2(9.0f, 9.0f),2));
+		gameStage.addActor(new Upgrade(physicsWorld, new Vector2(7.0f, 3.0f),3));
 		
 		if (Mane.PHYSICS_DEBUG)
 			gameStage.addActor(new Box2dDebug(physicsWorld));
@@ -336,12 +336,16 @@ public class GameScreen extends InputAdapter implements Screen{
 			
 			switch(u.getType()){
 				case 1:
-					guiStage.addActor(constructUpgradeLabel("Wing fins unlocked"));
+					guiStage.addActor(constructUpgradeLabel("Wing flipper unlocked"));
 					shark.addGlideUpgrade();
 					break;
 				case 2:
-					guiStage.addActor(constructUpgradeLabel("Dynamite fins unlocked"));
+					guiStage.addActor(constructUpgradeLabel("Dynamite flipper unlocked"));
 					shark.addJumpUpgrade();
+					break;
+				case 3:
+					guiStage.addActor(constructUpgradeLabel("Baloon fin unlocked"));
+					shark.addBalloonUpgrade();
 					break;
 			}
 			u.remove();

@@ -7,7 +7,7 @@ public class Mane extends Game {
 	public final static int WIDTH = 1680/2;
 	public final static int HEIGHT = 1050/2;
 	
-	public static final boolean PHYSICS_DEBUG = true;
+	public static final boolean PHYSICS_DEBUG = false;
 	
 	public static final float PTM_RATIO = 32.0f;
 	

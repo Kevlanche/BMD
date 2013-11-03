@@ -13,7 +13,7 @@ public class Assets {
 	
 	public static TextureRegion shark ;
 	public static TextureRegion bottom_fin_default, bottom_fin_wing, bottom_fin_dynamite;
-	public static TextureRegion top_fin_default;
+	public static TextureRegion top_fin_default, top_fin_baloon;
 	
 	public static Music bg_music;
 
@@ -31,10 +31,12 @@ public class Assets {
 		blood = find("blood");
 		pool = find("pool");
 		
+		top_fin_default = find("top_fin_default");
+		top_fin_baloon = find("top_fin_baloon");
+		
 		bottom_fin_default = find("bottom_fin_default");
 		bottom_fin_wing = find("bottom_fin_wing");
 		bottom_fin_dynamite = find("bottom_fin_dynamite");
-		top_fin_default = find("top_fin_default");
 		
 		bg_music = Gdx.audio.newMusic(Gdx.files.internal("data/shark_concept.wav"));
 	}

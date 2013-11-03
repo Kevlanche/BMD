@@ -12,6 +12,7 @@ import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.utils.Pool;
 import com.badlogic.gdx.utils.Pool.Poolable;
 import com.badlogic.gdx.utils.Pools;
+import com.badlogic.gdx.utils.ReflectionPool;
 import com.kevlanche.beaversmustdie.Assets;
 import com.kevlanche.beaversmustdie.Mane;
 

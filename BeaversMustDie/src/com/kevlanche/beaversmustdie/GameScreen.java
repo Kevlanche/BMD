@@ -51,12 +51,16 @@ public class GameScreen extends InputAdapter implements Screen{
 	
 	boolean isDisposed = false;
 	long seed;
+
+	private LBL TutLbl;
+
+	private boolean tut;
 	
-	public GameScreen(long seed) {
+	public GameScreen(long seed, boolean tut) {
 		
 		Water.WATER_RADIUS = 25.0f;
 
-	
+		this.tut = tut; 
 		this.seed = seed;
 //		Gdx.gl.glEnable(GL20.GL_BLEND);
 //		Gdx.gl.glBlendFunc(GL20.GL_SRC_COLOR, GL20.GL_DST_ALPHA);
@@ -100,6 +104,14 @@ public class GameScreen extends InputAdapter implements Screen{
 		
 		guiStage.addActor(sharkTimeLbl);
 		
+		if(tut){
+		 TutLbl = new LBL("Try to get all the water silos around the map.", 2.0f);
+
+		TutLbl.position(Mane.WIDTH*0.95f, Mane.HEIGHT - Mane.WIDTH*0.20f, 1.0f, 1.0f);
+		
+		guiStage.addActor(TutLbl);
+		}
+		
 		fpsLabel = new LBL("1338 FPS", 2.0f);
 		fpsLabel.position(Mane.WIDTH * 0.05f, Mane.HEIGHT - Mane.WIDTH*0.1f, 0.0f, 1.0f);
 		
@@ -123,7 +135,7 @@ public class GameScreen extends InputAdapter implements Screen{
 		});
 
 		MathUtils.random.setSeed(seed);
-		
+		if(!tut){
 		for (int i=0; i<TitleScreen.MAP_SIZE/2; ++i) {
 			boolean notDone = true;
 			int angle;
@@ -159,7 +171,15 @@ public class GameScreen extends InputAdapter implements Screen{
 
 			
 			gameStage.addActor(new Beaver(physicsWorld, island));
-
+		}
+		}
+		else{
+			for (int i=1; i<6; ++i) {
+				Island island = addIsland(40.0f*i, 4.0f, 0.9f + i/15.0f, 1);
+				gameStage.addActor(new Beaver(physicsWorld, island));
+			}
+			
+			
 		}
 		
 		waterSourceLbl = new LBL(waterSources+" water sources remaining", 2.0f);
@@ -170,6 +190,7 @@ public class GameScreen extends InputAdapter implements Screen{
 		
 		gameStage.addActor(shark);
 		
+		if(!tut){
 		Array<Float> pos = new Array<Float>(8);
 		for(int r=0; r<8;++r){
 		while(true){
@@ -186,6 +207,13 @@ public class GameScreen extends InputAdapter implements Screen{
 		gameStage.addActor(new Upgrade(physicsWorld, new Vector2(pos.get(4), pos.get(5)),3));
 		
 		gameStage.addActor(new Upgrade(physicsWorld, new Vector2(pos.get(6), pos.get(7)),4));
+		}
+		else{
+			gameStage.addActor(new Upgrade(physicsWorld, new Vector2(9.0f, 27.0f),1));
+			gameStage.addActor(new Upgrade(physicsWorld, new Vector2(26.0f, 10.0f),2));
+			gameStage.addActor(new Upgrade(physicsWorld, new Vector2(-7.0f, 32.0f),3));
+			gameStage.addActor(new Upgrade(physicsWorld, new Vector2(7.0f, 7.0f),4));
+		}
 		
 		if (Mane.PHYSICS_DEBUG)
 			gameStage.addActor(new Box2dDebug(physicsWorld));
@@ -265,6 +293,7 @@ public class GameScreen extends InputAdapter implements Screen{
 			String format = Float.toString(totalTime);
 			if (format.length() > 5) format = format.substring(0, 4);
 			waterSourceLbl.setText( "Finished in "+format+" seconds!\nPress Q to return to title screen or R to go again" );
+			TutLbl.setText("Congrats you beat the tutorial! time to play the real game!");
 		} else {
 			waterSourceLbl.setText(waterSources+" water sources remaining");
 		}
@@ -351,21 +380,38 @@ public class GameScreen extends InputAdapter implements Screen{
 		
 		for (Upgrade u : upgradesToRemove) {
 			
+			if(tut){
+				TutLbl.setText( "");
+			}
+			
 			switch(u.getType()){
 				case 1:
 					guiStage.addActor(constructUpgradeLabel("Wing flipper unlocked", 1));
 					shark.addGlideUpgrade();
+					if(tut){
+						TutLbl.setText("Wing flipper lets you glide across the world like a beautiful swan");
+					}
 					break;
 				case 2:
 					guiStage.addActor(constructUpgradeLabel("Dynamite flipper unlocked", 1));
 					shark.addJumpUpgrade();
+					if(tut){
+						TutLbl.setText("Want to jump? Use the Dynamite flipper with SPACE to reach higher");
+					}
 					break;
 				case 3:
 					guiStage.addActor(constructUpgradeLabel("Baloon fin unlocked", 1));
 					shark.addBalloonUpgrade();
+					if(tut){
+						TutLbl.setText("With this umbrella fin can you fight the gravity like never before");
+					}
 					break;
 				case 4:
+					guiStage.addActor(constructUpgradeLabel("Rocket fin unlocked", 1));
 					shark.addSpeedUpgrade();
+					if(tut){
+						TutLbl.setText("With the rocket fin are you very fast!");
+					}
 			}
 			u.remove();
 		}

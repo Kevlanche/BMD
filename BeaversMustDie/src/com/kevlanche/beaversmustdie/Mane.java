@@ -35,7 +35,7 @@ public class Mane extends Game {
 	public static void startGame(long seed) {
 		System.out.println("Starting new game with seed " + seed);
 		instance.getScreen().dispose();
-		instance.setScreen(new GameScreen(seed));
+		instance.setScreen(new GameScreen(seed,true));
 	}
 	
 	public static void startTitleScreen() {

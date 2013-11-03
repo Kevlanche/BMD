@@ -61,6 +61,7 @@ public class TitleScreen extends InputAdapter implements Screen {
 		startMsg.position(Mane.WIDTH/2, Mane.HEIGHT*0.2f, 0.5f, 0.5f);
 		stage.addActor(startMsg);
 
+
 		
 		postProcessor.addEffect( ripple );
 		

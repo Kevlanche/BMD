@@ -12,6 +12,11 @@ public class TitleScreen extends InputAdapter implements Screen {
 
 	private Stage stage;
 	LBL seed;
+	LBL mapSize;
+
+	public static int MAP_SIZE = 13;
+	private static int MAP_SIZE_MIN = 6;
+	private static int MAP_SIZE_MAX = 20;
 	
 	public TitleScreen() {
 		stage = new Stage();
@@ -20,15 +25,55 @@ public class TitleScreen extends InputAdapter implements Screen {
 		title.position(Mane.WIDTH/2, Mane.HEIGHT*0.75f, 0.5f, 0.75f);
 		stage.addActor(title);
 		
-		LBL seedMsg = new LBL("Enter a seed (or leave empty for random) and press enter to start!", 2.0f);
-		seedMsg.position(Mane.WIDTH/2, Mane.HEIGHT*0.5f, 0.5f, 0.75f);
+		LBL seedMsg = new LBL("Enter a seed (or leave empty for random)", 2.0f);
+		seedMsg.position(Mane.WIDTH/2, Mane.HEIGHT*0.6f, 0.5f, 0.5f);
 		stage.addActor(seedMsg);
 		
 		seed = new LBL("**", 2.0f);
-		seed.position(Mane.WIDTH/2, Mane.HEIGHT*0.25f, 0.5f, 0.5f);
+		seed.position(Mane.WIDTH/2, Mane.HEIGHT*0.55f, 0.5f, 0.5f);
 		stage.addActor(seed);
 		
+		LBL mapSizeMsg = new LBL("Use arrow keys (left & right) to change map size", 2.0f);
+		mapSizeMsg.position(Mane.WIDTH/2, Mane.HEIGHT*0.4f, 0.5f, 0.5f);
+		stage.addActor(mapSizeMsg);
+		
+		mapSize = new LBL("*"+ mapSizeMsg() +"*", 2.0f);
+		mapSize.position(Mane.WIDTH/2, Mane.HEIGHT*0.35f, 0.5f, 0.5f);
+		stage.addActor(mapSize);
+		
+		
+
+		LBL startMsg = new LBL("Press enter to start!", 2.0f);
+		startMsg.position(Mane.WIDTH/2, Mane.HEIGHT*0.2f, 0.5f, 0.5f);
+		stage.addActor(startMsg);
+		
 	}
+	private String mapSizeMsg() {
+		if (MAP_SIZE < 7) return "small--";
+		if (MAP_SIZE > MAP_SIZE_MAX) return "large++";
+
+		switch (MAP_SIZE) {
+		case 7: return "small-";
+		case 8: return "small";
+		case 9: return "small+";
+		case 10: return "small++";
+		case 11: return "medium--";
+		case 12: return "medium-";
+		case 13: return "medium";
+		case 14: return "medium+";
+		case 15: return "medium++";
+		case 16: return "large--";
+		case 17: return "large-";
+		case 18: return "large";
+		case 19: return "large+";
+		case 20: return "large++";
+		
+		
+		}
+		
+		return "medium";
+	}
+	
 	@Override
 	public void render(float delta) {
 		  Gdx.gl.glClearColor(0, 1.0f, 1.0f, 1);
@@ -75,6 +120,12 @@ public class TitleScreen extends InputAdapter implements Screen {
 			char c = (char)('A' + (kc - Keys.A));
 			String newText = seed.text.substring(0, seed.text.length()-1) + c + "*";
 			seed.setText(newText);
+		} else if (kc == Keys.LEFT) {
+			MAP_SIZE = MathUtils.clamp(MAP_SIZE-1, MAP_SIZE_MIN, MAP_SIZE_MAX);
+			mapSize.setText("*"+mapSizeMsg()+"*");
+		} else if (kc == Keys.RIGHT) {
+			MAP_SIZE = MathUtils.clamp(MAP_SIZE+1, MAP_SIZE_MIN, MAP_SIZE_MAX);
+			mapSize.setText("*"+mapSizeMsg()+"*");
 		}
 		return true;
 	}

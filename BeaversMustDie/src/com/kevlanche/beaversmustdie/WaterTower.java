@@ -75,7 +75,7 @@ public class WaterTower extends PhysicsActor {
 
 	@Override
 	public void draw(SpriteBatch batch, float parentAlpha) {
-		super.draw(batch, parentAlpha, Assets.pole);
+		super.draw(batch, parentAlpha, Assets.tower);
 	}
 	
 }

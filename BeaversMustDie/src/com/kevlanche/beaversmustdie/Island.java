@@ -60,6 +60,7 @@ public class Island extends PhysicsActor {
 		
 		setSize(4*scale*Mane.PTM_RATIO, scale*Mane.PTM_RATIO);
 		setOrigin(0.0f, 0.0f);
+		setScaleY(1.2f);
 //		setOrigin(getWidth()/2, getHeight()/2);
 //		super.drawingOffsetX = -Mane.PTM_RATIO * scale / 2;
 	}

@@ -36,7 +36,7 @@ public class Upgrade extends PhysicsActor {
 		fd.isSensor = true;
 		
 		CircleShape cs = new CircleShape();
-		cs.setPosition(new Vector2(radius/2, radius/2));
+		cs.setPosition(new Vector2(radius, radius));
 		cs.setRadius(radius);
 		
 		
@@ -46,7 +46,7 @@ public class Upgrade extends PhysicsActor {
 		cs.dispose();
 		super.initPhysicsBody(body);
 		
-		setSize(scale*Mane.PTM_RATIO, scale*Mane.PTM_RATIO);
+		setSize(2*scale*Mane.PTM_RATIO, 2*scale*Mane.PTM_RATIO);
 		setOrigin(0.0f, 0.0f);
 	}
 	public int getType(){
@@ -63,6 +63,15 @@ public class Upgrade extends PhysicsActor {
 		case 2:
 			super.draw(batch, parentAlpha, Assets.bottom_fin_dynamite);
 			break;
+		case 3:
+			super.draw(batch, parentAlpha, Assets.top_fin_baloon);
+			break;
+			
+		case 4:
+			
+			super.draw(batch, parentAlpha, Assets.smiley);
+			break;
+
 		}
 	}
 	

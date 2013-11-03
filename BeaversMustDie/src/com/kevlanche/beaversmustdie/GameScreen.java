@@ -312,7 +312,7 @@ public class GameScreen extends InputAdapter implements Screen{
 			String format = Float.toString(totalTime);
 			if (format.length() > 5) format = format.substring(0, 4);
 			waterSourceLbl.setText( "Finished in "+format+" seconds!\nPress Q to return to title screen or R to go again" );
-			TutLbl.setText("Congrats you beat the tutorial! time to play the real game!");
+		if(tut){	TutLbl.setText("Congrats you beat the tutorial! time to play the real game!");}
 		} else {
 			waterSourceLbl.setText(waterSources+" water sources remaining");
 		}
@@ -425,7 +425,7 @@ public class GameScreen extends InputAdapter implements Screen{
 				guiStage.addActor(constructUpgradeLabel("Baloon fin unlocked", Color.GREEN));
 				shark.addBalloonUpgrade();
 				if(tut){
-					TutLbl.setText("With this umbrella fin can you fight the gravity like never before");
+					TutLbl.setText("You can fight the gravity like never before with this umbrella fin");
 				}
 				break;
 			case 4:
@@ -433,7 +433,7 @@ public class GameScreen extends InputAdapter implements Screen{
 				guiStage.addActor(constructUpgradeLabel("Rocket fin unlocked", Color.GREEN));
 				shark.addSpeedUpgrade();
 				if(tut){
-					TutLbl.setText("With the rocket fin are you very fast!");
+					TutLbl.setText("You can swin very fast with the rocket fin");
 				}
 			}
 			u.remove();

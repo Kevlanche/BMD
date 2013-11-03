@@ -173,7 +173,7 @@ public class GameScreen extends InputAdapter implements Screen{
 		Array<Float> pos = new Array<Float>(8);
 		for(int r=0; r<8;++r){
 		while(true){
-		float p = MathUtils.random(-23.0f, 23.0f);
+		float p = MathUtils.random(-24.0f, 24.0f);
 		if(p<-4.5f||p>4.5f){
 			pos.add(p);
 			break;

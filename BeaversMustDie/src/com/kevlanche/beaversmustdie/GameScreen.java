@@ -37,6 +37,7 @@ public class GameScreen extends InputAdapter implements Screen{
 	private Array<WaterTower> towerToBoom;
 	private Array<Upgrade> upgradesToRemove;
 	private Array<Integer> islandAngles;
+	private int beaversKilled;
 	
 	private float waterRaiseBuffer;
 	
@@ -46,6 +47,7 @@ public class GameScreen extends InputAdapter implements Screen{
 	private float totalTime;
 	private int waterSources;
 	private LBL waterSourceLbl;
+	
 	
 	boolean isDisposed = false;
 	long seed;
@@ -66,6 +68,7 @@ public class GameScreen extends InputAdapter implements Screen{
 		upgradesToRemove = new Array<Upgrade>();
 		beaversToRemove = new Array<Beaver>();
 		islandAngles = new Array<Integer>();
+		beaversKilled=0;
 		
 		gameStage = new Stage();
 		guiStage = new Stage();
@@ -92,6 +95,7 @@ public class GameScreen extends InputAdapter implements Screen{
 			Cloud cloud = new Cloud(MathUtils.random(0.0f, 360.0f) , Mane.PTM_RATIO * MathUtils.random(Water.WATER_RADIUS * 0.25f, Water.WATER_RADIUS * 1.5f),MathUtils.random(1.0f,4.0f));
 			gameStage.addActor(cloud);
 		}
+
 		
 
 		final LBL sharkTimeLbl = new LBL("No jump yet!", 2.0f);
@@ -279,9 +283,14 @@ public class GameScreen extends InputAdapter implements Screen{
 		
 	}
 	
-	private LBL constructUpgradeLabel(String msg) {
+	private LBL constructUpgradeLabel(String msg,int i) {
 		LBL ret = new LBL(msg, 2.5f);
-		ret.setColor(Color.GREEN);
+		if(i==1){
+			ret.setColor(Color.GREEN);
+			}
+		else{
+			ret.setColor(Color.RED);
+		}
 		ret.position(Mane.WIDTH/2, Mane.HEIGHT/2, 0.5f, 0.5f);
 		ret.addAction(Actions.sequence(
 										Actions.parallel( 	Actions.moveBy(0.0f, Mane.HEIGHT/4, 2.0f, Interpolation.exp5Out),
@@ -336,11 +345,11 @@ public class GameScreen extends InputAdapter implements Screen{
 			
 			switch(u.getType()){
 				case 1:
-					guiStage.addActor(constructUpgradeLabel("Wing fins unlocked"));
+					guiStage.addActor(constructUpgradeLabel("Wing fins unlocked",1));
 					shark.addGlideUpgrade();
 					break;
 				case 2:
-					guiStage.addActor(constructUpgradeLabel("Dynamite fins unlocked"));
+					guiStage.addActor(constructUpgradeLabel("Dynamite fins unlocked",1));
 					shark.addJumpUpgrade();
 					break;
 			}
@@ -349,6 +358,37 @@ public class GameScreen extends InputAdapter implements Screen{
 		upgradesToRemove.clear();
 		
 		for(Beaver b : beaversToRemove) {
+			
+			switch(beaversKilled){
+			case 0:
+				guiStage.addActor(constructUpgradeLabel("MURDERER!!!!!",2));
+				break;
+				
+			case 1:
+				guiStage.addActor(constructUpgradeLabel("BLOODY MESS!!!!!",2));
+				break;
+			
+			case 2:
+				guiStage.addActor(constructUpgradeLabel("MULTI KILL!!!!!",2));
+				break;
+			
+			case 3:
+				guiStage.addActor(constructUpgradeLabel("GENOCIDE!!!!!",2));
+				break;
+				
+			case 4:
+				guiStage.addActor(constructUpgradeLabel("YOU Are A MONSTER!!!!!",2));
+				break;
+			default:
+				guiStage.addActor(constructUpgradeLabel("WILL THIS EVER STOP??!!!!!",2));
+				break;
+				
+			}
+		
+
+			++beaversKilled;
+			
+		
 			rmBeaver(b);
 			//TODO SPLASH BLOOD EFFECT
 		}

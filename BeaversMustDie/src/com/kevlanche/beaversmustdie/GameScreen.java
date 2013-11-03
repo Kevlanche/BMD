@@ -129,7 +129,7 @@ public class GameScreen extends InputAdapter implements Screen{
 
 		MathUtils.random.setSeed(seed);
 		
-		for (int i=0; i<10; ++i) {
+		for (int i=0; i<15; ++i) {
 			boolean notDone = true;
 			int angle;
 			float size= MathUtils.random(2.5f, 5.0f);
@@ -159,11 +159,10 @@ public class GameScreen extends InputAdapter implements Screen{
 			} while (notDone);
 
 
-			Island island = addIsland((float)angle, size, 1.0f + i/10.0f, Math.max(1, MathUtils.random(1, 4)/2));
+			Island island = addIsland((float)angle, size, 1.0f + i/10.0f, MathUtils.random(1, 3));
 
 			
-			if (MathUtils.randomBoolean())
-				gameStage.addActor(new Beaver(physicsWorld, island));
+			gameStage.addActor(new Beaver(physicsWorld, island));
 
 		}
 		

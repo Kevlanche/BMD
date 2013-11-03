@@ -269,6 +269,7 @@ public class GameScreen extends InputAdapter implements Screen{
 			waterSourceLbl.setText(waterSources+" water sources remaining");
 		}
 		
+		Assets.boom.play();
 	}
 	
 	private void rmBeaver(PhysicsActor s) {
@@ -351,6 +352,8 @@ public class GameScreen extends InputAdapter implements Screen{
 		
 		for (Upgrade u : upgradesToRemove) {
 			
+			Assets.powerup.play();
+			
 			switch(u.getType()){
 				case 1:
 					guiStage.addActor(constructUpgradeLabel("Wing flipper unlocked", 1));
@@ -372,6 +375,8 @@ public class GameScreen extends InputAdapter implements Screen{
 		upgradesToRemove.clear();
 		
 		for(Beaver b : beaversToRemove) {
+			
+			Assets.beaver_death.play();
 			
 			switch(beaversKilled){
 			case 0:

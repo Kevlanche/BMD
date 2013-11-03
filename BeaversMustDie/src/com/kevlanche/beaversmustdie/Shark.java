@@ -124,6 +124,8 @@ public class Shark extends PhysicsActor {
 			pe.setSize(getWidth(), getHeight());
 			pe.init(Assets.bottom_fin_dynamite, 50.0f, 5);
 			getParent().addActor(pe);
+			
+			Assets.dynamite.play();
 		}
 		
 		jumpCooldown -= delta;
@@ -151,6 +153,8 @@ public class Shark extends PhysicsActor {
 				pe.setSize(getWidth(), getHeight());
 				pe.init(Assets.bottom_fin_wing, 50.0f, 10, Mane.PTM_RATIO/3);
 				getParent().addActor(pe);
+				
+				Assets.water_break.play();
 				
 			} else {
 				if (jumpCooldown <= 0.0f) {
@@ -184,6 +188,8 @@ public class Shark extends PhysicsActor {
 				pe.setSize(getWidth(), getHeight());
 				pe.init(Assets.bottom_fin_wing, 50.0f, 10, Mane.PTM_RATIO/3);
 				getParent().addActor(pe);
+				
+				Assets.water_break.play();
 				
 			} else {
 				airTime += delta;

@@ -5,126 +5,126 @@ filter: Nearest,Nearest
 repeat: none
 alphabet
   rotate: false
-  xy: 594, 446
+  xy: 2, 13
   size: 128, 64
   orig: 128, 64
   offset: 0, 0
   index: -1
 beaver
   rotate: false
-  xy: 2, 41
+  xy: 2, 289
   size: 356, 469
   orig: 356, 469
   offset: 0, 0
   index: -1
 blood
   rotate: false
-  xy: 360, 302
+  xy: 2, 79
   size: 232, 208
   orig: 232, 208
   offset: 0, 0
   index: -1
 bottom_fin_default
   rotate: false
-  xy: 438, 72
-  size: 32, 32
-  orig: 32, 32
+  xy: 806, 835
+  size: 180, 187
+  orig: 180, 187
   offset: 0, 0
   index: -1
 bottom_fin_dynamite
   rotate: false
-  xy: 724, 446
+  xy: 520, 694
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
   index: -1
 bottom_fin_wing
   rotate: false
-  xy: 490, 138
+  xy: 236, 151
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 cloud
   rotate: false
-  xy: 594, 381
+  xy: 806, 770
   size: 94, 63
   orig: 94, 63
   offset: 0, 0
   index: -1
 earthcore
   rotate: false
-  xy: 690, 412
+  xy: 314, 255
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 island
   rotate: false
-  xy: 92, 8
+  xy: 132, 46
   size: 94, 31
   orig: 94, 31
   offset: 0, 0
   index: -1
 pole
   rotate: false
-  xy: 490, 172
+  xy: 988, 894
   size: 32, 128
   orig: 32, 128
   offset: 0, 0
   index: -1
 pool
   rotate: false
-  xy: 594, 337
+  xy: 132, 2
   size: 65, 42
   orig: 65, 42
   offset: 0, 0
   index: -1
 rocket
   rotate: false
-  xy: 2, 2
+  xy: 586, 721
   size: 88, 37
   orig: 88, 37
   offset: 0, 0
   index: -1
 shark
   rotate: false
-  xy: 360, 106
-  size: 128, 64
-  orig: 128, 64
+  xy: 2, 760
+  size: 802, 262
+  orig: 802, 262
   offset: 0, 0
   index: -1
 silo
   rotate: false
-  xy: 524, 236
+  xy: 360, 411
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
   index: -1
 smiley
   rotate: false
-  xy: 790, 478
+  xy: 988, 860
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 top_fin_baloon
   rotate: false
-  xy: 360, 172
+  xy: 360, 477
   size: 128, 128
   orig: 128, 128
   offset: 0, 0
   index: -1
 top_fin_default
   rotate: false
-  xy: 524, 202
-  size: 32, 32
-  orig: 32, 32
+  xy: 360, 607
+  size: 158, 151
+  orig: 158, 151
   offset: 0, 0
   index: -1
 tower
   rotate: false
-  xy: 360, 2
+  xy: 236, 185
   size: 76, 102
   orig: 76, 102
   offset: 0, 0

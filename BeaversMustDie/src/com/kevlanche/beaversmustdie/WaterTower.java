@@ -48,8 +48,8 @@ public class WaterTower extends PhysicsActor {
 		float[] vertices = new float[]{
 				0.0f, 0.0f,
 				1.0f, 0.0f,
-				1.0f, 1.0f,
-				0.0f, 1.0f
+				1.0f, 2.0f,
+				0.0f, 2.0f
 		};
 		for (int i=0; i<vertices.length; i += 2) {
 			vertices[i] *= scale;

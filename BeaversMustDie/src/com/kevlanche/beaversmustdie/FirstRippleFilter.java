@@ -9,7 +9,9 @@ public class FirstRippleFilter extends Filter<FirstRippleFilter> {
 		// @formatter:off
 		Time( "time", 0 ),
 		Resolution( "resolution", 0 ),
-		Texture( "tex", 0 );
+		Texture( "tex", 0 ),
+		MousePositionX("mousePosX", 0),
+		MousePositionY("mousePosY", 0);
 		// @formatter:on
 
 		private String mnemonic;
@@ -32,6 +34,7 @@ public class FirstRippleFilter extends Filter<FirstRippleFilter> {
 	}
 	
 	private float time;
+	private float[] mousePos;
 	
 	public FirstRippleFilter() {
 		super(ShaderLoader.fromFile( "screenspace", "ripple" ));
@@ -40,11 +43,20 @@ public class FirstRippleFilter extends Filter<FirstRippleFilter> {
 	public void setTime(float time) {
 		this.time = time;
 	}
+	
+	public void setMousePos(float[] mousePos) {
+		this.mousePos = mousePos;
+		
+	}
 
 	@Override
 	public void rebind() {
 		setParams( Param.Texture, u_texture0 );
 		setParams( Param.Time, time);
+		mousePos[0] = -1.0f + 2*mousePos[0];
+		mousePos[1] = 1.0f - 2*mousePos[1];
+		setParam(Param.MousePositionX, mousePos[0]);
+		setParam(Param.MousePositionY, mousePos[1]);
 		endParams();
 	}
 

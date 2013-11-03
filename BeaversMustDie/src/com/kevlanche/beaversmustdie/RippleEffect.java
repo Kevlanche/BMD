@@ -9,6 +9,7 @@ public class RippleEffect extends PostProcessorEffect{
 	private FirstRippleFilter ripple;
 	
 	private float time;
+	private float[] mousePos;
 	
 	public RippleEffect() {
 		ripple = new FirstRippleFilter();
@@ -30,9 +31,14 @@ public class RippleEffect extends PostProcessorEffect{
 		this.time = time;
 	}
 
+	public void setMousePos(float[] mousePos) {
+		this.mousePos = mousePos;
+	}
+	
 	@Override
 	public void render(FrameBuffer src, FrameBuffer dest) {
 		ripple.setTime(time);
+		ripple.setMousePos(mousePos);
 		restoreViewport( dest );
 		ripple.setInput( src ).setOutput( dest ).render();
 		

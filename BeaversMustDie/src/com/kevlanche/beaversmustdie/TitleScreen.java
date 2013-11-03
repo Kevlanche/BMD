@@ -14,18 +14,22 @@ public class TitleScreen extends InputAdapter implements Screen {
 
 	private Stage stage;
 	private float totalTime = 0;
+	private float[] mousePos;
 	
 	LBL seed;
 	PostProcessor postProcessor;
 	RippleEffect ripple;
 	
 	public TitleScreen() {
+		mousePos = new float[]{0.0f, 0.0f};
+		
 		stage = new Stage();
 		
 		ShaderLoader.BasePath = "data/shaders/";
 		postProcessor = new PostProcessor(false, false, true);
 		
 		ripple = new RippleEffect();
+		stage.addActor(new BackgroundImage());
 		
 		LBL title = new LBL("Beavers must die!", 3.0f);
 		title.position(Mane.WIDTH/2, Mane.HEIGHT*0.75f, 0.5f, 0.75f);
@@ -39,6 +43,7 @@ public class TitleScreen extends InputAdapter implements Screen {
 		seed.position(Mane.WIDTH/2, Mane.HEIGHT*0.25f, 0.5f, 0.5f);
 		stage.addActor(seed);
 		
+		
 		postProcessor.addEffect( ripple );
 		
 	}
@@ -49,11 +54,17 @@ public class TitleScreen extends InputAdapter implements Screen {
 		
 		ripple.setTime(totalTime);
 
+		mousePos[0] = Gdx.input.getX() / (float) Mane.WIDTH;
+		mousePos[1] = Gdx.input.getY() / (float) Mane.HEIGHT;
+		
+		ripple.setMousePos(mousePos);
+		
 		stage.act(delta);
 		
 		postProcessor.capture();
 		  Gdx.gl.glClearColor(0, 1.0f, 1.0f, 1);
 		  Gdx.gl.glClear(GL10.GL_COLOR_BUFFER_BIT);
+		  
 		  stage.draw();		
 		  postProcessor.render();
 	}

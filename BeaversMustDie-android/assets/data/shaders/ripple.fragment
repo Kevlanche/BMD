@@ -5,15 +5,22 @@ precision highp float;
 uniform float time;
 uniform vec2 resolution;
 uniform sampler2D tex;
+uniform float mousePosX;
+uniform float mousePosY;
 varying vec2 v_texCoords;
 
 void main(void) {
-    vec2 cPos = -1.0 + 2.0 * v_texCoords.xy;
-    float cLength = length(cPos);
     
-    vec2 uv = v_texCoords.xy+(cPos/cLength)*cos(cLength*12.0-time*4.0)*0.03;
+    vec2 cPos = -1.0 + 2.0 * v_texCoords.xy;
+    //float cLength = length(cPos);
+    
+    vec2 mousePos = vec2(mousePosX, mousePosY);
+    float cLength = length(cPos- mousePos);
+    
+    vec2 uv = v_texCoords.xy+(cPos/cLength)*cos(cLength*12.0-time*4.0)*0.005;
     vec3 col = texture2D(tex,uv).xyz;
     
+    //gl_FragColor = vec4(texture2D(tex, mousePos).xyz, 1.0);
     gl_FragColor = vec4(col,1.0);
     
 }

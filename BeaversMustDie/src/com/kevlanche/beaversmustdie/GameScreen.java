@@ -37,6 +37,7 @@ public class GameScreen extends InputAdapter implements Screen{
 	private Array<WaterTower> towerToBoom;
 	private Array<Upgrade> upgradesToRemove;
 	private Array<Integer> islandAngles;
+	private int beaversKilled;
 	
 	private float waterRaiseBuffer;
 	
@@ -46,6 +47,7 @@ public class GameScreen extends InputAdapter implements Screen{
 	private float totalTime;
 	private int waterSources;
 	private LBL waterSourceLbl;
+	
 	
 	boolean isDisposed = false;
 	long seed;
@@ -66,6 +68,7 @@ public class GameScreen extends InputAdapter implements Screen{
 		upgradesToRemove = new Array<Upgrade>();
 		beaversToRemove = new Array<Beaver>();
 		islandAngles = new Array<Integer>();
+		beaversKilled=0;
 		
 		gameStage = new Stage();
 		guiStage = new Stage();
@@ -92,6 +95,7 @@ public class GameScreen extends InputAdapter implements Screen{
 			Cloud cloud = new Cloud(MathUtils.random(0.0f, 360.0f) , Mane.PTM_RATIO * MathUtils.random(Water.WATER_RADIUS * 0.25f, Water.WATER_RADIUS * 1.5f),MathUtils.random(1.0f,4.0f));
 			gameStage.addActor(cloud);
 		}
+
 		
 
 		final LBL sharkTimeLbl = new LBL("No jump yet!", 2.0f);
@@ -155,10 +159,11 @@ public class GameScreen extends InputAdapter implements Screen{
 			} while (notDone);
 
 
-			Island island = addIsland((float)angle, size, 1.0f + i/10.0f, MathUtils.random(1, 2),MathUtils.random(1, 2), MathUtils.random(0, 1));
+			Island island = addIsland((float)angle, size, 1.0f + i/10.0f, Math.max(1, MathUtils.random(1, 4)/2));
 
 			
-			gameStage.addActor(new Beaver(physicsWorld, island));
+			if (MathUtils.randomBoolean())
+				gameStage.addActor(new Beaver(physicsWorld, island));
 
 		}
 		
@@ -171,10 +176,10 @@ public class GameScreen extends InputAdapter implements Screen{
 		gameStage.addActor(shark);
 		
 		gameStage.addActor(new Upgrade(physicsWorld, new Vector2(5.0f, 5.0f),1));
-		
 		gameStage.addActor(new Upgrade(physicsWorld, new Vector2(9.0f, 9.0f),2));
+		gameStage.addActor(new Upgrade(physicsWorld, new Vector2(7.0f, 3.0f),3));
 		
-		gameStage.addActor(new Upgrade(physicsWorld, new Vector2(15.0f, 15.0f),3));
+		gameStage.addActor(new Upgrade(physicsWorld, new Vector2(15.0f, 15.0f),4));
 		
 		if (Mane.PHYSICS_DEBUG)
 			gameStage.addActor(new Box2dDebug(physicsWorld));
@@ -182,21 +187,23 @@ public class GameScreen extends InputAdapter implements Screen{
 		zoom = 1.0f;
 	}
 
-	private Island addIsland(float ang, float size, float len, int numSilos,int numPools,int numTowers) {
+	private Island addIsland(float ang, float size, float len, int numWaterSources) {
 		Island island = new Island(physicsWorld, ang, size, len * Water.WATER_RADIUS);
 		gameStage.addActor(island);
-		for (int i=0; i<numSilos; ++i) {
-			gameStage.addActor(new Silo(physicsWorld, island, MathUtils.random()));
+		for (int i=0; i<numWaterSources; ++i) {
+			switch (MathUtils.random(0, 2)) {
+				case 0:
+					gameStage.addActor(new Silo(physicsWorld, island, MathUtils.random()));
+					break;
+				case 1:
+					gameStage.addActor(new Pool(physicsWorld, island, MathUtils.random()));
+					break;
+				case 2:
+					gameStage.addActor(new WaterTower(physicsWorld, island, MathUtils.random()));
+					break;
+			}
 		}
-		for (int i=0; i<numPools; ++i) {
-			gameStage.addActor(new Pool(physicsWorld, island, MathUtils.random()));
-		}
-		for (int i=0; i<numTowers; ++i) {
-			gameStage.addActor(new WaterTower(physicsWorld, island, MathUtils.random()));
-		}
-		waterSources += numSilos;
-		waterSources += numPools;
-		waterSources += numTowers;
+		this.waterSources += numWaterSources;
 		
 		return island;
 
@@ -281,9 +288,14 @@ public class GameScreen extends InputAdapter implements Screen{
 		
 	}
 	
-	private LBL constructUpgradeLabel(String msg) {
+	private LBL constructUpgradeLabel(String msg,int i) {
 		LBL ret = new LBL(msg, 2.5f);
-		ret.setColor(Color.GREEN);
+		if(i==1){
+			ret.setColor(Color.GREEN);
+			}
+		else{
+			ret.setColor(Color.RED);
+		}
 		ret.position(Mane.WIDTH/2, Mane.HEIGHT/2, 0.5f, 0.5f);
 		ret.addAction(Actions.sequence(
 										Actions.parallel( 	Actions.moveBy(0.0f, Mane.HEIGHT/4, 2.0f, Interpolation.exp5Out),
@@ -311,20 +323,17 @@ public class GameScreen extends InputAdapter implements Screen{
 		for (Silo s : silosToBoom) {
 			rmPool(s, 0.75f);
 		}
-
 		silosToBoom.clear();
 		
 		for (Pool p : poolsToBoom) {
 			rmPool(p, 0.95f);
 		}
-		
 		poolsToBoom.clear();
 		
 		
 		for (WaterTower t : towerToBoom) {
 			rmPool(t, 1.15f);
 		}
-		
 		towerToBoom.clear();
 		
 		
@@ -338,14 +347,18 @@ public class GameScreen extends InputAdapter implements Screen{
 			
 			switch(u.getType()){
 				case 1:
-					guiStage.addActor(constructUpgradeLabel("Wing fins unlocked"));
+					guiStage.addActor(constructUpgradeLabel("Wing flipper unlocked", 1));
 					shark.addGlideUpgrade();
 					break;
 				case 2:
-					guiStage.addActor(constructUpgradeLabel("Dynamite fins unlocked"));
+					guiStage.addActor(constructUpgradeLabel("Dynamite flipper unlocked", 1));
 					shark.addJumpUpgrade();
 					break;
 				case 3:
+					guiStage.addActor(constructUpgradeLabel("Baloon fin unlocked", 1));
+					shark.addBalloonUpgrade();
+					break;
+				case 4:
 					shark.addSpeedUpgrade();
 			}
 			u.remove();
@@ -353,6 +366,37 @@ public class GameScreen extends InputAdapter implements Screen{
 		upgradesToRemove.clear();
 		
 		for(Beaver b : beaversToRemove) {
+			
+			switch(beaversKilled){
+			case 0:
+				guiStage.addActor(constructUpgradeLabel("MURDERER!!!!!",2));
+				break;
+				
+			case 1:
+				guiStage.addActor(constructUpgradeLabel("BLOODY MESS!!!!!",2));
+				break;
+			
+			case 2:
+				guiStage.addActor(constructUpgradeLabel("MULTI KILL!!!!!",2));
+				break;
+			
+			case 3:
+				guiStage.addActor(constructUpgradeLabel("GENOCIDE!!!!!",2));
+				break;
+				
+			case 4:
+				guiStage.addActor(constructUpgradeLabel("YOU Are A MONSTER!!!!!",2));
+				break;
+			default:
+				guiStage.addActor(constructUpgradeLabel("WILL THIS EVER STOP??!!!!!",2));
+				break;
+				
+			}
+		
+
+			++beaversKilled;
+			
+		
 			rmBeaver(b);
 			//TODO SPLASH BLOOD EFFECT
 		}

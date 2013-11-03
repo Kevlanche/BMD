@@ -556,7 +556,7 @@ public class GameScreen extends InputAdapter implements Screen{
 	public boolean keyDown(int kc) {
 
 		if (kc == Keys.Q) Mane.startTitleScreen();
-		else if (kc == Keys.R) Mane.startGame(seed);
+		else if (kc == Keys.R) Mane.startGame(seed,false);
 
 		return true;
 	}

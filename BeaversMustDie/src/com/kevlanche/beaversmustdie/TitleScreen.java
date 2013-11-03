@@ -139,9 +139,9 @@ public class TitleScreen extends InputAdapter implements Screen {
 
 			if (seed.text.length() == 2) {
 				MathUtils.random.setSeed( System.currentTimeMillis() );
-				Mane.startGame(MathUtils.random.nextLong());
+				Mane.startGame(MathUtils.random.nextLong(),false);
 			} else
-				Mane.startGame(seed.text.hashCode());
+				Mane.startGame(seed.text.hashCode(),false);
 
 		} else if (kc == Keys.BACKSPACE && seed.text.length() > 2) {
 			String newText = seed.text.substring(0, seed.text.length()-2) +"*";

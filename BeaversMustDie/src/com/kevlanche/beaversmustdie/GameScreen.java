@@ -1,12 +1,9 @@
 package com.kevlanche.beaversmustdie;
 
-import sun.font.CreatedFontTracker;
-
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.InputAdapter;
 import com.badlogic.gdx.Screen;
-import com.badlogic.gdx.Input.Keys;
-import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL10;
 import com.badlogic.gdx.math.Interpolation;
@@ -54,11 +51,16 @@ public class GameScreen extends InputAdapter implements Screen{
 	boolean isDisposed = false;
 	long seed;
 
-	public GameScreen(long seed) {
+
+	private LBL TutLbl;
+
+	private boolean tut;
+
+	public GameScreen(long seed, boolean tut) {
 
 		Water.WATER_RADIUS = 25.0f;
 
-
+		this.tut = tut; 
 		this.seed = seed;
 		//		Gdx.gl.glEnable(GL20.GL_BLEND);
 		//		Gdx.gl.glBlendFunc(GL20.GL_SRC_COLOR, GL20.GL_DST_ALPHA);
@@ -95,10 +97,18 @@ public class GameScreen extends InputAdapter implements Screen{
 		}
 
 
-//		final LBL sharkTimeLbl = new LBL("No jump yet!", 2.0f);
-//		sharkTimeLbl.position(Mane.WIDTH*0.95f, Mane.HEIGHT - Mane.WIDTH*0.05f, 1.0f, 1.0f);
-//		guiStage.addActor(sharkTimeLbl);
-		
+		//		final LBL sharkTimeLbl = new LBL("No jump yet!", 2.0f);
+		//		sharkTimeLbl.position(Mane.WIDTH*0.95f, Mane.HEIGHT - Mane.WIDTH*0.05f, 1.0f, 1.0f);
+		//		guiStage.addActor(sharkTimeLbl);
+
+
+		if(tut){
+			TutLbl = new LBL("Try to get all the water silos around the map.", 2.0f);
+
+			TutLbl.position(Mane.WIDTH*0.95f, Mane.HEIGHT - Mane.WIDTH*0.20f, 1.0f, 1.0f);
+
+			guiStage.addActor(TutLbl);
+		}
 
 		fpsLabel = new LBL("1338 FPS", 2.0f);
 		fpsLabel.position(Mane.WIDTH * 0.05f, Mane.HEIGHT - Mane.WIDTH*0.1f, 0.0f, 1.0f);
@@ -109,53 +119,62 @@ public class GameScreen extends InputAdapter implements Screen{
 
 			@Override
 			public void onSharkIsDoingSweetJumpFor(float duration) {
-//				String format = Float.toString(duration);
-//				if (format.length() > 5) format = format.substring(0, 4);
-//				sharkTimeLbl.setText( ""+format );
+				//				String format = Float.toString(duration);
+				//				if (format.length() > 5) format = format.substring(0, 4);
+				//				sharkTimeLbl.setText( ""+format );
 			}
 
 			@Override
 			public void onSharkDidSweetJumpFor(float duration) {
-//				String format = Float.toString(duration);
-//				if (format.length() > 5) format = format.substring(0, 4);
-//				sharkTimeLbl.setText( format +"!");
+				//				String format = Float.toString(duration);
+				//				if (format.length() > 5) format = format.substring(0, 4);
+				//				sharkTimeLbl.setText( format +"!");
 				if (duration > 5) guiStage.addActor( constructUpgradeLabel(randomLowJumpMessage(), Color.YELLOW));
-				
+
 			}
 		});
 
 		MathUtils.random.setSeed(seed);
 
-		for (int i=0; i<TitleScreen.MAP_SIZE/2; ++i) {
-			boolean notDone = true;
-			int angle;
-			float size= MathUtils.random(2.5f, 5.0f);
-			
-			do {
-				//
-				angle = MathUtils.random(0, 360);
-				boolean angleOK = true;
-				for(int t = 0; t < islandAngles.size; t++) {
-					int a = islandAngles.get(t);
-					if(Math.abs(a - angle) < size/0.1f && Math.abs((a + 180)%360 - (angle + 180)%360) < size/0.1f && (Math.abs(t-i)<size/1.1f)) {
-						angleOK = false;
-						break;
+		if(!tut){
+			for (int i=0; i<TitleScreen.MAP_SIZE/2; ++i) {
+				boolean notDone = true;
+				int angle;
+				float size= MathUtils.random(2.5f, 5.0f);
+
+				do {
+					//
+					angle = MathUtils.random(0, 360);
+					boolean angleOK = true;
+					for(int t = 0; t < islandAngles.size; t++) {
+						int a = islandAngles.get(t);
+						if(Math.abs(a - angle) < size/0.1f && Math.abs((a + 180)%360 - (angle + 180)%360) < size/0.1f && (Math.abs(t-i)<size/1.1f)) {
+							angleOK = false;
+							break;
+						}
 					}
-				}
-				
-				if(angleOK) {
-					islandAngles.add(angle);
-					notDone = false;
-				}	
 
-			} while (notDone);
+					if(angleOK) {
+						islandAngles.add(angle);
+						notDone = false;
+					}	
 
+				} while (notDone);
 
 
-			Island island = addIsland((float)angle, size, 1.0f + i/10.0f, MathUtils.random(2, 3));
+
+				Island island = addIsland((float)angle, size, 1.0f + i/10.0f, MathUtils.random(2, 3));
 
 
-			gameStage.addActor(new Beaver(physicsWorld, island));
+				gameStage.addActor(new Beaver(physicsWorld, island));
+			}
+		}
+		else{
+			for (int i=1; i<6; ++i) {
+				Island island = addIsland(40.0f*i, 4.0f, 0.9f + i/15.0f, 1);
+				gameStage.addActor(new Beaver(physicsWorld, island));
+			}
+
 
 		}
 
@@ -167,22 +186,32 @@ public class GameScreen extends InputAdapter implements Screen{
 
 		gameStage.addActor(shark);
 
-		Array<Float> pos = new Array<Float>(8);
-		for(int r=0; r<8;++r){
-			while(true){
-				float p = MathUtils.random(-24.0f, 24.0f);
-				if(p<-4.5f||p>4.5f){
-					pos.add(p);
-					break;
+
+		if(!tut){
+			Array<Float> pos = new Array<Float>(8);
+			for(int r=0; r<8;++r){
+				while(true){
+					float p = MathUtils.random(-24.0f, 24.0f);
+					if(p<-4.5f||p>4.5f){
+						pos.add(p);
+						break;
+					}
 				}
+
 			}
+			gameStage.addActor(new Upgrade(physicsWorld, new Vector2(pos.get(0), pos.get(1)),1));
+			gameStage.addActor(new Upgrade(physicsWorld, new Vector2(pos.get(2), pos.get(3)),2));
+			gameStage.addActor(new Upgrade(physicsWorld, new Vector2(pos.get(4), pos.get(5)),3));
+
+			gameStage.addActor(new Upgrade(physicsWorld, new Vector2(pos.get(6), pos.get(7)),4));
 
 		}
-		gameStage.addActor(new Upgrade(physicsWorld, new Vector2(pos.get(0), pos.get(1)),1));
-		gameStage.addActor(new Upgrade(physicsWorld, new Vector2(pos.get(2), pos.get(3)),2));
-		gameStage.addActor(new Upgrade(physicsWorld, new Vector2(pos.get(4), pos.get(5)),3));
-
-		gameStage.addActor(new Upgrade(physicsWorld, new Vector2(pos.get(6), pos.get(7)),4));
+		else{
+			gameStage.addActor(new Upgrade(physicsWorld, new Vector2(9.0f, 27.0f),1));
+			gameStage.addActor(new Upgrade(physicsWorld, new Vector2(26.0f, 10.0f),2));
+			gameStage.addActor(new Upgrade(physicsWorld, new Vector2(-7.0f, 32.0f),3));
+			gameStage.addActor(new Upgrade(physicsWorld, new Vector2(7.0f, 7.0f),4));
+		}
 
 		if (Mane.PHYSICS_DEBUG)
 			gameStage.addActor(new Box2dDebug(physicsWorld));
@@ -213,7 +242,7 @@ public class GameScreen extends InputAdapter implements Screen{
 	}
 
 	private static String randomLowJumpMessage() {
-		
+
 		switch (MathUtils.random(0, 10)) {
 		case 0: return "weeee";
 		case 1: return "180 sharkspin";
@@ -227,12 +256,12 @@ public class GameScreen extends InputAdapter implements Screen{
 		case 9: return "no hands!";
 		case 10: return "nobody expects the spanish flying shark";
 		case 11: return "360 noshark";
-		
+
 		}
-		
+
 		return null;
 	}
-	
+
 	public void onSiloBoom(Silo s) {
 		if (!silosToBoom.contains(s, true)) silosToBoom.add(s);
 	}
@@ -283,11 +312,12 @@ public class GameScreen extends InputAdapter implements Screen{
 			String format = Float.toString(totalTime);
 			if (format.length() > 5) format = format.substring(0, 4);
 			waterSourceLbl.setText( "Finished in "+format+" seconds!\nPress Q to return to title screen or R to go again" );
+			TutLbl.setText("Congrats you beat the tutorial! time to play the real game!");
 		} else {
 			waterSourceLbl.setText(waterSources+" water sources remaining");
 		}
 
-		
+
 		Assets.splash.play();
 	}
 
@@ -366,24 +396,45 @@ public class GameScreen extends InputAdapter implements Screen{
 
 		for (Upgrade u : upgradesToRemove) {
 
+
+
+			if(tut){
+				TutLbl.setText( "");
+			}
+
 			Assets.powerup.play();
+
 
 			switch(u.getType()){
 
-				case 1:
-					guiStage.addActor(constructUpgradeLabel("Wing flipper unlocked", Color.GREEN));
-					shark.addGlideUpgrade();
-					break;
-				case 2:
-					guiStage.addActor(constructUpgradeLabel("Dynamite flipper unlocked", Color.GREEN));
-					shark.addJumpUpgrade();
-					break;
-				case 3:
-					guiStage.addActor(constructUpgradeLabel("Baloon fin unlocked", Color.GREEN));
-					shark.addBalloonUpgrade();
-					break;
-				case 4:
-					shark.addSpeedUpgrade();
+			case 1:
+				guiStage.addActor(constructUpgradeLabel("Wing flipper unlocked", Color.GREEN));
+				shark.addGlideUpgrade();
+				if(tut){
+					TutLbl.setText("Wing flipper lets you glide across the world like a beautiful swan");
+				}
+				break;
+			case 2:
+				guiStage.addActor(constructUpgradeLabel("Dynamite flipper unlocked", Color.GREEN));
+				shark.addJumpUpgrade();
+				if(tut){
+					TutLbl.setText("Want to jump? Use the Dynamite flipper with SPACE to reach higher");
+				}
+				break;
+			case 3:
+				guiStage.addActor(constructUpgradeLabel("Baloon fin unlocked", Color.GREEN));
+				shark.addBalloonUpgrade();
+				if(tut){
+					TutLbl.setText("With this umbrella fin can you fight the gravity like never before");
+				}
+				break;
+			case 4:
+
+				guiStage.addActor(constructUpgradeLabel("Rocket fin unlocked", Color.GREEN));
+				shark.addSpeedUpgrade();
+				if(tut){
+					TutLbl.setText("With the rocket fin are you very fast!");
+				}
 			}
 			u.remove();
 		}

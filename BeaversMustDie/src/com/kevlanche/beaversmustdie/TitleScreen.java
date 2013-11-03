@@ -7,19 +7,30 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL10;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.bitfire.postprocessing.PostProcessor;
+import com.bitfire.utils.ShaderLoader;
 
 public class TitleScreen extends InputAdapter implements Screen {
 
 	private Stage stage;
+	private float totalTime = 0;
+	
 	LBL seed;
 	LBL mapSize;
 
 	public static int MAP_SIZE = 13;
 	private static int MAP_SIZE_MIN = 6;
 	private static int MAP_SIZE_MAX = 20;
+	PostProcessor postProcessor;
+	RippleEffect ripple;
 	
 	public TitleScreen() {
 		stage = new Stage();
+		
+		ShaderLoader.BasePath = "data/shaders/";
+		postProcessor = new PostProcessor(false, false, true);
+		
+		ripple = new RippleEffect();
 		
 		LBL title = new LBL("Beavers must die!", 3.0f);
 		title.position(Mane.WIDTH/2, Mane.HEIGHT*0.75f, 0.5f, 0.75f);
@@ -41,11 +52,11 @@ public class TitleScreen extends InputAdapter implements Screen {
 		mapSize.position(Mane.WIDTH/2, Mane.HEIGHT*0.35f, 0.5f, 0.5f);
 		stage.addActor(mapSize);
 		
-		
-
 		LBL startMsg = new LBL("Press enter to start!", 2.0f);
 		startMsg.position(Mane.WIDTH/2, Mane.HEIGHT*0.2f, 0.5f, 0.5f);
 		stage.addActor(startMsg);
+		
+		postProcessor.addEffect( ripple );
 		
 	}
 	private String mapSizeMsg() {
@@ -76,10 +87,18 @@ public class TitleScreen extends InputAdapter implements Screen {
 	
 	@Override
 	public void render(float delta) {
+		
+		totalTime += delta;
+		
+		ripple.setTime(totalTime);
+
+		stage.act(delta);
+		
+		postProcessor.capture();
 		  Gdx.gl.glClearColor(0, 1.0f, 1.0f, 1);
 		  Gdx.gl.glClear(GL10.GL_COLOR_BUFFER_BIT);
-		  stage.act(delta);
 		  stage.draw();		
+		  postProcessor.render();
 	}
 
 	@Override
@@ -137,13 +156,13 @@ public class TitleScreen extends InputAdapter implements Screen {
 
 	@Override
 	public void resume() {
-		// TODO Auto-generated method stub
+		postProcessor.rebind();
 		
 	}
 
 	@Override
 	public void dispose() {
-		// TODO Auto-generated method stub
+		postProcessor.dispose();
 		
 	}
 	

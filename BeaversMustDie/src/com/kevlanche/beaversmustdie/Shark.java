@@ -265,20 +265,17 @@ public class Shark extends PhysicsActor {
 	
 	public void addJumpUpgrade() {
 		glideUpgrade = false;
-		jumpUpgrade = true;
-		speedUpgrade = false;
+		jumpUpgrade = true;		
 	}
 	public void addGlideUpgrade() {
 		glideUpgrade = true;
-		jumpUpgrade = false;
-		speedUpgrade = false;
+		jumpUpgrade = false;		
 	}
 	public void addSpeedUpgrade(){
 		speedUpgrade = true;
 		ballonUpgrade = false;
 	}
-	
-	
+		
 	public void addBalloonUpgrade() {
 		ballonUpgrade = true;
 		speedUpgrade = false;

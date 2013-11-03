@@ -175,11 +175,22 @@ public class GameScreen extends InputAdapter implements Screen{
 		
 		gameStage.addActor(shark);
 		
-		gameStage.addActor(new Upgrade(physicsWorld, new Vector2(5.0f, 5.0f),1));
-		gameStage.addActor(new Upgrade(physicsWorld, new Vector2(9.0f, 9.0f),2));
-		gameStage.addActor(new Upgrade(physicsWorld, new Vector2(7.0f, 3.0f),3));
+		Array<Float> pos = new Array<Float>(8);
+		for(int r=0; r<8;++r){
+		while(true){
+		float p = MathUtils.random(-23.0f, 23.0f);
+		if(p<-4.5f||p>4.5f){
+			pos.add(p);
+			break;
+		}
+		}
 		
-		gameStage.addActor(new Upgrade(physicsWorld, new Vector2(15.0f, 15.0f),4));
+		}
+		gameStage.addActor(new Upgrade(physicsWorld, new Vector2(pos.get(0), pos.get(1)),1));
+		gameStage.addActor(new Upgrade(physicsWorld, new Vector2(pos.get(2), pos.get(3)),2));
+		gameStage.addActor(new Upgrade(physicsWorld, new Vector2(pos.get(4), pos.get(5)),3));
+		
+		gameStage.addActor(new Upgrade(physicsWorld, new Vector2(pos.get(6), pos.get(7)),4));
 		
 		if (Mane.PHYSICS_DEBUG)
 			gameStage.addActor(new Box2dDebug(physicsWorld));

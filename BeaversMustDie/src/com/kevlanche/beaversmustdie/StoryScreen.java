@@ -50,7 +50,7 @@ public class StoryScreen extends InputAdapter implements Screen {
 		msg3.position(Mane.WIDTH*0.4f, Mane.HEIGHT*0.35f, 0.5f, 0.5f);
 		stage.addActor(msg3);
 		
-		LBL msg4 = new LBL("planning to kill the beavers!", 2.0f);
+		LBL msg4 = new LBL("planning to kill the beavers", 2.0f);
 		msg4.position(Mane.WIDTH*0.4f, Mane.HEIGHT*0.3f, 0.5f, 0.5f);
 		stage.addActor(msg4);
 		

@@ -269,7 +269,7 @@ public class GameScreen extends InputAdapter implements Screen{
 			waterSourceLbl.setText(waterSources+" water sources remaining");
 		}
 		
-		Assets.boom.play();
+		Assets.splash.play();
 	}
 	
 	private void rmBeaver(PhysicsActor s) {

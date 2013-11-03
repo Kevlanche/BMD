@@ -17,7 +17,7 @@ public class Assets {
 	public static TextureRegion top_fin_default, top_fin_baloon;
 	
 	public static Music bg_music;
-	public static SoundRef powerup, boom, water_break, beaver_death, dynamite;
+	public static SoundRef powerup, boom, splash, water_break, beaver_death, dynamite;
 	
 	public static void load() {
 		atlas = new TextureAtlas(Gdx.files.internal("data/pack.atlas"));
@@ -45,6 +45,7 @@ public class Assets {
 		water_break = load("water_break");
 		boom = load("boom");
 		powerup = load("powerup");
+		splash = new SoundRef( Gdx.audio.newSound(Gdx.files.internal("data/splash.ogg")) ) ;
 		beaver_death = new SoundRef( Gdx.audio.newSound(Gdx.files.internal("data/aaaah.ogg")) ) ;
 		dynamite = load("dynamite");
 
@@ -66,7 +67,7 @@ public class Assets {
 		}
 		
 		public void play() {
-			sound.play(0.5f);
+			sound.play( sound == splash ? 1.0f : 0.5f);
 		}
 		public void dispose() {
 			sound.dispose();
@@ -75,10 +76,14 @@ public class Assets {
 
 	public static void dispose() {
 		atlas.dispose();
+		
 		bg_music.dispose();
 		water_break.dispose();
 		boom.dispose();
 		powerup.dispose();
+		beaver_death.dispose();
+		dynamite.dispose();
+		splash.dispose();
 		
 	}
 }

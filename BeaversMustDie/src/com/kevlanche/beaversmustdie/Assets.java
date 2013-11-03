@@ -9,10 +9,10 @@ public class Assets {
 	
 	public static TextureAtlas atlas;
 	
-	public static TextureRegion alphabet, smiley, earthCore, island, pole, silo, cloud;
+	public static TextureRegion alphabet, smiley, earthCore, island, pole, silo, cloud, beaver, blood, pool;
 	
 	public static TextureRegion shark ;
-	public static TextureRegion bottom_fin_default, bottom_fin_wing;
+	public static TextureRegion bottom_fin_default, bottom_fin_wing, bottom_fin_dynamite;
 	public static TextureRegion top_fin_default;
 	
 	public static Music bg_music;
@@ -27,9 +27,13 @@ public class Assets {
 		silo = find("silo");
 		cloud = find("cloud");
 		shark = find("shark");
+		beaver = find("beaver");
+		blood = find("blood");
+		pool = find("pool");
 		
 		bottom_fin_default = find("bottom_fin_default");
 		bottom_fin_wing = find("bottom_fin_wing");
+		bottom_fin_dynamite = find("bottom_fin_dynamite");
 		top_fin_default = find("top_fin_default");
 		
 		bg_music = Gdx.audio.newMusic(Gdx.files.internal("data/shark_concept.wav"));

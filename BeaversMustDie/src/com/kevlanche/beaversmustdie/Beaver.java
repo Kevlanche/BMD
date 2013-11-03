@@ -8,7 +8,6 @@ import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.CircleShape;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.World;
-import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 
 public class Beaver extends PhysicsActor {
 	
@@ -17,7 +16,7 @@ public class Beaver extends PhysicsActor {
 
 	public Beaver(World world, Island island) {
 		this.island = island;
-		float scale = 1.0f;
+		float scale = 2.0f;
 		float radius = 1.0f;
 		BodyDef bd = new BodyDef();
 		bd.type = BodyDef.BodyType.DynamicBody;
@@ -55,7 +54,7 @@ public class Beaver extends PhysicsActor {
 
 		CircleShape cs = new CircleShape();
 		cs.setRadius(radius);
-		cs.setPosition(new Vector2(radius/2, radius/2));
+		cs.setPosition(new Vector2(radius, radius));
 
 
 		fd.shape = cs;
@@ -94,7 +93,7 @@ public class Beaver extends PhysicsActor {
 
 	@Override
 	public void draw(SpriteBatch batch, float parentAlpha) {
-		super.draw(batch, parentAlpha, Assets.smiley);
+		super.draw(batch, parentAlpha, Assets.beaver);
 	}
 
 

@@ -20,6 +20,7 @@ public class ParticleEffect extends Group implements Poolable {
 	private float timePerParticle;
 	private float buffer;
 	private int numParticles;
+	private float size;
 	private TextureRegion sprite;
 	public Pool<ParticleEffect> pool;
 	
@@ -47,10 +48,15 @@ public class ParticleEffect extends Group implements Poolable {
 	}
 	
 	public void init(TextureRegion sprite, float particlesPerSecond, int numParticles) {
+		init(sprite, particlesPerSecond, numParticles, Mane.PTM_RATIO);
+	}
+	public void init(TextureRegion sprite, float particlesPerSecond, int numParticles, float size) {
 		this.sprite = sprite;
 		this.timePerParticle = 1.0f / particlesPerSecond;
 		this.numParticles = numParticles;
+		this.size = size;
 	}
+	
 
 	private void spawn() {
 		Pool<Particle> pool = Pools.get(Particle.class);
@@ -61,9 +67,9 @@ public class ParticleEffect extends Group implements Poolable {
 		Vector2 mv = new Vector2(Mane.PTM_RATIO*2.0f, 0.0f);
 		mv.rotate(MathUtils.random(0.0f, 360.0f));
 		
-		p.setPosition(	getX()+getWidth()/2 - Mane.PTM_RATIO/2, 
-						getY()+getHeight()/2 - Mane.PTM_RATIO/2);
-		p.setSize(Mane.PTM_RATIO, Mane.PTM_RATIO);
+		p.setPosition(	getX()+getWidth()/2 - size/2, 
+						getY()+getHeight()/2 - size/2);
+		p.setSize(size, size);
 		p.addAction( Actions.sequence(
 										Actions.parallel( Actions.moveBy(mv.x, mv.y, 1.0f, Interpolation.exp5Out),
 														  Actions.fadeOut(1.0f) ),

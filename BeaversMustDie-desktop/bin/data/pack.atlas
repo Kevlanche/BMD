@@ -5,84 +5,119 @@ filter: Nearest,Nearest
 repeat: none
 alphabet
   rotate: false
-  xy: 2, 167
+  xy: 594, 440
   size: 128, 64
   orig: 128, 64
   offset: 0, 0
   index: -1
+ballon
+  rotate: false
+  xy: 360, 166
+  size: 128, 128
+  orig: 128, 128
+  offset: 0, 0
+  index: -1
+beaver
+  rotate: false
+  xy: 2, 35
+  size: 356, 469
+  orig: 356, 469
+  offset: 0, 0
+  index: -1
+blood
+  rotate: false
+  xy: 360, 296
+  size: 232, 208
+  orig: 232, 208
+  offset: 0, 0
+  index: -1
 bottom_fin_default
   rotate: false
-  xy: 132, 69
+  xy: 490, 132
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
+bottom_fin_dynamite
+  rotate: false
+  xy: 724, 440
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: -1
 bottom_fin_wing
   rotate: false
-  xy: 98, 33
+  xy: 594, 341
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 cloud
   rotate: false
-  xy: 2, 2
+  xy: 594, 375
   size: 94, 63
   orig: 94, 63
   offset: 0, 0
   index: -1
 earthcore
   rotate: false
-  xy: 166, 133
+  xy: 690, 406
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 island
   rotate: false
-  xy: 2, 67
-  size: 128, 32
-  orig: 128, 32
+  xy: 2, 2
+  size: 94, 31
+  orig: 94, 31
   offset: 0, 0
   index: -1
 pole
   rotate: false
-  xy: 132, 103
+  xy: 490, 166
   size: 32, 128
   orig: 32, 128
   offset: 0, 0
   index: -1
+pool
+  rotate: false
+  xy: 360, 56
+  size: 65, 42
+  orig: 65, 42
+  offset: 0, 0
+  index: -1
 shark
   rotate: false
-  xy: 2, 101
+  xy: 360, 100
   size: 128, 64
   orig: 128, 64
   offset: 0, 0
   index: -1
 silo
   rotate: false
-  xy: 166, 167
+  xy: 524, 230
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
   index: -1
 silo
   rotate: false
-  xy: 166, 167
+  xy: 524, 230
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
   index: 2
 smiley
   rotate: false
-  xy: 132, 35
+  xy: 790, 472
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 top_fin_default
   rotate: false
-  xy: 166, 99
+  xy: 524, 196
   size: 32, 32
   orig: 32, 32
   offset: 0, 0

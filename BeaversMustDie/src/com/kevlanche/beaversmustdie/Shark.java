@@ -124,6 +124,8 @@ public class Shark extends PhysicsActor {
 			pe.setSize(getWidth(), getHeight());
 			pe.init(Assets.bottom_fin_dynamite, 50.0f, 5);
 			getParent().addActor(pe);
+			
+			Assets.dynamite.play();
 		}
 		
 		jumpCooldown -= delta;
@@ -151,6 +153,8 @@ public class Shark extends PhysicsActor {
 				pe.setSize(getWidth(), getHeight());
 				pe.init(Assets.bottom_fin_wing, 50.0f, 10, Mane.PTM_RATIO/3);
 				getParent().addActor(pe);
+				
+				Assets.water_break.play();
 				
 			} else {
 				if (jumpCooldown <= 0.0f) {
@@ -184,6 +188,8 @@ public class Shark extends PhysicsActor {
 				pe.setSize(getWidth(), getHeight());
 				pe.init(Assets.bottom_fin_wing, 50.0f, 10, Mane.PTM_RATIO/3);
 				getParent().addActor(pe);
+				
+				Assets.water_break.play();
 				
 			} else {
 				airTime += delta;
@@ -244,13 +250,15 @@ public class Shark extends PhysicsActor {
 		
 		// BOTTOM FIN 
 		
-		Vector2 off = new Vector2(getWidth()*0.5f - getWidth()/8, -getHeight()/8);
+		TextureRegion bFin = glideUpgrade ? Assets.bottom_fin_wing : ( jumpUpgrade ? Assets.bottom_fin_dynamite : Assets.bottom_fin_default );
+
+		 
+		Vector2 off = new Vector2(getWidth()*0.5f - (bFin == Assets.bottom_fin_wing ? (shark.isFlipX() ? 0 : getWidth()/4) : getWidth()/8), (bFin == Assets.bottom_fin_wing ? getHeight()/3 : -getHeight()/8));
 		off.rotate(ang);
 		
-		TextureRegion bFin = glideUpgrade ? Assets.bottom_fin_wing : ( jumpUpgrade ? Assets.bottom_fin_dynamite : Assets.bottom_fin_default );
 		if (shark.isFlipX() != bFin.isFlipX())
 			bFin.flip(true, false);
-		batch.draw(bFin, getX()+off.x, getY() + off.y, 0.0f, 0.0f, getWidth()/4, getHeight()/3, 1.0f, 1.0f, ang);
+		batch.draw(bFin, getX()+off.x, getY() + off.y, 0.0f, 0.0f, getWidth()/4, getHeight()/(bFin == Assets.bottom_fin_wing ? 2 : 3), 1.0f, 1.0f, ang);
 		
 		
 		// TOP FIN

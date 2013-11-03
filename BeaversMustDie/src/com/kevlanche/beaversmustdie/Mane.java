@@ -19,10 +19,10 @@ public class Mane extends Game {
 	public void create() {
 		instance = this;
 		Assets.load();
-		setScreen(new TitleScreen());
+		setScreen(new StoryScreen());
 		
-//		Music music = Assets.bg_music;
-//		music.setLooping(true);
+		Music music = Assets.bg_music;
+		music.setLooping(true);
 //		music.play();
 	}
 
@@ -30,6 +30,10 @@ public class Mane extends Game {
 	public void dispose() {
 		Assets.dispose();
 		getScreen().dispose();
+	}
+	
+	public void startTitle(){
+		setScreen(new TitleScreen());
 	}
 	
 	public static void startGame(long seed) {

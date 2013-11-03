@@ -477,10 +477,8 @@ public class GameScreen extends InputAdapter implements Screen{
 	@Override
 	public boolean keyDown(int kc) {
 		
-		if (waterSources == 0) {
-			if (kc == Keys.Q) Mane.startTitleScreen();
-			else if (kc == Keys.R) Mane.startGame(seed);
-		}
+		if (kc == Keys.Q) Mane.startTitleScreen();
+		else if (kc == Keys.R) Mane.startGame(seed);
 		
 		return true;
 	}

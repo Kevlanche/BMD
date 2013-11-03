@@ -69,7 +69,7 @@ public class Upgrade extends PhysicsActor {
 			
 		case 4:
 			
-			super.draw(batch, parentAlpha, Assets.smiley);
+			super.draw(batch, parentAlpha, Assets.top_fin_rocket);
 			break;
 
 		}

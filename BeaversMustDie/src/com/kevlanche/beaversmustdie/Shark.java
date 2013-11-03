@@ -195,7 +195,7 @@ public class Shark extends PhysicsActor {
 		}
 		
 		
-		trans.scl(20.0f * delta);
+		trans.scl((speedUpgrade ? 40.0f : 20.0f) * delta);
 		
 		trans.rotate(getRotation());
 		
@@ -258,7 +258,7 @@ public class Shark extends PhysicsActor {
 		off.set(getWidth()*0.5f - getWidth()/8, getHeight()*0.85f);
 		off.rotate(ang);
 		
-		TextureRegion tFin = ballonUpgrade ? Assets.top_fin_baloon : ( speedUpgrade ? Assets.smiley: Assets.top_fin_default);
+		TextureRegion tFin = ballonUpgrade ? Assets.top_fin_baloon : ( speedUpgrade ? Assets.top_fin_rocket: Assets.top_fin_default);
 		if (shark.isFlipX() != tFin.isFlipX())
 			tFin.flip(true, false);
 		batch.draw(tFin, getX()+off.x, getY() + off.y, 0.0f, 0.0f, getWidth()/4, getHeight()/3, 1.0f, 1.0f, ang);

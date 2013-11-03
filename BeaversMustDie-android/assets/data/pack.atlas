@@ -61,7 +61,7 @@ earthcore
   index: -1
 island
   rotate: false
-  xy: 2, 8
+  xy: 92, 8
   size: 94, 31
   orig: 94, 31
   offset: 0, 0
@@ -78,6 +78,13 @@ pool
   xy: 594, 337
   size: 65, 42
   orig: 65, 42
+  offset: 0, 0
+  index: -1
+rocket
+  rotate: false
+  xy: 2, 2
+  size: 88, 37
+  orig: 88, 37
   offset: 0, 0
   index: -1
 shark

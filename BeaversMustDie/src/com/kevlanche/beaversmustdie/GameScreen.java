@@ -124,7 +124,7 @@ public class GameScreen extends InputAdapter implements Screen{
 
 		MathUtils.random.setSeed(seed);
 		
-		for (int i=0; i<TitleScreen.MAP_SIZE; ++i) {
+		for (int i=0; i<TitleScreen.MAP_SIZE/2; ++i) {
 			boolean notDone = true;
 			int angle;
 			float size= MathUtils.random(2.5f, 5.0f);

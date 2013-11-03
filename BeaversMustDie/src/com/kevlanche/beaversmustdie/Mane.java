@@ -21,9 +21,9 @@ public class Mane extends Game {
 		Assets.load();
 		setScreen(new TitleScreen());
 		
-		Music music = Assets.bg_music;
-		music.setLooping(true);
-		music.play();
+//		Music music = Assets.bg_music;
+//		music.setLooping(true);
+//		music.play();
 	}
 
 	@Override
